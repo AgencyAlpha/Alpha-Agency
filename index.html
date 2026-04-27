@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>✨ ALPHA AGENCY · rincón noventero ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Georgia&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: #c0c0c0;
+            background-image: repeating-linear-gradient(45deg, #b0b0b0 1px, #d4d0c8 2px, #e0dbcd 8px);
+            font-family: 'Georgia', 'Times New Roman', monospace;
+            padding: 24px 20px;
+            font-size: 18px;
+        }
+        
+        marquee {
+            font-family: 'VT323', monospace;
+            background: #000080;
+            color: #ffff66;
+            padding: 8px;
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            border: 2px ridge silver;
+        }
+        .old-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fef7e0;
+            border: 4px ridge #b87c4a;
+            box-shadow: 8px 8px 0px #5a3e2a;
+            padding: 18px 20px 24px;
+        }
+        .retro-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 4px double #c28a5c;
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+            background: #fff3e0;
+            padding: 10px 15px;
+        }
+        .site-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            color: #6b2e00;
+            text-shadow: 3px 3px 0px #e7c8a3;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-family: 'VT323', monospace;
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+        .nav-links a {
+            background: #e7d8bf;
+            padding: 6px 12px;
+            border: 2px outset #fff0d0;
+            text-decoration: none;
+            color: #3b2a1f;
+            transition: 0.05s linear;
+            cursor: pointer;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            border: 2px inset #b88b54;
+            background: #cfb68e;
+            color: black;
+        }
+        .two-columns { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 8px; }
+        .main-content { flex: 2; min-width: 220px; }
+        .sidebar {
+            flex: 1.2;
+            min-width: 210px;
+            background: #fff2e4;
+            border: 3px ridge #e5cbaa;
+            padding: 16px;
+        }
+        .page { display: none; }
+        .page.active-page { display: block; }
+        .greeting-block {
+            background: #fff9e8;
+            border: 2px groove #e0bc88;
+            padding: 20px 25px;
+            margin-bottom: 28px;
+            box-shadow: inset 0 0 0 1px #ffffff, 4px 4px 0 #bc9a6a;
+        }
+        .greeting-block h2 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1.2rem;
+            background: #eedcb0;
+            display: inline-block;
+            padding: 8px 15px;
+            margin-bottom: 15px;
+        }
+        .greeting-text { font-size: 1.2rem; line-height: 1.5; }
+        .weird-note { font-size: 1rem; margin-top: 12px; color: #ac8b64; }
+        .info-card {
+            background: #fff9e8;
+            border: 2px groove #e0bc88;
+            padding: 20px 25px;
+            margin-bottom: 28px;
+            box-shadow: inset 0 0 0 1px #ffffff, 4px 4px 0 #bc9a6a;
+        }
+        .info-card h2 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1.1rem;
+            background: #eedcb0;
+            display: inline-block;
+            padding: 8px 15px;
+            margin-bottom: 18px;
+        }
+        .info-card p { line-height: 1.6; margin: 12px 0; font-size: 1.05rem; }
+        
+        /* RADIO ESTILO */
+        .music-player-sidebar {
+            background: #2a1f14;
+            border: 3px ridge #b87c4a;
+            padding: 12px;
+            margin-top: 16px;
+            color: #ffefcf;
+        }
+        .music-player-sidebar h3 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.65rem;
+            margin-bottom: 10px;
+            color: #ffcc88;
+            text-align: center;
+        }
+        .sidebar-song-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin: 10px 0;
+        }
+        .sidebar-song-item {
+            background: #3d2e1f;
+            padding: 6px 8px;
+            border: 1px solid #8b6946;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.1s;
+            font-size: 0.7rem;
+        }
+        .sidebar-song-item:hover, .sidebar-song-item.active-song {
+            background: #7a5a3a;
+            border-left: 3px solid #ffaa44;
+        }
+        .play-pause-btn {
+            background: #5a3e2a;
+            border: 2px outset #8b6946;
+            color: #ffefcf;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.5rem;
+            width: 100%;
+            margin-top: 5px;
+        }
+        .play-pause-btn:hover { background: #7a5a3a; }
+        
+        .daily-mood {
+            background: #ffefcf;
+            border: 2px groove #b78f56;
+            text-align: center;
+            padding: 15px;
+            font-family: 'VT323', monospace;
+        }
+        .daily-mood strong { font-size: 1rem; }
+        .mood-text { font-size: 1.2rem; margin-top: 8px; font-weight: bold; }
+        .blink { animation: blink-animation 1s step-end infinite; }
+        @keyframes blink-animation { 50% { opacity: 0; } }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            font-family: 'Courier New', monospace;
+            overflow-y: auto;
+            padding: 40px 20px;
+        }
+        .modal-content {
+            background: #fff8e7;
+            margin: 0 auto;
+            padding: 0;
+            border: 8px ridge #c2a074;
+            width: 90%;
+            max-width: 1100px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal-header {
+            background: #8b5a2b;
+            color: #ffefcf;
+            padding: 15px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .close-modal { cursor: pointer; font-size: 2rem; font-weight: bold; transition: 0.2s; }
+        .close-modal:hover { transform: scale(1.2); color: #ffcc88; }
+        .form-two-columns { display: flex; gap: 25px; padding: 25px; flex-wrap: wrap; }
+        .form-left, .form-right { flex: 1; min-width: 250px; }
+        .form-right { border-left: 2px dashed #d8bc8c; padding-left: 25px; }
+        @media (max-width: 768px) {
+            .form-two-columns { flex-direction: column; }
+            .form-right { border-left: none; border-top: 2px dashed #d8bc8c; padding-left: 0; padding-top: 20px; margin-top: 10px; }
+        }
+        .polaroid-frame {
+            background: #f5f0e0;
+            padding: 12px 12px 20px 12px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .polaroid-frame:hover { transform: rotate(1deg); }
+        .polaroid-photo {
+            background: #e0cfb0;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .photo-preview { 
+            max-width: 100%; 
+            max-height: 200px; 
+            object-fit: contain;
+            display: none;
+        }
+        .polaroid-caption {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #5a3e2a;
+            margin-top: 8px;
+            letter-spacing: 1px;
+            font-weight: bold;
+            word-wrap: break-word;
+        }
+        .modal input, .modal textarea, .modal select {
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            background: #fffff0;
+            border: 2px inset #b5976e;
+            font-family: monospace;
+            font-size: 15px;
+        }
+        .modal label {
+            font-weight: bold;
+            color: #4a2e18;
+            margin-top: 12px;
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            font-size: 0.95rem;
+        }
+        .register-btn {
+            background: #dac09a;
+            border: 2px outset #ffe1b3;
+            padding: 14px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            transition: 0.1s;
+            width: 100%;
+        }
+        .register-btn:hover { background: #c8ae82; transform: scale(0.98); }
+        .blink-btn {
+            animation: blink 1s step-end infinite;
+            background: #ff4444;
+            color: white;
+            font-weight: bold;
+            padding: 14px;
+            font-size: 1.3rem;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-family: 'Press Start 2P', monospace;
+        }
+        @keyframes blink { 50% { opacity: 0.5; background: #aa2222; } }
+        .error-msg { color: #cc0000; font-size: 0.8rem; margin-top: -5px; margin-bottom: 8px; font-family: monospace; }
+        .form-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: #2c1a0a;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #d8bc8c;
+            padding-bottom: 5px;
+        }
+        textarea { resize: vertical; }
+        .visitor-text { font-size: 0.9rem; }
+        hr { margin: 15px 0; }
+        .char-counter {
+            font-size: 0.7rem;
+            color: #8b6946;
+            text-align: right;
+            margin-top: -5px;
+            margin-bottom: 8px;
+            font-family: monospace;
+        }
+        .char-counter.warning { color: #cc8800; }
+        .char-counter.danger { color: #cc0000; }
+        
+        .custom-notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff8e7;
+            border: 6px ridge #c2a074;
+            padding: 20px 30px;
+            z-index: 2000;
+            text-align: center;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.8rem;
+            color: #4a2e18;
+            box-shadow: 12px 12px 0 rgba(0,0,0,0.3);
+            animation: notificationPop 0.3s ease-out;
+            max-width: 400px;
+        }
+        @keyframes notificationPop {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+        .notification-icon { font-size: 3rem; margin-bottom: 10px; }
+        .notification-message { margin: 10px 0; line-height: 1.5; }
+        .notification-close {
+            background: #dac09a;
+            border: 2px outset #ffe1b3;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.6rem;
+            margin-top: 10px;
+        }
+        .notification-close:hover { background: #c8ae82; }
+        
+        .polaroid-frame.drag-over {
+            background: #e8dcc8;
+            border: 3px dashed #ffaa44;
+            transform: scale(1.02);
+            transition: all 0.2s;
+        }
+        
+        .auto-save-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2a1f14;
+            color: #ffefcf;
+            padding: 6px 12px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.5rem;
+            border-radius: 5px;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .auto-save-indicator.show { opacity: 1; }
+        
+        .custom-alert {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff8e7;
+            border: 6px ridge #cc0000;
+            padding: 25px 35px;
+            z-index: 2000;
+            text-align: center;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.7rem;
+            color: #4a2e18;
+            box-shadow: 12px 12px 0 rgba(0,0,0,0.3);
+            animation: notificationPop 0.3s ease-out;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .custom-alert ul { text-align: left; margin: 15px 0; padding-left: 20px; }
+        .custom-alert li { margin: 5px 0; color: #cc0000; }
+        .alert-close {
+            background: #dac09a;
+            border: 2px outset #ffe1b3;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.6rem;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="auto-save-indicator" id="autoSaveIndicator">💾 DATOS GUARDADOS</div>
+
+<marquee behavior="scroll" direction="left" scrollamount="3"><i class="fas fa-hand-peace"></i> ✧ ALPHA AGENCY ✧ ¡En búsqueda de miembros! <i class="fas fa-cat"></i> ✧ Yep Yep ✧</marquee>
+
+<div class="old-container">
+    <div class="retro-header">
+        <div class="site-title"><i class="fas fa-hand-peace"></i> ALPHA AGENCY</div>
+        <div class="nav-links">
+            <a class="nav-link active" data-page="home">🏠 HOME</a>
+            <a class="nav-link" data-page="about">📖 SOBRE MÍ</a>
+            <!-- SECCIÓN POR HACER - if false para ocultar -->
+            <div id="missionsNavContainer" style="display: none;">
+                <a class="nav-link" href="misiones.html" target="_blank">🎯 POR HACER</a>
+            </div>
+            <a class="nav-link" data-page="contact">📧 CONTÁCTAME</a>
+        </div>
+    </div>
+    <div class="two-columns">
+        <div class="main-content">
+            <div id="home-page" class="page active-page">
+                <div class="greeting-block">
+                    <h2><i class="fas fa-hand-spock"></i> Bienvenido a Alpha Agency</h2>
+                    <div class="greeting-text">
+                        ✨ <strong>Bienvenido, internauta</strong>. Si llegaste a este sitio, debes saber que 
+                        un miembro de <strong>"La Estrella"</strong> ha fundado una agencia por primera vez. Cada quien sabrá cómo llegó aquí, pero lo importante es:<br><br>
+                        🌟 Se busca gente dispuesta a colaborar en misiones arriesgadas.<br><br>
+                        💰 ¿La recompensa? <strong>Edis</strong>.<br><br>
+                        🕯️ Si crees que tienes lo que se necesita... <strong>regístrate</strong>. 
+                    </div>
+                    <div class="weird-note">
+                        📟 Entra en "Contáctame" para registrarte ^-^
+                    </div>
+                </div>
+            </div>
+
+            <div id="about-page" class="page">
+                <div class="info-card">
+                    <h2><i class="fas fa-user-astronaut"></i> QUIÉN SOY</h2>
+                    <p><i class="fas fa-star"></i> <strong>Noah Voltaire</strong> — fundador de Alpha Agency y miembro de <strong>"La Estrella"</strong>.</p>
+                    <p><i class="fas fa-bolt"></i> Es difícil iniciar este tipo de cosas, así que iré a lo básico: no programé este sitio, un viejo amigo me hizo el favor.</p>
+                    <p><i class="fas fa-mug-hot"></i> Me gusta el <strong>café</strong>. Si me traes uno cuando nos conozcamos, te juro que te lo agradeceré de por vida. Me gustan las películas de los 2000s para abajo, no me gusta leer y, por favor, jamás me traigas una rata.</p>
+                </div>
+
+                <div class="info-card">
+                    <h2><i class="fas fa-question-circle"></i> ¿POR QUÉ SE CREÓ ESTE SITIO?</h2>
+                    <p>✨ <strong>Alpha Agency</strong> nació como un proyecto para controlar la creciente cantidad de personas con pulso <strong>anómalo</strong> y apoyar a la comunidad de esta ciudad.</p>
+                    <p>🕰️ Estamos siendo <strong>autorizados</strong> para realizar este proyecto. Se encuentra en fase de pruebas, por lo que el primer paso es reclutar gente.</p>
+                    <p>🎨 Esto sirve para dar trabajo a las personas con pulso dañado o a quienes no puedan seguir adelante por sí mismas.</p>
+                    <p>🤝 Si tienes alguna duda sobre todo esto, la responderé si eres uno de los elegidos para colaborar en esta agencia.</p>
+                </div>
+            </div>
+
+            <div id="contact-page" class="page">
+                <div class="greeting-block">
+                    <h2><i class="fas fa-users"></i> 🤝 ÚNETE A ALPHA AGENCY</h2>
+                    <div class="greeting-text">
+                        <p>✨ <strong>¡Buscamos agentes!</strong> ✨</p>
+                        <p>Estamos reclutando personas con determinación, habilidad y lealtad.</p>
+                        <p>📜 <strong>Misión:</strong> Cumplir encargos que otros no pueden completar. Desde recuperar objetos perdidos hasta escoltar a personas de interés.</p>
+                        <p>💰 <strong>Recompensa:</strong> Edis.</p>
+                        <hr>
+                        <p>💡 <strong>¿Cómo funciona?</strong> Completa tu ficha de presentación, cuéntanos por qué quieres unirte y, si encajas... ¡te llamaremos!</p>
+                    </div>
+                    <button id="openModalBtn" class="register-btn blink-btn"><i class="fas fa-hand-peace"></i> ¡REGISTRARME AHORA! <i class="fas fa-hand-peace"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar" id="globalSidebar">
+            <div class="daily-mood" id="dailyMoodWidget">
+                <i class="fas fa-sun"></i> <strong>🌙 HUMOR DEL DÍA 🌙</strong><br>
+                <div class="mood-text" id="dailyMood">cargando...</div>
+            </div>
+            
+            <div class="music-player-sidebar">
+                <h3><i class="fas fa-headphones"></i> 🎵 RADIO ALPHA 🎵</h3>
+                <div class="sidebar-song-list" id="songListSidebar"></div>
+                <button class="play-pause-btn" id="playPauseBtn">⏸️ PAUSA</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="registerModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span><i class="fas fa-id-card"></i> 📸 FICHA DE ASPIRANTE - ALPHA AGENCY</span>
+            <span class="close-modal">&times;</span>
+        </div>
+        <div class="form-two-columns">
+            <div class="form-left">
+                <div class="form-title">✦ DATOS PERSONALES ✦</div>
+                <label>📛 NOMBRE * (máx 35)</label>
+                <input type="text" id="regName" maxlength="35" placeholder="Ej: Luna">
+                <div class="char-counter" id="nameCounter">0/35</div>
+                <div class="error-msg" id="nameError"></div>
+                
+                <label>👤 APELLIDO * (máx 35)</label>
+                <input type="text" id="regLastname" maxlength="35" placeholder="Ej: de Plutón">
+                <div class="char-counter" id="lastnameCounter">0/35</div>
+                <div class="error-msg" id="lastnameError"></div>
+                
+                <label>🎂 EDAD (1-200)</label>
+                <input type="number" id="regAge" min="1" max="200" step="1" placeholder="Tu edad (1-200)" onkeydown="return event.key !== 'e' && event.key !== 'E'">
+                <div class="error-msg" id="ageError"></div>
+                
+                <label>⚧ GÉNERO *</label>
+                <select id="regGender"><option value="">Selecciona...</option><option value="Femenino">Femenino</option><option value="Masculino">Masculino</option>
+                    <option value="No binario">No binario</option>
+                    <option value="Prefiero no decirlo">Yo qué sé?</option></select>
+                <div class="error-msg" id="genderError"></div>
+                
+                <label>❤️ GUSTOS * (máx 80)</label>
+                <input type="text" id="regLikes" maxlength="80" placeholder="Ej: música, arte, café">
+                <div class="char-counter" id="likesCounter">0/80</div>
+                <div class="error-msg" id="likesError"></div>
+                
+                <label>💔 DISGUSTOS * (máx 80)</label>
+                <input type="text" id="regDislikes" maxlength="80" placeholder="Ej: mentiras, brócoli">
+                <div class="char-counter" id="dislikesCounter">0/80</div>
+                <div class="error-msg" id="dislikesError"></div>
+                
+                <label>🎯 HOBBIE * (máx 70)</label>
+                <input type="text" id="regHobby" maxlength="70" placeholder="Ej: pintar, programar">
+                <div class="char-counter" id="hobbyCounter">0/70</div>
+                <div class="error-msg" id="hobbyError"></div>
+                
+                <label>💼 OCUPACIÓN (opcional, máx 50)</label>
+                <input type="text" id="regOccupation" maxlength="50" placeholder="Tu trabajo o estudio">
+                <div class="char-counter" id="occupationCounter">0/50</div>
+            </div>
+            <div class="form-right">
+                <div class="form-title">✦ POLAROID & DESCRIPCIÓN ✦</div>
+                <div class="polaroid-frame" id="polaroidFrame">
+                    <div class="polaroid-photo" id="polaroidPhoto">
+                        <i class="fas fa-camera-retro fa-3x"></i>
+                        <span style="font-size:0.7rem;">📸 CLICK · Ctrl+V · ARRASTRA imagen</span>
+                        <img id="photoPreview" class="photo-preview">
+                    </div>
+                    <div class="polaroid-caption" id="polaroidCaption"><i class="fas fa-tag"></i> </div>
+                </div>
+                <input type="file" id="photoUpload" accept="image/*" style="display:none;">
+                
+                <label>💬 FRASE QUE TE DEFINA (opcional, máx 60)</label>
+                <input type="text" id="regPhrase" maxlength="60" placeholder="Ej: 'Turikitakati'">
+                <div class="char-counter" id="phraseCounter">0/60</div>
+                
+                <label>🎭 DESCRÍBETE A TI MISMO * (máx 200)</label>
+                <textarea id="regDescription" maxlength="200" rows="2" placeholder="¿Cómo eres? ¿Cuál es tu esencia?"></textarea>
+                <div class="char-counter" id="descCounter">0/200</div>
+                <div class="error-msg" id="descriptionError"></div>
+                
+                <label>💬 MOTIVO PARA UNIRTE A ALPHA AGENCY * (máx 300)</label>
+                <textarea id="regMotivationVisible" maxlength="300" rows="3" placeholder="¿Por qué quieres ser parte de Alpha Agency? ¿Qué puedes aportar?"></textarea>
+                <div class="char-counter" id="motivCounter">0/300</div>
+                <div class="error-msg" id="motivationError"></div>
+            </div>
+        </div>
+        <div style="padding: 0 20px 20px 20px;">
+            <button id="submitRegistration" class="register-btn" style="width:100%; background:#6b8c42;"><i class="fas fa-download"></i> 📸 COMPLETAR Y DESCARGAR FICHA</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function(){
+        // ========== SONIDOS ==========
+        let audioCtx = null;
+        
+        function initAudio() {
+            if(!audioCtx) {
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                } catch(e) { console.log("Audio no soportado"); }
+            }
+            if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+        }
+        
+        function playBeep(freq, duration, volume = 0.1) {
+            if(!audioCtx) return;
+            try {
+                const now = audioCtx.currentTime;
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                oscillator.type = 'sine';
+                oscillator.frequency.value = freq;
+                gainNode.gain.setValueAtTime(volume, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.00001, now + duration);
+                oscillator.start();
+                oscillator.stop(now + duration);
+            } catch(e) {}
+        }
+        
+        function playClickSound() { playBeep(800, 0.1, 0.1); }
+        function playHoverSound() { playBeep(650, 0.06, 0.06); }
+        
+        document.body.addEventListener('click', initAudio, { once: false });
+        document.body.addEventListener('keydown', initAudio, { once: false });
+        
+        document.addEventListener('click', function(e) {
+            const target = e.target;
+            if(target.tagName === 'BUTTON' || target.tagName === 'A' || 
+               target.classList?.contains('sidebar-song-item') || target.closest('.sidebar-song-item') ||
+               target.closest('.nav-link') || target.classList?.contains('play-pause-btn')) {
+                playClickSound();
+            }
+        });
+        
+        // ========== REPRODUCTOR CON ARCHIVOS LOCALES ==========
+        // Lista de canciones desde la carpeta audios/
+        const playlist = [
+            { 
+                name: "🎷 TORNADO - Yuji Ohno", 
+                file: "audios/TORNADO - Yuji Ohno.mp3"
+            },
+            { 
+                name: "🚀 Head Up High - TWRP", 
+                file: "audios/Head Up High - TWRP.mp3"
+            },
+            { 
+                name: "😊 Happy Life - Omori Toshiyuki", 
+                file: "audios/Happy Life - Omori Toshiyuki.mp3"
+            },
+            { 
+                name: "✈️ Ready To Fly - Masayoshi Takanaka", 
+                file: "audios/Ready To Fly - Masayoshi Takanaka.mp3"
+            }
+        ];
+        
+        let currentAudio = null;
+        let currentSongIndex = -1;
+        let isPlaying = false;
+        
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        
+        function updateButtonText() {
+            if (playPauseBtn) playPauseBtn.innerHTML = isPlaying ? '⏸️ PAUSA' : '▶️ PLAY';
+        }
+        
+        function playSong(index) {
+            // Detener la canción actual si existe
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+            
+            currentSongIndex = index;
+            const song = playlist[index];
+            
+            // Actualizar UI de lista
+            document.querySelectorAll('.sidebar-song-item').forEach((el, idx) => {
+                if (parseInt(el.getAttribute('data-idx')) === index) {
+                    el.classList.add('active-song');
+                } else {
+                    el.classList.remove('active-song');
+                }
+            });
+            
+            try {
+                currentAudio = new Audio(song.file);
+                currentAudio.loop = true;
+                currentAudio.volume = 0.5;
+                
+                // Manejar errores de carga de audio
+                currentAudio.onerror = function() {
+                    console.error("Error al cargar el audio:", song.file);
+                    showNotification(`❌ No se pudo cargar: ${song.name}`, "⚠️", true);
+                    isPlaying = false;
+                    updateButtonText();
+                };
+                
+                currentAudio.play().then(() => {
+                    isPlaying = true;
+                    updateButtonText();
+                }).catch(e => {
+                    console.log("Error reproduciendo audio:", e);
+                    isPlaying = false;
+                    updateButtonText();
+                    showNotification("⚠️ Haz clic en la página para activar el audio", "🔊", true);
+                });
+                
+                currentAudio.onended = () => {
+                    if (currentAudio && currentAudio.loop) {
+                        // Si está en loop, no hacer nada
+                    } else {
+                        isPlaying = false;
+                        updateButtonText();
+                    }
+                };
+            } catch(e) {
+                console.log("Error al reproducir:", e);
+                isPlaying = false;
+                updateButtonText();
+            }
+        }
+        
+        function togglePlayPause() {
+            if (currentAudio) {
+                if (isPlaying) {
+                    currentAudio.pause();
+                    isPlaying = false;
+                } else {
+                    currentAudio.play().catch(e => {
+                        console.log("Error al reanudar:", e);
+                        showNotification("⚠️ Haz clic en la página para activar el audio", "🔊", true);
+                    });
+                    isPlaying = true;
+                }
+                updateButtonText();
+            } else if (currentSongIndex >= 0) {
+                // Si hay una canción seleccionada pero no está cargada, cargarla
+                playSong(currentSongIndex);
+            } else {
+                // Si no hay ninguna canción seleccionada, reproducir la primera
+                playSong(0);
+            }
+        }
+        
+        if (playPauseBtn) playPauseBtn.onclick = togglePlayPause;
+        
+        function renderSongLists() {
+            const listDiv = document.getElementById('songListSidebar');
+            if (listDiv) {
+                listDiv.innerHTML = '';
+                playlist.forEach((song, idx) => {
+                    const div = document.createElement('div');
+                    div.className = 'sidebar-song-item';
+                    div.setAttribute('data-idx', idx);
+                    div.innerHTML = `<span>${song.name}</span> <i class="fas fa-play"></i>`;
+                    div.addEventListener('click', (e) => { 
+                        playSong(idx); 
+                        playClickSound();
+                    });
+                    div.addEventListener('mouseenter', () => playHoverSound());
+                    listDiv.appendChild(div);
+                });
+            }
+        }
+        
+        renderSongLists();
+        
+        // Reproducir la primera canción automáticamente al cargar (con pequeño retraso)
+        setTimeout(() => {
+            playSong(0);
+        }, 500);
+        
+        // ========== ESTADO DE ÁNIMO ==========
+        const moodsPorDia = {
+            0: ["🌙 Que ganas de dormir", "🫠 No puede hacer tanto calor...", "✨ Brillando!"],
+            1: ["☕ Lunes de café", "🐢 Denme azúcar", "🌱 Tranquilo"],
+            2: ["⚡ Hoy voy con todo", "💬 Bla bla bla", "💭 Sobre pensando"],
+            3: ["🔥 Quien lea esto, tráigame un batido", "🕯️ De fiesta", "🍃 Necesito un break"],
+            4: ["🥳 Casi viernes!", "🎸 Escuchando pop", "💻 Terminando tareas"],
+            5: ["🎉 Pensé que no la contaba esta semana", "🛌 En las últimas", "🌞 Duerman al sol"],
+            6: ["😌 En los brazos de Morfeo", "🎨 Creando arte"]
+        };
+        function getDailyMood() { const today = new Date().getDay(); return moodsPorDia[today][Math.floor(Math.random() * 3)]; }
+        document.getElementById('dailyMood').innerText = getDailyMood();
+        
+        // ========== CONFIGURACIÓN POR HACER ==========
+        // CAMBIA showMissions a true para mostrar la sección
+        const showMissions = false;  // <-- CAMBIA A true PARA MOSTRAR LA SECCIÓN
+        
+        const missionsNavContainer = document.getElementById('missionsNavContainer');
+        if (missionsNavContainer) {
+            missionsNavContainer.style.display = showMissions ? 'block' : 'none';
+        }
+        
+        // ========== NAVEGACIÓN ==========
+        const sidebar = document.getElementById('globalSidebar');
+        const pages = { home: document.getElementById('home-page'), about: document.getElementById('about-page'), contact: document.getElementById('contact-page') };
+        function updateSidebarVisibility(pageId) { sidebar.style.display = pageId === 'home' ? 'block' : 'none'; }
+        document.querySelectorAll('.nav-link[data-page]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const page = link.getAttribute('data-page');
+                if(page && pages[page]) {
+                    Object.keys(pages).forEach(p => pages[p].classList.remove('active-page'));
+                    pages[page].classList.add('active-page');
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    updateSidebarVisibility(page);
+                }
+            });
+        });
+        updateSidebarVisibility('home');
+        
+        // ========== MODAL Y AUTO-SAVE ==========
+        const modal = document.getElementById('registerModal');
+        const openBtn = document.getElementById('openModalBtn');
+        const closeSpan = document.querySelector('.close-modal');
+        
+        const formFields = [
+            'regName', 'regLastname', 'regAge', 'regGender', 'regLikes', 
+            'regDislikes', 'regHobby', 'regOccupation', 'regPhrase', 
+            'regDescription', 'regMotivationVisible'
+        ];
+        
+        function updateCounter(input, counterId, max) {
+            const len = input.value.length;
+            const counter = document.getElementById(counterId);
+            if(counter) {
+                counter.innerText = `${len}/${max}`;
+                if(len > max * 0.9) counter.classList.add('warning');
+                else counter.classList.remove('warning');
+                if(len >= max) counter.classList.add('danger');
+                else counter.classList.remove('danger');
+            }
+        }
+        
+        const nameInput = document.getElementById('regName');
+        const lastnameInput = document.getElementById('regLastname');
+        const likesInput = document.getElementById('regLikes');
+        const dislikesInput = document.getElementById('regDislikes');
+        const hobbyInput = document.getElementById('regHobby');
+        const occupationInput = document.getElementById('regOccupation');
+        const phraseInput = document.getElementById('regPhrase');
+        const descTextarea = document.getElementById('regDescription');
+        const motivTextarea = document.getElementById('regMotivationVisible');
+        
+        if(nameInput) nameInput.addEventListener('input', () => updateCounter(nameInput, 'nameCounter', 35));
+        if(lastnameInput) lastnameInput.addEventListener('input', () => updateCounter(lastnameInput, 'lastnameCounter', 35));
+        if(likesInput) likesInput.addEventListener('input', () => updateCounter(likesInput, 'likesCounter', 80));
+        if(dislikesInput) dislikesInput.addEventListener('input', () => updateCounter(dislikesInput, 'dislikesCounter', 80));
+        if(hobbyInput) hobbyInput.addEventListener('input', () => updateCounter(hobbyInput, 'hobbyCounter', 70));
+        if(occupationInput) occupationInput.addEventListener('input', () => updateCounter(occupationInput, 'occupationCounter', 50));
+        if(phraseInput) phraseInput.addEventListener('input', () => updateCounter(phraseInput, 'phraseCounter', 60));
+        if(descTextarea) descTextarea.addEventListener('input', () => updateCounter(descTextarea, 'descCounter', 200));
+        if(motivTextarea) motivTextarea.addEventListener('input', () => updateCounter(motivTextarea, 'motivCounter', 300));
+        
+        // Inicializar contadores
+        if(nameInput) updateCounter(nameInput, 'nameCounter', 35);
+        if(lastnameInput) updateCounter(lastnameInput, 'lastnameCounter', 35);
+        if(likesInput) updateCounter(likesInput, 'likesCounter', 80);
+        if(dislikesInput) updateCounter(dislikesInput, 'dislikesCounter', 80);
+        if(hobbyInput) updateCounter(hobbyInput, 'hobbyCounter', 70);
+        if(occupationInput) updateCounter(occupationInput, 'occupationCounter', 50);
+        if(phraseInput) updateCounter(phraseInput, 'phraseCounter', 60);
+        if(descTextarea) updateCounter(descTextarea, 'descCounter', 200);
+        if(motivTextarea) updateCounter(motivTextarea, 'motivCounter', 300);
+        
+        function showAutoSaveIndicator() {
+            const indicator = document.getElementById('autoSaveIndicator');
+            if(indicator) {
+                indicator.classList.add('show');
+                setTimeout(() => indicator.classList.remove('show'), 1500);
+            }
+        }
+        
+        function saveFormData() {
+            const formData = {};
+            for(let fieldId of formFields) {
+                const element = document.getElementById(fieldId);
+                if(element) formData[fieldId] = element.value;
+            }
+            const photoPreview = document.getElementById('photoPreview');
+            if(photoPreview && photoPreview.src && photoPreview.style.display === 'block') formData.photoData = photoPreview.src;
+            localStorage.setItem('alphaAgencyFormData', JSON.stringify(formData));
+        }
+        
+        function loadFormData() {
+            const savedData = localStorage.getItem('alphaAgencyFormData');
+            if(savedData) {
+                try {
+                    const formData = JSON.parse(savedData);
+                    for(let fieldId of formFields) {
+                        const element = document.getElementById(fieldId);
+                        if(element && formData[fieldId] !== undefined) element.value = formData[fieldId];
+                    }
+                    if(formData.photoData) {
+                        const photoPreview = document.getElementById('photoPreview');
+                        if(photoPreview) {
+                            photoPreview.src = formData.photoData;
+                            photoPreview.style.display = 'block';
+                            const polaroidPhotoDiv = document.getElementById('polaroidPhoto');
+                            if(polaroidPhotoDiv) {
+                                const icon = polaroidPhotoDiv.querySelector('i');
+                                const span = polaroidPhotoDiv.querySelector('span');
+                                if(icon) icon.style.display = 'none';
+                                if(span) span.style.display = 'none';
+                            }
+                            window.uploadedImageData = formData.photoData;
+                        }
+                    }
+                    if(nameInput) updateCounter(nameInput, 'nameCounter', 35);
+                    if(lastnameInput) updateCounter(lastnameInput, 'lastnameCounter', 35);
+                    if(likesInput) updateCounter(likesInput, 'likesCounter', 80);
+                    if(dislikesInput) updateCounter(dislikesInput, 'dislikesCounter', 80);
+                    if(hobbyInput) updateCounter(hobbyInput, 'hobbyCounter', 70);
+                    if(occupationInput) updateCounter(occupationInput, 'occupationCounter', 50);
+                    if(phraseInput) updateCounter(phraseInput, 'phraseCounter', 60);
+                    if(descTextarea) updateCounter(descTextarea, 'descCounter', 200);
+                    if(motivTextarea) updateCounter(motivTextarea, 'motivCounter', 300);
+                } catch(e) { console.log("Error loading saved data"); }
+            }
+        }
+        
+        for(let fieldId of formFields) {
+            const element = document.getElementById(fieldId);
+            if(element) {
+                element.addEventListener('input', () => { saveFormData(); showAutoSaveIndicator(); });
+                element.addEventListener('change', () => { saveFormData(); showAutoSaveIndicator(); });
+            }
+        }
+        
+        const ageInput = document.getElementById('regAge');
+        if(ageInput) {
+            ageInput.addEventListener('input', function() {
+                let value = parseInt(this.value);
+                if(isNaN(value)) this.value = '';
+                else if(value < 1) this.value = 1;
+                else if(value > 200) this.value = 200;
+            });
+        }
+        
+        function showNotification(message, icon = "📸", isError = false) {
+            const existingNotif = document.querySelector('.custom-notification');
+            if(existingNotif) existingNotif.remove();
+            const notif = document.createElement('div');
+            notif.className = 'custom-notification';
+            notif.style.border = isError ? '6px ridge #cc0000' : '6px ridge #c2a074';
+            notif.innerHTML = `<div class="notification-icon">${icon}</div><div class="notification-message">${message}</div><button class="notification-close">ACEPTAR</button>`;
+            document.body.appendChild(notif);
+            const closeBtn = notif.querySelector('.notification-close');
+            closeBtn.onclick = () => notif.remove();
+            setTimeout(() => { if(notif.parentNode) notif.remove(); }, 4000);
+        }
+        
+        function showLimitAlert(exceededFields) {
+            const existingAlert = document.querySelector('.custom-alert');
+            if(existingAlert) existingAlert.remove();
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'custom-alert';
+            let message = `⚠️ <strong>¡ATENCIÓN!</strong> ⚠️<br><br>Los siguientes campos superan el límite de caracteres permitido:<br><br><ul>`;
+            for(let field of exceededFields) message += `<li>📌 ${field}</li>`;
+            message += `</ul>Por favor, reduce el texto en estos campos antes de continuar.`;
+            alertDiv.innerHTML = `<div class="notification-icon">⚠️</div><div>${message}</div><button class="alert-close">ACEPTAR</button>`;
+            document.body.appendChild(alertDiv);
+            const closeBtn = alertDiv.querySelector('.alert-close');
+            closeBtn.onclick = () => alertDiv.remove();
+        }
+        
+        if(openBtn) openBtn.onclick = (e) => { e.preventDefault(); modal.style.display = 'block'; };
+        if(closeSpan) closeSpan.onclick = () => { modal.style.display = 'none'; };
+        window.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; };
+        
+        // ========== POLAROID ==========
+        const polaroidFrame = document.getElementById('polaroidFrame');
+        const photoUploadInput = document.getElementById('photoUpload');
+        const photoPreview = document.getElementById('photoPreview');
+        let uploadedImageData = null;
+        window.uploadedImageData = null;
+        
+        function setPhotoFromDataUrl(dataUrl) {
+            uploadedImageData = dataUrl;
+            window.uploadedImageData = dataUrl;
+            if(photoPreview) {
+                photoPreview.src = uploadedImageData;
+                photoPreview.style.display = 'block';
+            }
+            const polaroidPhotoDiv = document.getElementById('polaroidPhoto');
+            if(polaroidPhotoDiv) {
+                const icon = polaroidPhotoDiv.querySelector('i');
+                const span = polaroidPhotoDiv.querySelector('span');
+                if(icon) icon.style.display = 'none';
+                if(span) span.style.display = 'none';
+            }
+            saveFormData();
+            showNotification("📸 ¡Imagen cargada correctamente!", "📷");
+        }
+        
+        if(polaroidFrame) {
+            polaroidFrame.onclick = () => { if(photoUploadInput) photoUploadInput.click(); };
+            polaroidFrame.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                polaroidFrame.classList.add('drag-over');
+            });
+            polaroidFrame.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                polaroidFrame.classList.remove('drag-over');
+            });
+            polaroidFrame.addEventListener('drop', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                polaroidFrame.classList.remove('drag-over');
+                const files = e.dataTransfer.files;
+                if(files && files.length > 0) {
+                    const file = files[0];
+                    if(file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function(ev) { setPhotoFromDataUrl(ev.target.result); };
+                        reader.readAsDataURL(file);
+                    } else { showNotification("📸 ¡Solo se permiten imágenes!", "⚠️", true); }
+                }
+            });
+        }
+        
+        if(photoUploadInput) {
+            photoUploadInput.onchange = (e) => {
+                const file = e.target.files[0];
+                if(file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => { setPhotoFromDataUrl(ev.target.result); };
+                    reader.readAsDataURL(file);
+                } else { showNotification("📸 ¡Sube una imagen!", "⚠️", true); }
+            };
+        }
+        
+        document.addEventListener('paste', function(e) {
+            if(modal.style.display !== 'block') return;
+            const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+            for(let i = 0; i < items.length; i++) {
+                const item = items[i];
+                if(item.type.indexOf('image') !== -1) {
+                    e.preventDefault();
+                    const blob = item.getAsFile();
+                    const reader = new FileReader();
+                    reader.onload = function(ev) { setPhotoFromDataUrl(ev.target.result); };
+                    reader.readAsDataURL(blob);
+                    return;
+                }
+            }
+            for(let i = 0; i < items.length; i++) {
+                const item = items[i];
+                if(item.type === 'text/plain') {
+                    e.preventDefault();
+                    item.getAsString(function(text) {
+                        const activeElement = document.activeElement;
+                        const isInputFocused = activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA');
+                        if(isInputFocused) {
+                            const start = activeElement.selectionStart;
+                            const end = activeElement.selectionEnd;
+                            activeElement.value = activeElement.value.substring(0, start) + text + activeElement.value.substring(end);
+                            activeElement.dispatchEvent(new Event('input', { bubbles: true }));
+                            showNotification("📝 Texto pegado", "📝");
+                        } else {
+                            const fieldsInOrder = [
+                                { id: 'regName', label: 'Nombre', maxLength: 35 },
+                                { id: 'regLastname', label: 'Apellido', maxLength: 35 },
+                                { id: 'regLikes', label: 'Gustos', maxLength: 80 },
+                                { id: 'regDislikes', label: 'Disgustos', maxLength: 80 },
+                                { id: 'regHobby', label: 'Hobby', maxLength: 70 },
+                                { id: 'regOccupation', label: 'Ocupación', maxLength: 50 },
+                                { id: 'regPhrase', label: 'Frase', maxLength: 60 },
+                                { id: 'regDescription', label: 'Descripción', maxLength: 200 },
+                                { id: 'regMotivationVisible', label: 'Motivo', maxLength: 300 }
+                            ];
+                            for(let field of fieldsInOrder) {
+                                const element = document.getElementById(field.id);
+                                if(element && element.value.trim() === '') {
+                                    let finalText = text;
+                                    if(finalText.length > field.maxLength) finalText = finalText.substring(0, field.maxLength);
+                                    element.value = finalText;
+                                    element.dispatchEvent(new Event('input', { bubbles: true }));
+                                    showNotification(`📝 Texto pegado en "${field.label}"`, "📝");
+                                    return;
+                                }
+                            }
+                            showNotification("⚠️ Todos los campos ya están llenos", "⚠️", true);
+                        }
+                    });
+                    return;
+                }
+            }
+        });
+        
+        function resetPhotoUpload() {
+            uploadedImageData = null;
+            window.uploadedImageData = null;
+            if(photoPreview) { photoPreview.style.display = 'none'; photoPreview.src = ''; }
+            const polaroidPhotoDiv = document.getElementById('polaroidPhoto');
+            if(polaroidPhotoDiv) {
+                const icon = polaroidPhotoDiv.querySelector('i');
+                const span = polaroidPhotoDiv.querySelector('span');
+                if(icon) icon.style.display = 'block';
+                if(span) span.style.display = 'block';
+            }
+            if(photoUploadInput) photoUploadInput.value = '';
+        }
+        
+        function truncateText(text, maxLength) { 
+            if(!text) return '';
+            if(text.length <= maxLength) return text; 
+            return text.substring(0, maxLength - 3) + '...'; 
+        }
+        
+        function wrapText(text, maxCharsPerLine) {
+            if(!text) return [];
+            const words = text.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for(let word of words) {
+                const testLine = currentLine ? currentLine + ' ' + word : word;
+                if(testLine.length <= maxCharsPerLine) { currentLine = testLine; }
+                else { if(currentLine) lines.push(currentLine); currentLine = word; }
+            }
+            if(currentLine) lines.push(currentLine);
+            return lines;
+        }
+        
+        function wrapLongText(text, maxCharsPerLine) {
+            if(!text) return [''];
+            if(text.length <= maxCharsPerLine) return [text];
+            const words = text.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for(let word of words) {
+                const testLine = currentLine ? currentLine + ' ' + word : word;
+                if(testLine.length <= maxCharsPerLine) {
+                    currentLine = testLine;
+                } else {
+                    if(currentLine) lines.push(currentLine);
+                    currentLine = word;
+                }
+            }
+            if(currentLine) lines.push(currentLine);
+            return lines;
+        }
+        
+        function getOptimalFontSize(text, maxWidth, ctx, maxFontSize, minFontSize = 10) {
+            let fontSize = maxFontSize;
+            ctx.font = `${fontSize}px "Courier New", monospace`;
+            let textWidth = ctx.measureText(text).width;
+            while(textWidth > maxWidth && fontSize > minFontSize) {
+                fontSize -= 1;
+                ctx.font = `${fontSize}px "Courier New", monospace`;
+                textWidth = ctx.measureText(text).width;
+            }
+            return fontSize;
+        }
+        
+        function drawMultiLineField(ctx, label, value, x, y, maxWidth, maxFontSize) {
+            const lines = wrapLongText(value, 45);
+            let currentY = y;
+            let labelFontSize = getOptimalFontSize(label, 130, ctx, maxFontSize, 12);
+            ctx.font = `${labelFontSize}px "Courier New", monospace`;
+            ctx.fillStyle = '#3b2a1f';
+            ctx.fillText(label, x, currentY);
+            let startX = x + 125;
+            for(let i = 0; i < lines.length && i < 3; i++) {
+                let fontSize = getOptimalFontSize(lines[i], maxWidth - 125, ctx, maxFontSize - 2, 10);
+                ctx.font = `${fontSize}px "Courier New", monospace`;
+                ctx.fillText(lines[i], startX, currentY + (i * 20));
+            }
+            return currentY + (Math.max(1, lines.length) * 20);
+        }
+        
+        function drawNameField(ctx, label, value, x, y, maxWidth, maxFontSize) {
+            const lines = wrapLongText(value, 40);
+            let currentY = y;
+            let labelFontSize = getOptimalFontSize(label, 130, ctx, maxFontSize, 12);
+            ctx.font = `${labelFontSize}px "Courier New", monospace`;
+            ctx.fillStyle = '#3b2a1f';
+            ctx.fillText(label, x, currentY);
+            let startX = x + 125;
+            for(let i = 0; i < lines.length && i < 2; i++) {
+                let fontSize = getOptimalFontSize(lines[i], maxWidth - 125, ctx, maxFontSize - 2, 10);
+                ctx.font = `${fontSize}px "Courier New", monospace`;
+                ctx.fillText(lines[i], startX, currentY + (i * 20));
+            }
+            return currentY + (Math.max(1, lines.length) * 20);
+        }
+        
+        function drawPhraseInPolaroid(ctx, phrase, centerX, y, maxWidth) {
+            const lines = wrapLongText(phrase, 30);
+            ctx.font = 'bold 16px "Montserrat", sans-serif';
+            ctx.fillStyle = '#5a3e2a';
+            ctx.textAlign = 'center';
+            let currentY = y;
+            for(let i = 0; i < lines.length && i < 3; i++) {
+                let fontSize = getOptimalFontSize(`"${lines[i]}"`, maxWidth, ctx, 16, 11);
+                ctx.font = `bold ${fontSize}px "Montserrat", sans-serif`;
+                ctx.fillText(`"${lines[i]}"`, centerX, currentY);
+                currentY += 22;
+            }
+            ctx.textAlign = 'left';
+            return currentY;
+        }
+        
+        function validateForm() {
+            let isValid = true;
+            let exceededFields = [];
+            
+            const name = document.getElementById('regName').value;
+            const lastname = document.getElementById('regLastname').value;
+            const likes = document.getElementById('regLikes').value;
+            const dislikes = document.getElementById('regDislikes').value;
+            const hobby = document.getElementById('regHobby').value;
+            const occupation = document.getElementById('regOccupation').value;
+            const phrase = document.getElementById('regPhrase').value;
+            const description = document.getElementById('regDescription').value;
+            const motivation = document.getElementById('regMotivationVisible').value;
+            
+            if(name.length > 35) exceededFields.push('Nombre');
+            if(lastname.length > 35) exceededFields.push('Apellido');
+            if(likes.length > 80) exceededFields.push('Gustos');
+            if(dislikes.length > 80) exceededFields.push('Disgustos');
+            if(hobby.length > 70) exceededFields.push('Hobby');
+            if(occupation.length > 50) exceededFields.push('Ocupación');
+            if(phrase.length > 60) exceededFields.push('Frase que te define');
+            if(description.length > 200) exceededFields.push('Descripción');
+            if(motivation.length > 300) exceededFields.push('Motivo');
+            
+            if(exceededFields.length > 0) {
+                showLimitAlert(exceededFields);
+                return false;
+            }
+            
+            const nameTrim = name.trim();
+            const lastnameTrim = lastname.trim();
+            const age = document.getElementById('regAge').value;
+            const gender = document.getElementById('regGender').value;
+            const likesTrim = likes.trim();
+            const dislikesTrim = dislikes.trim();
+            const hobbyTrim = hobby.trim();
+            const descriptionTrim = description.trim();
+            const motivationTrim = motivation.trim();
+            
+            document.getElementById('nameError').innerText = '';
+            document.getElementById('lastnameError').innerText = '';
+            document.getElementById('ageError').innerText = '';
+            document.getElementById('genderError').innerText = '';
+            document.getElementById('likesError').innerText = '';
+            document.getElementById('dislikesError').innerText = '';
+            document.getElementById('hobbyError').innerText = '';
+            document.getElementById('descriptionError').innerText = '';
+            document.getElementById('motivationError').innerText = '';
+            
+            if(!nameTrim) { document.getElementById('nameError').innerText = '😅 ¿Sin nombre?'; isValid = false; }
+            if(!lastnameTrim) { document.getElementById('lastnameError').innerText = '👻 Los apellidos también importan'; isValid = false; }
+            if(age && (age < 1 || age > 200)) { document.getElementById('ageError').innerText = '🎂 La edad debe estar entre 1 y 200 años'; isValid = false; }
+            if(!gender) { document.getElementById('genderError').innerText = '⚧ Cuéntanos tu género'; isValid = false; }
+            if(!likesTrim) { document.getElementById('likesError').innerText = '❤️ ¿Nada que te guste?'; isValid = false; }
+            if(!dislikesTrim) { document.getElementById('dislikesError').innerText = '💔 ¿Nada que odias?'; isValid = false; }
+            if(!hobbyTrim) { document.getElementById('hobbyError').innerText = '🎯 ¿Sin hobbies?'; isValid = false; }
+            if(!descriptionTrim || descriptionTrim.length < 10) { document.getElementById('descriptionError').innerText = '🎭 Descríbete mejor (mínimo 10 caracteres)'; isValid = false; }
+            if(!motivationTrim || motivationTrim.length < 15) { document.getElementById('motivationError').innerText = '💬 Cuéntanos más (mínimo 15 caracteres)'; isValid = false; }
+            if(!uploadedImageData && !window.uploadedImageData) { showNotification("📸 ¡No olvides subir la foto! Puedes: CLICK, Ctrl+V o ARRASTRAR", "⚠️", true); isValid = false; }
+            
+            return isValid;
+        }
+        
+        const submitBtn = document.getElementById('submitRegistration');
+        if(submitBtn) {
+            submitBtn.onclick = () => {
+                if(!validateForm()) return;
+                
+                let name = document.getElementById('regName').value.trim();
+                let lastname = document.getElementById('regLastname').value.trim();
+                if(name.length > 35) name = name.substring(0, 35);
+                if(lastname.length > 35) lastname = lastname.substring(0, 35);
+                
+                const age = document.getElementById('regAge').value || "??";
+                const gender = document.getElementById('regGender').value;
+                let likes = document.getElementById('regLikes').value;
+                let dislikes = document.getElementById('regDislikes').value;
+                let hobby = document.getElementById('regHobby').value;
+                let occupation = document.getElementById('regOccupation').value || "No especifica";
+                if(occupation.length > 50) occupation = occupation.substring(0, 47) + '...';
+                const description = document.getElementById('regDescription').value;
+                const motivation = document.getElementById('regMotivationVisible').value;
+                const phrase = document.getElementById('regPhrase').value.trim();
+                const personajeNombre = `${name} ${lastname}`;
+                const fullName = `${name} ${lastname}`;
+                const finalImageData = uploadedImageData || window.uploadedImageData;
+                
+                if(phrase) { document.getElementById('polaroidCaption').innerHTML = `<i class="fas fa-tag"></i> "${truncateText(phrase, 50)}"`; }
+                else { document.getElementById('polaroidCaption').innerHTML = `<i class="fas fa-tag"></i> ${truncateText(personajeNombre, 50)}`; }
+                
+                const descLines = wrapText(description, 50);
+                const motivLines = wrapText(motivation, 55);
+                const likesLines = wrapLongText(likes, 45);
+                const dislikesLines = wrapLongText(dislikes, 45);
+                const hobbyLines = wrapLongText(hobby, 45);
+                const nameLines = wrapLongText(fullName, 40);
+                
+                const likesHeight = Math.max(20, likesLines.length * 18);
+                const dislikesHeight = Math.max(20, dislikesLines.length * 18);
+                const hobbyHeight = Math.max(20, hobbyLines.length * 18);
+                const nameHeight = Math.max(20, nameLines.length * 18);
+                const extraHeight = likesHeight + dislikesHeight + hobbyHeight + nameHeight - 80;
+                
+                const descHeight = Math.max(60, descLines.length * 24 + 40);
+                const motivHeight = Math.max(120, motivLines.length * 24 + 70);
+                const baseHeight = 500;
+                const canvasHeight = baseHeight + extraHeight + descHeight + motivHeight;
+                
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 950;
+                canvas.height = canvasHeight;
+                
+                ctx.fillStyle = '#fef5e6';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.strokeStyle = '#c28a5c';
+                ctx.lineWidth = 6;
+                ctx.strokeRect(15, 15, canvas.width-30, canvas.height-30);
+                ctx.strokeStyle = '#e8c99e';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(20, 20, canvas.width-40, canvas.height-40);
+                
+                ctx.font = 'bold 34px "Montserrat", "Arial Black", sans-serif';
+                ctx.fillStyle = '#2c1a0a';
+                ctx.fillText('✦ ALPHA AGENCY - FICHA OFICIAL ✦', 50, 70);
+                ctx.font = 'bold 26px "Montserrat", sans-serif';
+                ctx.fillStyle = '#5a2e14';
+                ctx.fillText('DATOS DEL ASPIRANTE', 50, 130);
+                
+                let currentY = 175;
+                currentY = drawNameField(ctx, '📛 Nombre:', fullName, 50, currentY, 550, 18);
+                currentY += 5;
+                ctx.font = `18px "Courier New", monospace`;
+                ctx.fillStyle = '#3b2a1f';
+                ctx.fillText(`🎂 Edad: ${age}`, 50, currentY);
+                currentY += 34;
+                ctx.fillText(`⚧ Género: ${gender}`, 50, currentY);
+                currentY += 34;
+                currentY = drawMultiLineField(ctx, '❤️ Gustos:', likes, 50, currentY, 550, 18);
+                currentY += 5;
+                currentY = drawMultiLineField(ctx, '💔 Disgustos:', dislikes, 50, currentY, 550, 18);
+                currentY += 5;
+                currentY = drawMultiLineField(ctx, '🎯 Hobby:', hobby, 50, currentY, 550, 18);
+                currentY += 5;
+                ctx.fillText(`💼 Ocupación: ${occupation}`, 50, currentY);
+                currentY += 40;
+                ctx.font = 'bold 22px "Montserrat", sans-serif';
+                ctx.fillStyle = '#5a2e14';
+                ctx.fillText('🎭 DESCRIPCIÓN DEL PERSONAJE', 50, currentY);
+                currentY += 35;
+                ctx.font = `14px "Courier New", monospace`;
+                for(let line of descLines.slice(0, 8)) {
+                    let fontSize = getOptimalFontSize(line, 530, ctx, 14, 10);
+                    ctx.font = `${fontSize}px "Courier New", monospace`;
+                    ctx.fillStyle = '#2c1c0c';
+                    ctx.fillText(line, 55, currentY);
+                    currentY += 24;
+                }
+                currentY += 20;
+                
+                const rectY = currentY;
+                const rectHeight = motivHeight;
+                const rectWidth = canvas.width - 160;
+                const rectX = 80;
+                
+                ctx.shadowBlur = 4;
+                ctx.shadowColor = "rgba(0,0,0,0.15)";
+                ctx.fillStyle = '#fffef5';
+                ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
+                ctx.shadowBlur = 0;
+                ctx.strokeStyle = '#c8a87c';
+                ctx.lineWidth = 3;
+                ctx.strokeRect(rectX, rectY, rectWidth, rectHeight);
+                
+                ctx.font = 'bold 22px "Montserrat", sans-serif';
+                ctx.fillStyle = '#5a2e14';
+                ctx.fillText('💬 MOTIVO PARA UNIRME', rectX + 25, rectY + 38);
+                
+                ctx.beginPath();
+                ctx.strokeStyle = '#d8bc8c';
+                ctx.lineWidth = 1;
+                ctx.moveTo(rectX + 15, rectY + 55);
+                ctx.lineTo(rectX + rectWidth - 15, rectY + 55);
+                ctx.stroke();
+                
+                let yMot = rectY + 85;
+                for(let line of motivLines.slice(0, 12)) {
+                    if(yMot < rectY + rectHeight - 25) {
+                        let fontSize = getOptimalFontSize(`✧ ${line}`, rectWidth - 50, ctx, 15, 10);
+                        ctx.font = `${fontSize}px "Courier New", monospace`;
+                        ctx.fillStyle = '#1a1a1a';
+                        ctx.fillText(`✧ ${line}`, rectX + 20, yMot);
+                        yMot += 24;
+                    }
+                }
+                
+                ctx.save();
+                ctx.shadowBlur = 2;
+                ctx.shadowColor = "rgba(0,0,0,0.2)";
+                ctx.fillStyle = '#e8e0c8';
+                ctx.fillRect(rectX - 18, rectY + 35, 30, 45);
+                ctx.fillStyle = '#ddd5b8';
+                ctx.fillRect(rectX - 15, rectY + 38, 24, 39);
+                ctx.fillStyle = '#e8e0c8';
+                ctx.fillRect(rectX - 18, rectY + rectHeight - 80, 30, 45);
+                ctx.fillStyle = '#ddd5b8';
+                ctx.fillRect(rectX - 15, rectY + rectHeight - 77, 24, 39);
+                ctx.fillStyle = '#e8e0c8';
+                ctx.fillRect(rectX + rectWidth - 12, rectY + 35, 30, 45);
+                ctx.fillStyle = '#ddd5b8';
+                ctx.fillRect(rectX + rectWidth - 9, rectY + 38, 24, 39);
+                ctx.fillStyle = '#e8e0c8';
+                ctx.fillRect(rectX + rectWidth - 12, rectY + rectHeight - 80, 30, 45);
+                ctx.fillStyle = '#ddd5b8';
+                ctx.fillRect(rectX + rectWidth - 9, rectY + rectHeight - 77, 24, 39);
+                ctx.restore();
+                
+                if(finalImageData) {
+                    const img = new Image();
+                    img.onload = () => {
+                        ctx.fillStyle = '#faf5e8';
+                        ctx.fillRect(610, 85, 300, 380);
+                        ctx.strokeStyle = '#b88754';
+                        ctx.lineWidth = 3;
+                        ctx.strokeRect(610, 85, 300, 380);
+                        ctx.drawImage(img, 628, 103, 264, 250);
+                        
+                        if(phrase) { drawPhraseInPolaroid(ctx, phrase, 760, 390, 260); }
+                        else {
+                            let displayName = fullName.length > 32 ? fullName.substring(0, 29) + '...' : fullName;
+                            let fontSize = getOptimalFontSize(displayName, 260, ctx, 16, 12);
+                            ctx.font = `bold ${fontSize}px "Montserrat", sans-serif`;
+                            ctx.fillStyle = '#5a3e2a';
+                            ctx.textAlign = 'center';
+                            ctx.fillText(displayName, 760, 415);
+                            ctx.textAlign = 'left';
+                        }
+                        
+                        const link = document.createElement('a');
+                        link.download = `carnet_${name}_${lastname}.png`;
+                        link.href = canvas.toDataURL();
+                        link.click();
+                        showNotification(`🎉 ¡FICHA GENERADA, ${personajeNombre}! 🎉`, "📸");
+                        modal.style.display = 'none';
+                        
+                        document.getElementById('regName').value = '';
+                        document.getElementById('regLastname').value = '';
+                        document.getElementById('regAge').value = '';
+                        document.getElementById('regGender').value = '';
+                        document.getElementById('regLikes').value = '';
+                        document.getElementById('regDislikes').value = '';
+                        document.getElementById('regHobby').value = '';
+                        document.getElementById('regOccupation').value = '';
+                        document.getElementById('regDescription').value = '';
+                        document.getElementById('regMotivationVisible').value = '';
+                        document.getElementById('regPhrase').value = '';
+                        
+                        if(nameInput) updateCounter(nameInput, 'nameCounter', 35);
+                        if(lastnameInput) updateCounter(lastnameInput, 'lastnameCounter', 35);
+                        if(likesInput) updateCounter(likesInput, 'likesCounter', 80);
+                        if(dislikesInput) updateCounter(dislikesInput, 'dislikesCounter', 80);
+                        if(hobbyInput) updateCounter(hobbyInput, 'hobbyCounter', 70);
+                        if(occupationInput) updateCounter(occupationInput, 'occupationCounter', 50);
+                        if(phraseInput) updateCounter(phraseInput, 'phraseCounter', 60);
+                        if(descTextarea) updateCounter(descTextarea, 'descCounter', 200);
+                        if(motivTextarea) updateCounter(motivTextarea, 'motivCounter', 300);
+                        
+                        resetPhotoUpload();
+                        document.getElementById('polaroidCaption').innerHTML = '<i class="fas fa-tag"></i> ';
+                        localStorage.removeItem('alphaAgencyFormData');
+                    };
+                    img.src = finalImageData;
+                }
+            };
+        }
+        
+        loadFormData();
+        
+        let counter = localStorage.getItem('sticky_counter');
+        if(!counter) counter = 8193;
+        else counter = parseInt(counter)+1;
+        localStorage.setItem('sticky_counter', counter);
+        document.getElementById('hitCounter').innerText = String(counter).padStart(6,'0');
+        
+        console.log("✨ Alpha Agency - Radio con archivos locales, primera canción reproduciendo automáticamente ✨");
+    })();
+</script>
+</body>
+</html>

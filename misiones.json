@@ -1,0 +1,82 @@
+{
+    "missions": [
+        {
+            "id": 1,
+            "name": "Rastreo de Pulso Anómalo",
+            "imageFile": "Mameo.png",
+            "description": "Se ha detectado un pulso anómalo en el sector este de la ciudad. Un posible 'Error' está causando interferencias en la red eléctrica. Localiza al responsable y reporta su ubicación. No se requiere confrontación directa.",
+            "participants": 2,
+            "maxParticipants": 4,
+            "difficulty": 2,
+            "reward": 500,
+            "stamp": "🔍 RASTREO",
+            "completed": true,
+            "completedBy": ["Prueba"]
+        },
+        {
+            "id": 2,
+            "name": "Recuperación de Arma de Pulso",
+            "imageFile": "mision2.jpg",
+            "description": "Un cargamento de armas de pulso ha sido interceptado por una célula rebelde. Recupera al menos una de las armas antes de que sea desmantelada. Se recomienda ir en equipo.",
+            "participants": 3,
+            "maxParticipants": 4,
+            "difficulty": 4,
+            "reward": 1200,
+            "stamp": "⚠️ ALTO RIESGO",
+            "completed": true,
+            "completedBy": ["Agente Phantom", "Agente Nox"]
+        },
+        {
+            "id": 3,
+            "name": "Escolta de Activo Valioso",
+            "imageFile": "mision3.jpg",
+            "description": "Un científico especializado en pulsos necesita ser trasladado a una ubicación segura. Los opositores conocen su paradero. Protege al activo durante el trayecto.",
+            "participants": 4,
+            "maxParticipants": 4,
+            "difficulty": 5,
+            "reward": 2000,
+            "stamp": "💀 PELIGRO",
+            "completed": false,
+            "completedBy": []
+        },
+        {
+            "id": 4,
+            "name": "Infiltración en Red de Datos",
+            "imageFile": "mision4.jpg",
+            "description": "Necesitamos acceso a los servidores centrales de la corporación Omni-Pulse. Infíltrate en sus instalaciones y extrae la información sobre los 'Errores' no registrados.",
+            "participants": 2,
+            "maxParticipants": 4,
+            "difficulty": 3,
+            "reward": 800,
+            "stamp": "🕵️ SIGILO",
+            "completed": true,
+            "completedBy": ["Agente Luna", "Agente Cósmica", "Agente Eclipse"]
+        },
+        {
+            "id": 5,
+            "name": "Reparación de Infraestructura",
+            "imageFile": "mision5.jpg",
+            "description": "Un transformador de pulsos está fallando en un barrio marginal. Los residentes llevan días sin energía. Repara el sistema antes de que colapse por completo.",
+            "participants": 1,
+            "maxParticipants": 4,
+            "difficulty": 1,
+            "reward": 300,
+            "stamp": "🧹 MANTENIMIENTO",
+            "completed": false,
+            "completedBy": []
+        },
+        {
+            "id": 6,
+            "name": "Captura de Error Peligroso",
+            "imageFile": "mision6.jpg",
+            "description": "Un Error de tipo Corruptor ha sido avistado en el sector industrial. Neutralízalo antes de que cause daños mayores. Se requiere equipo especializado.",
+            "participants": 3,
+            "maxParticipants": 4,
+            "difficulty": 4,
+            "reward": 1500,
+            "stamp": "⚠️ ALTO RIESGO",
+            "completed": true,
+            "completedBy": ["Agente Phantom"]
+        }
+    ]
+}
