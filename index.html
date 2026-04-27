@@ -703,7 +703,6 @@
                     console.log("Error reproduciendo audio:", e);
                     isPlaying = false;
                     updateButtonText();
-                    showNotification("⚠️ Haz clic en la página para activar el audio", "🔊", true);
                 });
                 
                 currentAudio.onended = () => {
@@ -729,7 +728,6 @@
                 } else {
                     currentAudio.play().catch(e => {
                         console.log("Error al reanudar:", e);
-                        showNotification("⚠️ Haz clic en la página para activar el audio", "🔊", true);
                     });
                     isPlaying = true;
                 }
