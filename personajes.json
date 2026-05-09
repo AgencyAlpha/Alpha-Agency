@@ -1,0 +1,15 @@
+{
+    "personajes": [
+        {
+            "id": 5,
+            "nombre": "Ey, si ves esto mandame dm con una captura de esto",
+            "edad": 24,
+            "profesion": "Ey, si ves esto mandame dm con una captura de esto",
+            "habilidad": "Ey, si ves esto mandame dm con una captura de esto",
+            "datos": "Ey, si ves esto mandame dm con una captura de esto.",
+            "foto": "imagenes_personajes/star.webp",
+            "nuevo": false
+        }
+      
+    ]
+}

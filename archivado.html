@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>📁 ALPHA AGENCY · Archivados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Georgia&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #c0c0c0;
+            background-image: repeating-linear-gradient(45deg, #b0b0b0 1px, #d4d0c8 2px, #e0dbcd 8px);
+            font-family: 'Georgia', 'Times New Roman', monospace;
+            padding: 24px 20px;
+            font-size: 18px;
+        }
+        marquee {
+            font-family: 'VT323', monospace;
+            background: #000080;
+            color: #ffff66;
+            padding: 8px;
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            border: 2px ridge silver;
+        }
+        .old-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fef7e0;
+            border: 4px ridge #b87c4a;
+            box-shadow: 8px 8px 0px #5a3e2a;
+            padding: 18px 20px 24px;
+        }
+        .retro-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 4px double #c28a5c;
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+            background: #fff3e0;
+            padding: 10px 15px;
+        }
+        .site-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            color: #6b2e00;
+            text-shadow: 3px 3px 0px #e7c8a3;
+        }
+        .back-link {
+            background: #e7d8bf;
+            padding: 6px 12px;
+            border: 2px outset #fff0d0;
+            text-decoration: none;
+            color: #3b2a1f;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: 0.05s linear;
+        }
+        .back-link:hover {
+            border: 2px inset #b88b54;
+            background: #cfb68e;
+        }
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+        }
+        .search-box {
+            flex: 2;
+            min-width: 200px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 8px 12px;
+            background: #fffff0;
+            border: 2px inset #b5976e;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            outline: none;
+        }
+        .order-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #eedcb0;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .order-box label {
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .order-box select {
+            background: #fffff0;
+            border: 2px inset #b5976e;
+            padding: 5px;
+            font-family: monospace;
+            cursor: pointer;
+        }
+        .archive-section {
+            background: #fff9e8;
+            border: 2px groove #e0bc88;
+            padding: 20px 25px;
+            margin-bottom: 28px;
+            box-shadow: inset 0 0 0 1px #ffffff, 4px 4px 0 #bc9a6a;
+        }
+        .archive-section h2 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1.2rem;
+            background: #eedcb0;
+            display: inline-block;
+            padding: 8px 15px;
+            margin-bottom: 20px;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+            margin-top: 15px;
+        }
+        .id-card {
+            background: #fffef5;
+            border: 2px ridge #c2a074;
+            padding: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 6px 6px 0 #d8bc8c;
+            transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .id-card:hover {
+            transform: translateY(-3px);
+            background: #fffaf0;
+        }
+        .new-stamp {
+            position: absolute;
+            top: 12px;
+            right: -20px;
+            background: #ff4444;
+            color: #ffdd88;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.65rem;
+            padding: 6px 25px;
+            transform: rotate(35deg);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+            letter-spacing: 1px;
+            font-weight: bold;
+            border: 1px solid #ffcc88;
+            white-space: nowrap;
+        }
+        .card-photo {
+            flex: 0 0 100px;
+            text-align: center;
+        }
+        .card-photo img {
+            width: 100%;
+            max-width: 100px;
+            border: 3px solid #b88754;
+            background: #e0cfb0;
+            padding: 4px;
+            object-fit: cover;
+            aspect-ratio: 1 / 1;
+        }
+        .card-info {
+            flex: 2;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+        }
+        .card-info p {
+            margin: 6px 0;
+            border-bottom: 1px dotted #d8bc8c;
+            padding-bottom: 4px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 5px;
+        }
+        .card-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #4a2e18;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .badge {
+            display: inline-block;
+            background: #8b5a2b;
+            color: #ffefcf;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.5rem;
+            padding: 3px 6px;
+            margin-right: 8px;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+        .datos-text {
+            flex: 1;
+            word-break: break-word;
+        }
+        .more-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: #dac09a;
+            border: 2px outset #ffe1b3;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.1s;
+            color: #4a2e18;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        .more-btn:hover {
+            background: #c8ae82;
+            transform: scale(0.95);
+        }
+        .btn-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 8px;
+            border-top: 1px dotted #d8bc8c;
+            padding-top: 8px;
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-card {
+            background: #fffef5;
+            max-width: 500px;
+            width: 90%;
+            border: 8px ridge #c2a074;
+            padding: 20px;
+            position: relative;
+            box-shadow: 12px 12px 0 rgba(0,0,0,0.2);
+            animation: modalSlide 0.3s ease-out;
+            font-family: 'Courier New', monospace;
+        }
+        @keyframes modalSlide {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px dashed #d8bc8c;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .modal-header h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: #4a2e18;
+        }
+        .close-modal {
+            background: #dac09a;
+            border: 2px outset #ffe1b3;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .close-modal:hover {
+            background: #c8ae82;
+        }
+        .modal-content p {
+            margin: 12px 0;
+        }
+        .modal-photo {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .modal-photo img {
+            width: 150px;
+            border: 3px solid #b88754;
+            background: #e0cfb0;
+            padding: 5px;
+        }
+        .footer-note {
+            margin-top: 30px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            background: #eddbbc;
+            padding: 6px;
+            border-top: 3px dotted #b28248;
+            font-size: 0.7rem;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.8rem;
+            color: #8b6946;
+        }
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            color: #8b6946;
+        }
+    </style>
+</head>
+<body>
+
+<marquee behavior="scroll" direction="left" scrollamount="3"><i class="fas fa-archive"></i> ✧ ALPHA AGENCY - ARCHIVOS DE PERSONAJES ✧ fichas confidenciales ✧ <i class="fas fa-id-card"></i></marquee>
+
+<div class="old-container">
+    <div class="retro-header">
+        <div class="site-title"><i class="fas fa-archive"></i> ALPHA AGENCY</div>
+        <a href="index.html" class="back-link">← VOLVER AL INICIO</a>
+    </div>
+    <div class="archive-section">
+        <h2><i class="fas fa-id-card"></i> 📁 ARCHIVOS CONFIDENCIALES</h2>
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Buscar por nombre, profesión, habilidad o datos...">
+            </div>
+            <div class="order-box">
+                <label>📌 Ordenar por:</label>
+                <select id="orderSelect">
+                    <option value="id_desc" selected>De nuevo a viejo 🔽</option>
+                    <option value="id_asc">De viejo a nuevo 🔼</option>
+                    <option value="nombre_asc">Nombre (A-Z)</option>
+                    <option value="edad_asc">Edad (menor a mayor)</option>
+                    <option value="edad_desc">Edad (mayor a menor)</option>
+                </select>
+            </div>
+        </div>
+        <div class="cards-grid" id="cardsGrid">
+            <div class="loading">📂 Cargando fichas... 📂</div>
+        </div>
+    </div>
+    <div class="footer-note">
+        🧷 <i class="fas fa-stamp"></i> Documentos desclasificados · Acceso autorizado
+    </div>
+</div>
+
+<!-- MODAL PARA DATOS COMPLETOS -->
+<div id="modalOverlay" class="modal-overlay">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h3 id="modalTitle">Detalles completos</h3>
+            <div class="close-modal" id="closeModalBtn">✕</div>
+        </div>
+        <div class="modal-content" id="modalContent"></div>
+    </div>
+</div>
+
+<script>
+    let allPersonajes = [];
+
+    function createCard(p) {
+        const card = document.createElement('div');
+        card.className = 'id-card';
+        const maxLen = 80;
+        let datosShort = p.datos.length > maxLen ? p.datos.substring(0, maxLen) + '...' : p.datos;
+        
+        const nuevoStamp = p.nuevo === true ? '<div class="new-stamp">¡NUEVO!</div>' : '';
+        
+        card.innerHTML = `
+            ${nuevoStamp}
+            <div class="card-photo">
+                <img src="${p.foto}" alt="${p.nombre}" onerror="this.src='https://via.placeholder.com/120?text=Sin+foto'">
+            </div>
+            <div class="card-info">
+                <p class="card-name"><i class="fas fa-user-circle"></i> ${p.nombre}</p>
+                <p><span class="badge">🎂 EDAD</span> ${p.edad} años</p>
+                <p><span class="badge">💼 PROFESIÓN</span> ${p.profesion}</p>
+                <p><span class="badge">⚔️ HABILIDAD/ARMA</span> ${p.habilidad}</p>
+                <p><span class="badge">📝 DATOS</span> <span class="datos-text">${datosShort}</span></p>
+                <div class="btn-container">
+                    <button class="more-btn" data-id="${p.id}"><i class="fas fa-chevron-circle-down"></i></button>
+                </div>
+            </div>
+        `;
+        
+        const btn = card.querySelector('.more-btn');
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openModal(p);
+        });
+        return card;
+    }
+
+    function openModal(p) {
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalContent = document.getElementById('modalContent');
+        modalTitle.innerText = `Ficha completa: ${p.nombre}`;
+        modalContent.innerHTML = `
+            <div class="modal-photo">
+                <img src="${p.foto}" alt="${p.nombre}" onerror="this.src='https://via.placeholder.com/150?text=Sin+foto'">
+            </div>
+            <p><strong>📛 Nombre:</strong> ${p.nombre}</p>
+            <p><strong>🎂 Edad:</strong> ${p.edad} años</p>
+            <p><strong>💼 Profesión:</strong> ${p.profesion}</p>
+            <p><strong>⚔️ Habilidad / Arma:</strong> ${p.habilidad}</p>
+            <p><strong>📝 Datos adicionales:</strong> ${p.datos}</p>
+        `;
+        modalOverlay.style.display = 'flex';
+    }
+
+    function sortPersonajes(criterio, personajes) {
+        const sorted = [...personajes];
+        switch(criterio) {
+            case 'id_desc':
+                sorted.sort((a, b) => (b.id || 0) - (a.id || 0));
+                break;
+            case 'id_asc':
+                sorted.sort((a, b) => (a.id || 0) - (b.id || 0));
+                break;
+            case 'nombre_asc':
+                sorted.sort((a, b) => a.nombre.localeCompare(b.nombre));
+                break;
+            case 'edad_asc':
+                sorted.sort((a, b) => (a.edad || 0) - (b.edad || 0));
+                break;
+            case 'edad_desc':
+                sorted.sort((a, b) => (b.edad || 0) - (a.edad || 0));
+                break;
+            default:
+                sorted.sort((a, b) => (b.id || 0) - (a.id || 0));
+                break;
+        }
+        return sorted;
+    }
+
+    let currentOrder = 'id_desc';
+    let currentSearchTerm = '';
+
+    function filterAndRender() {
+        const grid = document.getElementById('cardsGrid');
+        const term = currentSearchTerm.toLowerCase().trim();
+        let filtered = [...allPersonajes];
+        if (term) {
+            filtered = allPersonajes.filter(p => 
+                p.nombre.toLowerCase().includes(term) ||
+                p.profesion.toLowerCase().includes(term) ||
+                p.habilidad.toLowerCase().includes(term) ||
+                p.datos.toLowerCase().includes(term)
+            );
+        }
+        const sorted = sortPersonajes(currentOrder, filtered);
+        grid.innerHTML = '';
+        if (sorted.length === 0) {
+            grid.innerHTML = '<div class="no-results">🔍 No se encontraron resultados</div>';
+            return;
+        }
+        sorted.forEach(p => grid.appendChild(createCard(p)));
+    }
+
+    async function loadPersonajes() {
+        try {
+            const response = await fetch('personajes.json');
+            if (!response.ok) throw new Error('No se pudo cargar el archivo JSON');
+            const data = await response.json();
+            allPersonajes = data.personajes.map(p => ({ ...p, id: p.id !== undefined ? p.id : 999 }));
+            
+            const searchInput = document.getElementById('searchInput');
+            const orderSelect = document.getElementById('orderSelect');
+            searchInput.addEventListener('input', (e) => {
+                currentSearchTerm = e.target.value;
+                filterAndRender();
+            });
+            orderSelect.addEventListener('change', (e) => {
+                currentOrder = e.target.value;
+                filterAndRender();
+            });
+            filterAndRender();
+        } catch (error) {
+            console.error(error);
+            const grid = document.getElementById('cardsGrid');
+            grid.innerHTML = '<div class="loading">❌ Error al cargar los archivos<br>Asegúrate de que el archivo personajes.json existe</div>';
+        }
+    }
+
+    const modalOverlay = document.getElementById('modalOverlay');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    closeModalBtn.onclick = () => modalOverlay.style.display = 'none';
+    modalOverlay.onclick = (e) => { if (e.target === modalOverlay) modalOverlay.style.display = 'none'; };
+
+    loadPersonajes();
+</script>
+</body>
+</html>
