@@ -679,7 +679,6 @@
                     console.log("Error reproduciendo audio:", e);
                     isPlaying = false;
                     updateButtonText();
-                    showNotification("⚠️ Haz clic en la página para activar el audio", "🔊", true);
                 });
                 currentAudio.onended = () => { isPlaying = false; updateButtonText(); };
             } catch(e) { isPlaying = false; updateButtonText(); }
