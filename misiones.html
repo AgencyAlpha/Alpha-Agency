@@ -66,6 +66,51 @@
             background: #cfb68e;
         }
 
+        /* CONTROLES DE BÚSQUEDA Y ORDEN */
+        .controls-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+            background: #f0e6d5;
+            padding: 12px 15px;
+            border: 1px solid #d8bc8c;
+            border-radius: 8px;
+        }
+        .search-box input {
+            width: 250px;
+            padding: 8px 12px;
+            background: #fffff0;
+            border: 2px inset #b5976e;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            outline: none;
+        }
+        .order-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .order-box label {
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .order-box select {
+            background: #fffff0;
+            border: 2px inset #b5976e;
+            padding: 6px 10px;
+            font-family: monospace;
+            cursor: pointer;
+        }
+        .results-count {
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: #8b6946;
+        }
+
         .missions-section {
             background: #fff9e8;
             border: 2px groove #e0bc88;
@@ -684,6 +729,16 @@
             .police-text {
                 font-size: 0.35rem;
             }
+            .controls-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-box input {
+                width: 100%;
+            }
+            .order-box {
+                justify-content: space-between;
+            }
         }
 
         .image-modal {
@@ -774,6 +829,23 @@
 
     <div class="missions-section">
         <h2><i class="fas fa-folder"></i> 📁 EXPEDIENTES DE MISIONES</h2>
+        
+        <!-- BARRA DE CONTROLES -->
+        <div class="controls-bar">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Buscar misión por nombre...">
+            </div>
+            <div class="order-box">
+                <label>📌 Ordenar por:</label>
+                <select id="orderSelect">
+                    <option value="default">Por defecto (no completadas primero)</option>
+                    <option value="difficulty_asc">Dificultad (menor a mayor) ⭐</option>
+                    <option value="difficulty_desc">Dificultad (mayor a menor) ⭐</option>
+                </select>
+            </div>
+            <div class="results-count" id="resultsCount"></div>
+        </div>
+
         <div class="folders-grid" id="missionsGrid">
             <div class="loading-message">📂 Cargando expedientes... 📂</div>
         </div>
@@ -824,25 +896,19 @@
 
 <script>
     (function(){
-        // ========== SISTEMA DE AUDIO REUTILIZABLE ==========
+        // ========== SISTEMA DE AUDIO ==========
         let audioCtx = null;
-        let hoverTimeout = null;
         let isHoverSoundPlaying = false;
         
-        // Inicializar AudioContext al primer clic/interacción del usuario
         function initAudio() {
             if(!audioCtx) {
                 try {
                     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    console.log("✅ AudioContext inicializado");
                 } catch(e) { console.log("Audio no soportado"); }
             }
-            if(audioCtx && audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
+            if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
         }
         
-        // Sonido simple reutilizable
         function playSound(freq, duration, volume = 0.1, type = 'sine') {
             if(!audioCtx) return;
             try {
@@ -857,13 +923,11 @@
                 gainNode.gain.exponentialRampToValueAtTime(0.00001, now + duration);
                 oscillator.start();
                 oscillator.stop(now + duration);
-            } catch(e) { console.log("Error reproduciendo sonido"); }
+            } catch(e) {}
         }
         
-        // Sonido hover con protección antispam
         function playHoverSound() {
-            if(!audioCtx) return;
-            if(isHoverSoundPlaying) return;
+            if(!audioCtx || isHoverSoundPlaying) return;
             isHoverSoundPlaying = true;
             playSound(650, 0.08, 0.08, 'sine');
             setTimeout(() => { isHoverSoundPlaying = false; }, 100);
@@ -878,7 +942,6 @@
         function playFolderCloseSound() { if(audioCtx) playSound(400, 0.1, 0.1, 'sine'); }
         function playZoomOpenSound() { if(audioCtx) playSound(600, 0.18, 0.14, 'sine'); }
         
-        // Sonido de sello completado (con 3 tonos)
         function playCompletionStampSound() {
             if(!audioCtx) return;
             playSound(350, 0.25, 0.22, 'sine');
@@ -894,49 +957,71 @@
         
         function playSparkleSound() { if(audioCtx) playSound(1400, 0.25, 0.12, 'sine'); }
         
-        // Sonido de papel arrugado (simulado con noise)
-       const paperSound = new Audio('audios/papel.mp3');
-function playPaperCrumpleSound() {
-    if(paperSound) {
-        paperSound.currentTime = 0;
-        paperSound.play().catch(e => console.log("Error con audio"));
-    }
-}
-        
-        // Activar audio con cualquier interacción
-        document.body.addEventListener('click', initAudio, { once: false });
-        document.body.addEventListener('keydown', initAudio, { once: false });
-        
-        let missions = [];
-        
-        function openImageZoom(src) {
-            const zoomModal = document.getElementById('imageZoomModal');
-            const zoomedImg = document.getElementById('zoomedImage');
-            zoomedImg.src = src;
-            zoomModal.style.display = 'block';
-            playZoomOpenSound();
-        }
-        
-        function animateCompletionStamp(stampElement, waveElement, policeTapeElement) {
-            gsap.fromTo(stampElement, 
-                { scale: 0, rotation: 15, opacity: 0, y: -50 },
-                { scale: 1, rotation: 8, opacity: 1, y: 0, duration: 0.55, ease: "elastic.out(1, 0.5)",
-                  onStart: () => { playCompletionStampSound(); playPaperCrumpleSound(); }
-                }
-            );
-            gsap.fromTo(waveElement, { scale: 0, opacity: 0.7 }, { scale: 8, opacity: 0, duration: 0.5, ease: "power2.out" });
-            if(policeTapeElement) {
-                gsap.fromTo(policeTapeElement, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, delay: 0.2, ease: "back.out" });
+        const paperSound = new Audio('audios/papel.mp3');
+        function playPaperCrumpleSound() {
+            if(paperSound) {
+                paperSound.currentTime = 0;
+                paperSound.play().catch(e => console.log("Error con audio"));
             }
-            gsap.to(stampElement, { scale: 1.03, duration: 0.08, delay: 0.5, yoyo: true, repeat: 2, ease: "power1.inOut" });
         }
         
+        document.body.addEventListener('click', initAudio, { once: false });
+        
+        // ========== VARIABLES ==========
+        let allMissions = [];
+        let currentSearchTerm = '';
+        let currentOrder = 'default';
+        
+        // ========== ORDENAR MISIONES ==========
+        function sortMissions(missions, order) {
+            const sorted = [...missions];
+            
+            // Primero separar completadas y no completadas si es el orden por defecto
+            if (order === 'default') {
+                const notCompleted = sorted.filter(m => !m.completed);
+                const completed = sorted.filter(m => m.completed);
+                // Las no completadas van primero, luego las completadas
+                return [...notCompleted, ...completed];
+            }
+            
+            // Orden por dificultad
+            if (order === 'difficulty_asc') {
+                sorted.sort((a, b) => a.difficulty - b.difficulty);
+            } else if (order === 'difficulty_desc') {
+                sorted.sort((a, b) => b.difficulty - a.difficulty);
+            }
+            return sorted;
+        }
+        
+        // ========== FILTRAR MISIONES ==========
+        function filterMissions(missions, searchTerm) {
+            if (!searchTerm) return missions;
+            const term = searchTerm.toLowerCase().trim();
+            return missions.filter(m => m.name.toLowerCase().includes(term));
+        }
+        
+        // ========== RENDERIZAR MISIONES ==========
         function renderMissions() {
             const grid = document.getElementById('missionsGrid');
             if(!grid) return;
+            
+            let filtered = filterMissions(allMissions, currentSearchTerm);
+            const sorted = sortMissions(filtered, currentOrder);
+            
+            // Actualizar contador de resultados
+            const resultsCount = document.getElementById('resultsCount');
+            if (resultsCount) {
+                resultsCount.innerHTML = `📊 ${sorted.length} misión${sorted.length !== 1 ? 'es' : ''} encontrada${sorted.length !== 1 ? 's' : ''}`;
+            }
+            
             grid.innerHTML = '';
             
-            missions.forEach(mission => {
+            if (sorted.length === 0) {
+                grid.innerHTML = '<div class="loading-message">🔍 No se encontraron misiones</div>';
+                return;
+            }
+            
+            sorted.forEach(mission => {
                 const availableSpots = mission.maxParticipants - mission.participants;
                 const imagePath = `imagenes_misiones/${mission.imageFile}`;
                 const isCompleted = mission.completed === true;
@@ -1015,6 +1100,20 @@ function playPaperCrumpleSound() {
         
         let stampSoundPlayed = false;
         
+        function animateCompletionStamp(stampElement, waveElement, policeTapeElement) {
+            gsap.fromTo(stampElement, 
+                { scale: 0, rotation: 15, opacity: 0, y: -50 },
+                { scale: 1, rotation: 8, opacity: 1, y: 0, duration: 0.55, ease: "elastic.out(1, 0.5)",
+                  onStart: () => { playCompletionStampSound(); playPaperCrumpleSound(); }
+                }
+            );
+            gsap.fromTo(waveElement, { scale: 0, opacity: 0.7 }, { scale: 8, opacity: 0, duration: 0.5, ease: "power2.out" });
+            if(policeTapeElement) {
+                gsap.fromTo(policeTapeElement, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, delay: 0.2, ease: "back.out" });
+            }
+            gsap.to(stampElement, { scale: 1.03, duration: 0.08, delay: 0.5, yoyo: true, repeat: 2, ease: "power1.inOut" });
+        }
+        
         function animateFolderAndOpen(missionId, folderElement) {
             playFolderOpenSound();
             playPaperCrumpleSound();
@@ -1046,7 +1145,7 @@ function playPaperCrumpleSound() {
         }
         
         function openMissionModal(missionId) {
-            const mission = missions.find(m => m.id === missionId);
+            const mission = allMissions.find(m => m.id === missionId);
             if(!mission) return;
             const availableSpots = mission.maxParticipants - mission.participants;
             const imagePath = `imagenes_misiones/${mission.imageFile}`;
@@ -1094,12 +1193,35 @@ function playPaperCrumpleSound() {
             setTimeout(() => animateStars(mission.difficulty), 200);
         }
         
+        function openImageZoom(src) {
+            const zoomModal = document.getElementById('imageZoomModal');
+            const zoomedImg = document.getElementById('zoomedImage');
+            zoomedImg.src = src;
+            zoomModal.style.display = 'block';
+            playZoomOpenSound();
+        }
+        
         async function loadMissions() {
             try {
                 const response = await fetch('misiones.json');
                 if(!response.ok) throw new Error('No se pudo cargar el archivo JSON');
                 const data = await response.json();
-                missions = data.missions;
+                allMissions = data.missions;
+                
+                // Configurar eventos de búsqueda y orden
+                const searchInput = document.getElementById('searchInput');
+                const orderSelect = document.getElementById('orderSelect');
+                
+                searchInput.addEventListener('input', (e) => {
+                    currentSearchTerm = e.target.value;
+                    renderMissions();
+                });
+                
+                orderSelect.addEventListener('change', (e) => {
+                    currentOrder = e.target.value;
+                    renderMissions();
+                });
+                
                 renderMissions();
             } catch(error) {
                 console.error('Error cargando misiones:', error);
@@ -1125,7 +1247,7 @@ function playPaperCrumpleSound() {
         imageZoomModal.onclick = (e) => { if(e.target === imageZoomModal) imageZoomModal.style.display = 'none'; };
         
         loadMissions();
-        console.log("✨ Sonidos reutilizables sin saturación, papel arrugado añadido ✨");
+        console.log("✨ Misiones: buscador, orden por dificultad y por defecto (no completadas primero) ✨");
     })();
 </script>
 </body>
