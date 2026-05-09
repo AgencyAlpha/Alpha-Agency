@@ -433,9 +433,13 @@
         <div class="nav-links">
             <a class="nav-link active" data-page="home">🏠 HOME</a>
             <a class="nav-link" data-page="about">📖 SOBRE MÍ</a>
-            <!-- SECCIÓN POR HACER - if false para ocultar -->
+            <!-- SECCIÓN POR HACER - oculta por defecto -->
             <div id="missionsNavContainer" style="display: none;">
                 <a class="nav-link" href="misiones.html" target="_blank">🎯 POR HACER</a>
+            </div>
+            <!-- SECCIÓN ARCHIVADOS - oculta por defecto -->
+            <div id="archivadosNavContainer" style="display: none;">
+                <a class="nav-link" href="archivado.html" target="_blank">📁 ARCHIVADOS</a>
             </div>
             <a class="nav-link" data-page="contact">📧 CONTÁCTAME</a>
         </div>
@@ -567,7 +571,7 @@
                 <input type="file" id="photoUpload" accept="image/*" style="display:none;">
                 
                 <label>💬 FRASE QUE TE DEFINA (opcional, máx 60)</label>
-                <input type="text" id="regPhrase" maxlength="60" placeholder="Ej: 'Turikitakati'">
+                <input type="text" id="regPhrase" maxlength="60" placeholder="Ej: 'Siempre soñando'">
                 <div class="char-counter" id="phraseCounter">0/60</div>
                 
                 <label>🎭 DESCRÍBETE A TI MISMO * (máx 200)</label>
@@ -576,7 +580,7 @@
                 <div class="error-msg" id="descriptionError"></div>
                 
                 <label>💬 MOTIVO PARA UNIRTE A ALPHA AGENCY * (máx 300)</label>
-                <textarea id="regMotivationVisible" maxlength="300" rows="3" placeholder="¿Por qué quieres ser parte de Alpha Agency? ¿Qué puedes aportar?"></textarea>
+                <textarea id="regMotivationVisible" maxlength="300" rows="4" placeholder="¿Por qué quieres ser parte de Alpha Agency? ¿Qué puedes aportar?"></textarea>
                 <div class="char-counter" id="motivCounter">0/300</div>
                 <div class="error-msg" id="motivationError"></div>
             </div>
@@ -634,30 +638,16 @@
         });
         
         // ========== REPRODUCTOR CON ARCHIVOS LOCALES ==========
-        // Lista de canciones desde la carpeta audios/
         const playlist = [
-            { 
-                name: "🎷 TORNADO - Yuji Ohno", 
-                file: "audios/TORNADO - Yuji Ohno.mp3"
-            },
-            { 
-                name: "🚀 Head Up High - TWRP", 
-                file: "audios/Head Up High - TWRP.mp3"
-            },
-            { 
-                name: "😊 Happy Life - Omori Toshiyuki", 
-                file: "audios/Happy Life - Omori Toshiyuki.mp3"
-            },
-            { 
-                name: "✈️ Ready To Fly - Masayoshi Takanaka", 
-                file: "audios/Ready To Fly - Masayoshi Takanaka.mp3"
-            }
+            { name: "🎷 TORNADO - Yuji Ohno", file: "audios/TORNADO - Yuji Ohno.mp3" },
+            { name: "🚀 Head Up High - TWRP", file: "audios/Head Up High - TWRP.mp3" },
+            { name: "😊 Happy Life - Omori Toshiyuki", file: "audios/Happy Life - Omori Toshiyuki.mp3" },
+            { name: "✈️ Ready To Fly - Masayoshi Takanaka", file: "audios/Ready To Fly - Masayoshi Takanaka.mp3" }
         ];
         
         let currentAudio = null;
         let currentSongIndex = -1;
         let isPlaying = false;
-        
         const playPauseBtn = document.getElementById('playPauseBtn');
         
         function updateButtonText() {
@@ -665,37 +655,23 @@
         }
         
         function playSong(index) {
-            // Detener la canción actual si existe
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio = null;
-            }
-            
+            if (currentAudio) { currentAudio.pause(); currentAudio = null; }
             currentSongIndex = index;
             const song = playlist[index];
-            
-            // Actualizar UI de lista
             document.querySelectorAll('.sidebar-song-item').forEach((el, idx) => {
-                if (parseInt(el.getAttribute('data-idx')) === index) {
-                    el.classList.add('active-song');
-                } else {
-                    el.classList.remove('active-song');
-                }
+                if (parseInt(el.getAttribute('data-idx')) === index) el.classList.add('active-song');
+                else el.classList.remove('active-song');
             });
-            
             try {
                 currentAudio = new Audio(song.file);
                 currentAudio.loop = true;
                 currentAudio.volume = 0.5;
-                
-                // Manejar errores de carga de audio
                 currentAudio.onerror = function() {
                     console.error("Error al cargar el audio:", song.file);
                     showNotification(`❌ No se pudo cargar: ${song.name}`, "⚠️", true);
                     isPlaying = false;
                     updateButtonText();
                 };
-                
                 currentAudio.play().then(() => {
                     isPlaying = true;
                     updateButtonText();
@@ -703,42 +679,19 @@
                     console.log("Error reproduciendo audio:", e);
                     isPlaying = false;
                     updateButtonText();
+                    showNotification("⚠️ Haz clic en la página para activar el audio", "🔊", true);
                 });
-                
-                currentAudio.onended = () => {
-                    if (currentAudio && currentAudio.loop) {
-                        // Si está en loop, no hacer nada
-                    } else {
-                        isPlaying = false;
-                        updateButtonText();
-                    }
-                };
-            } catch(e) {
-                console.log("Error al reproducir:", e);
-                isPlaying = false;
-                updateButtonText();
-            }
+                currentAudio.onended = () => { isPlaying = false; updateButtonText(); };
+            } catch(e) { isPlaying = false; updateButtonText(); }
         }
         
         function togglePlayPause() {
             if (currentAudio) {
-                if (isPlaying) {
-                    currentAudio.pause();
-                    isPlaying = false;
-                } else {
-                    currentAudio.play().catch(e => {
-                        console.log("Error al reanudar:", e);
-                    });
-                    isPlaying = true;
-                }
+                if (isPlaying) { currentAudio.pause(); isPlaying = false; }
+                else { currentAudio.play().catch(e => showNotification("⚠️ Haz clic en la página para activar el audio", "🔊", true)); isPlaying = true; }
                 updateButtonText();
-            } else if (currentSongIndex >= 0) {
-                // Si hay una canción seleccionada pero no está cargada, cargarla
-                playSong(currentSongIndex);
-            } else {
-                // Si no hay ninguna canción seleccionada, reproducir la primera
-                playSong(0);
-            }
+            } else if (currentSongIndex >= 0) { playSong(currentSongIndex); }
+            else { playSong(0); }
         }
         
         if (playPauseBtn) playPauseBtn.onclick = togglePlayPause;
@@ -752,22 +705,14 @@
                     div.className = 'sidebar-song-item';
                     div.setAttribute('data-idx', idx);
                     div.innerHTML = `<span>${song.name}</span> <i class="fas fa-play"></i>`;
-                    div.addEventListener('click', (e) => { 
-                        playSong(idx); 
-                        playClickSound();
-                    });
+                    div.addEventListener('click', (e) => { playSong(idx); playClickSound(); });
                     div.addEventListener('mouseenter', () => playHoverSound());
                     listDiv.appendChild(div);
                 });
             }
         }
-        
         renderSongLists();
-        
-        // Reproducir la primera canción automáticamente al cargar (con pequeño retraso)
-        setTimeout(() => {
-            playSong(0);
-        }, 500);
+        setTimeout(() => { playSong(0); }, 500);
         
         // ========== ESTADO DE ÁNIMO ==========
         const moodsPorDia = {
@@ -782,14 +727,14 @@
         function getDailyMood() { const today = new Date().getDay(); return moodsPorDia[today][Math.floor(Math.random() * 3)]; }
         document.getElementById('dailyMood').innerText = getDailyMood();
         
-        // ========== CONFIGURACIÓN POR HACER ==========
-        // CAMBIA showMissions a true para mostrar la sección
-        const showMissions = false;  // <-- CAMBIA A true PARA MOSTRAR LA SECCIÓN
+        // ========== CONFIGURACIÓN SECCIONES OCULTAS ==========
+        const showMissions = false;   // Cambiar a true para mostrar "POR HACER"
+        const showArchivados = false; // Cambiar a true para mostrar "ARCHIVADOS"
         
         const missionsNavContainer = document.getElementById('missionsNavContainer');
-        if (missionsNavContainer) {
-            missionsNavContainer.style.display = showMissions ? 'block' : 'none';
-        }
+        if (missionsNavContainer) missionsNavContainer.style.display = showMissions ? 'block' : 'none';
+        const archivadosNavContainer = document.getElementById('archivadosNavContainer');
+        if (archivadosNavContainer) archivadosNavContainer.style.display = showArchivados ? 'block' : 'none';
         
         // ========== NAVEGACIÓN ==========
         const sidebar = document.getElementById('globalSidebar');
@@ -852,7 +797,6 @@
         if(descTextarea) descTextarea.addEventListener('input', () => updateCounter(descTextarea, 'descCounter', 200));
         if(motivTextarea) motivTextarea.addEventListener('input', () => updateCounter(motivTextarea, 'motivCounter', 300));
         
-        // Inicializar contadores
         if(nameInput) updateCounter(nameInput, 'nameCounter', 35);
         if(lastnameInput) updateCounter(lastnameInput, 'lastnameCounter', 35);
         if(likesInput) updateCounter(likesInput, 'likesCounter', 80);
@@ -1104,12 +1048,14 @@
             if(photoUploadInput) photoUploadInput.value = '';
         }
         
+        // ========== FUNCIONES MEJORADAS PARA LA FICHA ==========
         function truncateText(text, maxLength) { 
             if(!text) return '';
             if(text.length <= maxLength) return text; 
             return text.substring(0, maxLength - 3) + '...'; 
         }
         
+        // Función para dividir texto en líneas respetando palabras
         function wrapText(text, maxCharsPerLine) {
             if(!text) return [];
             const words = text.split(' ');
@@ -1117,13 +1063,18 @@
             let currentLine = '';
             for(let word of words) {
                 const testLine = currentLine ? currentLine + ' ' + word : word;
-                if(testLine.length <= maxCharsPerLine) { currentLine = testLine; }
-                else { if(currentLine) lines.push(currentLine); currentLine = word; }
+                if(testLine.length <= maxCharsPerLine) {
+                    currentLine = testLine;
+                } else {
+                    if(currentLine) lines.push(currentLine);
+                    currentLine = word;
+                }
             }
             if(currentLine) lines.push(currentLine);
             return lines;
         }
         
+        // Función para textos largos (Gustos, Disgustos, Hobby)
         function wrapLongText(text, maxCharsPerLine) {
             if(!text) return [''];
             if(text.length <= maxCharsPerLine) return [text];
@@ -1187,20 +1138,47 @@
             return currentY + (Math.max(1, lines.length) * 20);
         }
         
+        // Frase con comillas simples al inicio y al final
         function drawPhraseInPolaroid(ctx, phrase, centerX, y, maxWidth) {
-            const lines = wrapLongText(phrase, 30);
+            let cleanPhrase = phrase.replace(/^["']|["']$/g, '');
+            const displayPhrase = `"${cleanPhrase}"`;
+            const lines = wrapLongText(displayPhrase, 30);
             ctx.font = 'bold 16px "Montserrat", sans-serif';
             ctx.fillStyle = '#5a3e2a';
             ctx.textAlign = 'center';
             let currentY = y;
             for(let i = 0; i < lines.length && i < 3; i++) {
-                let fontSize = getOptimalFontSize(`"${lines[i]}"`, maxWidth, ctx, 16, 11);
+                let fontSize = getOptimalFontSize(lines[i], maxWidth, ctx, 16, 11);
                 ctx.font = `bold ${fontSize}px "Montserrat", sans-serif`;
-                ctx.fillText(`"${lines[i]}"`, centerX, currentY);
+                ctx.fillText(lines[i], centerX, currentY);
                 currentY += 22;
             }
             ctx.textAlign = 'left';
             return currentY;
+        }
+        
+        // FUNCIÓN MEJORADA PARA DIBUJAR EL MOTIVO - SIN LÍMITE DE CARACTERES
+        function drawMotivoCompleto(ctx, motivLines, rectX, rectY, rectWidth, rectHeight) {
+            let yMot = rectY + 85;
+            let linesDrawn = 0;
+            
+            for(let line of motivLines) {
+                if(yMot < rectY + rectHeight - 30) {
+                    let fontSize = getOptimalFontSize(`✧ ${line}`, rectWidth - 50, ctx, 15, 9);
+                    ctx.font = `${fontSize}px "Courier New", monospace`;
+                    ctx.fillStyle = '#1a1a1a';
+                    ctx.fillText(`✧ ${line}`, rectX + 20, yMot);
+                    yMot += 24;
+                    linesDrawn++;
+                }
+            }
+            
+            // Si hay más líneas y no entraron todas, añadir indicador
+            if(motivLines.length > linesDrawn && yMot < rectY + rectHeight - 30) {
+                ctx.font = '9px "Courier New", monospace';
+                ctx.fillStyle = '#888';
+                ctx.fillText(`... y ${motivLines.length - linesDrawn} líneas más`, rectX + 20, rectY + rectHeight - 20);
+            }
         }
         
         function validateForm() {
@@ -1290,26 +1268,26 @@
                 const fullName = `${name} ${lastname}`;
                 const finalImageData = uploadedImageData || window.uploadedImageData;
                 
-                if(phrase) { document.getElementById('polaroidCaption').innerHTML = `<i class="fas fa-tag"></i> "${truncateText(phrase, 50)}"`; }
-                else { document.getElementById('polaroidCaption').innerHTML = `<i class="fas fa-tag"></i> ${truncateText(personajeNombre, 50)}`; }
+                // CORREGIDO: Frase con comillas simples
+                if(phrase) { 
+                    let cleanPhrase = phrase.replace(/^["']|["']$/g, '');
+                    document.getElementById('polaroidCaption').innerHTML = `<i class="fas fa-tag"></i> "${cleanPhrase}"`; 
+                } else { 
+                    document.getElementById('polaroidCaption').innerHTML = `<i class="fas fa-tag"></i> ${truncateText(personajeNombre, 50)}`; 
+                }
                 
+                // Dividir textos correctamente
                 const descLines = wrapText(description, 50);
+                // Dividir motivación en líneas (55 caracteres por línea máximo)
                 const motivLines = wrapText(motivation, 55);
-                const likesLines = wrapLongText(likes, 45);
-                const dislikesLines = wrapLongText(dislikes, 45);
-                const hobbyLines = wrapLongText(hobby, 45);
-                const nameLines = wrapLongText(fullName, 40);
                 
-                const likesHeight = Math.max(20, likesLines.length * 18);
-                const dislikesHeight = Math.max(20, dislikesLines.length * 18);
-                const hobbyHeight = Math.max(20, hobbyLines.length * 18);
-                const nameHeight = Math.max(20, nameLines.length * 18);
-                const extraHeight = likesHeight + dislikesHeight + hobbyHeight + nameHeight - 80;
+                // Calcular alturas dinámicas
+                const descHeight = Math.max(60, Math.min(descLines.length * 26, 200));
+                // Altura del motivación: basada en líneas reales, sin límite artificial
+                const motivHeight = Math.max(160, motivLines.length * 26 + 90);
                 
-                const descHeight = Math.max(60, descLines.length * 24 + 40);
-                const motivHeight = Math.max(120, motivLines.length * 24 + 70);
-                const baseHeight = 500;
-                const canvasHeight = baseHeight + extraHeight + descHeight + motivHeight;
+                const baseHeight = 520;
+                const canvasHeight = baseHeight + descHeight + motivHeight;
                 
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
@@ -1359,7 +1337,7 @@
                     ctx.font = `${fontSize}px "Courier New", monospace`;
                     ctx.fillStyle = '#2c1c0c';
                     ctx.fillText(line, 55, currentY);
-                    currentY += 24;
+                    currentY += 26;
                 }
                 currentY += 20;
                 
@@ -1388,16 +1366,8 @@
                 ctx.lineTo(rectX + rectWidth - 15, rectY + 55);
                 ctx.stroke();
                 
-                let yMot = rectY + 85;
-                for(let line of motivLines.slice(0, 12)) {
-                    if(yMot < rectY + rectHeight - 25) {
-                        let fontSize = getOptimalFontSize(`✧ ${line}`, rectWidth - 50, ctx, 15, 10);
-                        ctx.font = `${fontSize}px "Courier New", monospace`;
-                        ctx.fillStyle = '#1a1a1a';
-                        ctx.fillText(`✧ ${line}`, rectX + 20, yMot);
-                        yMot += 24;
-                    }
-                }
+                // Dibujar el motivo completo (sin límite de caracteres)
+                drawMotivoCompleto(ctx, motivLines, rectX, rectY, rectWidth, rectHeight);
                 
                 ctx.save();
                 ctx.shadowBlur = 2;
@@ -1487,7 +1457,7 @@
         localStorage.setItem('sticky_counter', counter);
         document.getElementById('hitCounter').innerText = String(counter).padStart(6,'0');
         
-        console.log("✨ Alpha Agency - Radio con archivos locales, primera canción reproduciendo automáticamente ✨");
+        console.log("✨ Alpha Agency - Motivo sin límite de caracteres, se expande automáticamente ✨");
     })();
 </script>
 </body>
