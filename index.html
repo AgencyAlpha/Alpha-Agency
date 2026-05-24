@@ -228,6 +228,124 @@
             .form-two-columns { flex-direction: column; }
             .form-right { border-left: none; border-top: 2px dashed #d8bc8c; padding-left: 0; padding-top: 20px; margin-top: 10px; }
         }
+
+        /* ===== TABLÓN DE ANUNCIOS ===== */
+        .bulletin-board {
+            background: #8B4513;
+            background-image:
+                repeating-linear-gradient(0deg, rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 1px, transparent 1px, transparent 6px),
+                repeating-linear-gradient(90deg, rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 1px, transparent 1px, transparent 6px);
+            border: 6px ridge #5a2d00;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.4), 5px 5px 0 #3a1a00;
+            padding: 14px;
+            margin-top: 0;
+        }
+        .bulletin-header {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.6rem;
+            color: #ffefcf;
+            text-align: center;
+            margin-bottom: 14px;
+            text-shadow: 1px 1px 0 #3a1a00;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .bulletin-pin { font-size: 1rem; }
+        .bulletin-notes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .bulletin-note {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px 14px 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            box-shadow: 3px 3px 8px rgba(0,0,0,0.35);
+            position: relative;
+            transform: rotate(-1.5deg);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .bulletin-note:nth-child(2) { transform: rotate(1deg); }
+        .bulletin-note:nth-child(3) { transform: rotate(-0.5deg); }
+        .bulletin-note:hover {
+            transform: rotate(0deg) scale(1.03);
+            box-shadow: 5px 5px 14px rgba(0,0,0,0.5);
+            z-index: 2;
+        }
+        .bulletin-note::before {
+            content: '📍';
+            position: absolute;
+            top: -10px; left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+        }
+        .note-yellow { background: #fff9a0; color: #3a2800; }
+        .note-pink   { background: #ffd6e0; color: #4a1828; }
+        .note-blue   { background: #d6eaff; color: #0a2848; }
+        .note-date {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.38rem;
+            opacity: 0.6;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        /* ===== RESPONSIVE MÓVIL ===== */
+        @media (max-width: 700px) {
+            body { padding: 10px 6px; font-size: 16px; }
+            .old-container { padding: 10px 8px 18px; }
+
+            .retro-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 10px 10px;
+            }
+            .site-title { font-size: clamp(1rem, 6vw, 1.6rem); }
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 6px;
+                font-size: 1.2rem;
+                width: 100%;
+            }
+            .nav-links a { padding: 5px 9px; font-size: 1.1rem; }
+
+            .two-columns { flex-direction: column; gap: 16px; }
+            .main-content { min-width: unset; }
+            .sidebar { min-width: unset; }
+
+            .greeting-block, .info-card {
+                padding: 14px 12px;
+                margin-bottom: 18px;
+            }
+            .greeting-block h2, .info-card h2 {
+                font-size: 0.7rem;
+                padding: 6px 10px;
+            }
+            .greeting-text { font-size: 1rem; }
+
+            .modal { padding: 16px 8px; }
+            .modal-content { width: 98%; }
+            .modal-header { font-size: 0.6rem; padding: 10px; }
+            .form-two-columns { padding: 14px 10px; gap: 16px; }
+            .form-left, .form-right { min-width: unset; }
+
+            .music-player-sidebar h3 { font-size: 0.55rem; }
+            .sidebar-song-item { font-size: 0.65rem; }
+
+            .custom-notification, .custom-alert { width: 92%; max-width: unset; padding: 16px 12px; font-size: 0.6rem; }
+        }
+
+        @media (max-width: 400px) {
+            .site-title { font-size: 0.85rem; }
+            .nav-links a { font-size: 0.95rem; padding: 4px 7px; }
+        }
         .polaroid-frame {
             background: #f5f0e0;
             padding: 12px 12px 20px 12px;
@@ -388,7 +506,290 @@
             transition: opacity 0.3s;
         }
         .auto-save-indicator.show { opacity: 1; }
-        
+
+        /* ===== MEJORAS VISUALES ===== */
+
+        /* Cursor retro personalizado */
+        body { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect x='0' y='0' width='3' height='16' fill='%235a3e2a'/%3E%3Crect x='0' y='0' width='16' height='3' fill='%235a3e2a'/%3E%3C/svg%3E") 0 0, crosshair; }
+        a, button, [data-page], .nav-link, .sidebar-song-item { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Cpolygon points='2,2 14,8 8,10 6,16' fill='%235a3e2a' stroke='%23e7c8a3' stroke-width='1.5'/%3E%3C/svg%3E") 2 2, pointer; }
+
+        /* ── SCANLINE OVERLAY sobre toda la página ── */
+        body::after {
+            content: '';
+            position: fixed; inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0,0,0,0.03) 0px,
+                rgba(0,0,0,0.03) 1px,
+                transparent 1px,
+                transparent 4px
+            );
+            pointer-events: none;
+            z-index: 8000;
+        }
+
+        /* ── GRAIN TEXTURE sobre el contenedor principal ── */
+        .old-container::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 0; border-radius: 0;
+        }
+        .old-container { position: relative; }
+        .old-container > * { position: relative; z-index: 1; }
+
+        /* Nav links con underline animado */
+        .nav-links a { position: relative; overflow: hidden; transition: 0.08s linear; }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 0%; height: 2px; background: #6b2e00;
+            transition: width 0.15s ease;
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        /* ── SHIMMER DORADO en el título ── */
+        .site-title {
+            background: linear-gradient(90deg, #6b2e00 0%, #d4820a 40%, #ffcc66 50%, #d4820a 60%, #6b2e00 100%);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleShimmer 5s ease infinite;
+            filter: drop-shadow(2px 2px 0px rgba(231,200,163,0.6));
+        }
+        @keyframes titleShimmer {
+            0%   { background-position: 0%; }
+            50%  { background-position: 100%; }
+            100% { background-position: 0%; }
+        }
+
+        /* ── RETRO GLOW en el header al hover ── */
+        .retro-header {
+            transition: box-shadow 0.4s;
+        }
+        .retro-header:hover {
+            box-shadow: 0 2px 18px rgba(180, 100, 20, 0.18);
+        }
+
+        /* ── Sidebar glow + sombra interna ── */
+        .sidebar {
+            position: relative; transition: box-shadow 0.3s;
+            box-shadow: inset 2px 2px 0 rgba(255,255,255,0.5), 4px 4px 0 #c8a87c;
+        }
+        .sidebar:hover { box-shadow: inset 2px 2px 0 rgba(255,255,255,0.5), 0 0 0 2px #c28a5c, 0 0 16px rgba(194,138,92,0.3), 4px 4px 0 #c8a87c; }
+
+        /* ── Cards con entrada suave + hover lift ── */
+        .greeting-block, .info-card {
+            animation: cardFadeIn 0.4s ease-out;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .greeting-block:hover, .info-card:hover {
+            box-shadow: inset 0 0 0 1px #ffffff, 6px 6px 0 #a07040;
+            transform: translateY(-2px);
+        }
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Mood widget con pulso de fondo ── */
+        .daily-mood {
+            position: relative; overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .daily-mood:hover { transform: scale(1.01); }
+        .daily-mood::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255,180,60,0.08) 0%, transparent 70%);
+            animation: moodPulse 3s ease-in-out infinite;
+        }
+        @keyframes moodPulse { 0%,100%{opacity:0.4;transform:scale(1)} 50%{opacity:1;transform:scale(1.02)} }
+
+        /* ── Music player mejorado ── */
+        .music-player-sidebar {
+            position: relative; overflow: hidden;
+        }
+        .music-player-sidebar::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, #ff8c00, transparent);
+            animation: scanLine 3s linear infinite;
+        }
+        @keyframes scanLine { 0%{transform:scaleX(0);transform-origin:left} 50%{transform:scaleX(1)} 100%{transform:scaleX(0);transform-origin:right} }
+
+        .sidebar-song-item {
+            position: relative; overflow: hidden;
+        }
+        .sidebar-song-item::before {
+            content: ''; position: absolute; left: -100%; top: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,170,68,0.12), transparent);
+            transition: left 0.3s;
+        }
+        .sidebar-song-item:hover::before { left: 100%; }
+        .sidebar-song-item.active-song {
+            box-shadow: inset 0 0 8px rgba(255,170,68,0.2);
+        }
+
+        /* ── WIDGET ESTADO DE LA AGENCIA ── */
+        #agencyStatusWidget {
+            background: #0a0800;
+            border: 2px ridge #5a3e2a;
+            padding: 10px 12px 12px;
+            margin-bottom: 14px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 3px 3px 0 #3a2010;
+            font-family: 'Press Start 2P', monospace;
+            position: relative; overflow: hidden;
+        }
+        #agencyStatusWidget::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.12) 0px, rgba(0,0,0,0.12) 1px, transparent 1px, transparent 3px);
+            pointer-events: none;
+        }
+        .agency-status-title {
+            font-size: 0.38rem; color: #ff9900; letter-spacing: 1px;
+            text-align: center; margin-bottom: 10px;
+            text-shadow: 0 0 8px rgba(255,153,0,0.5);
+            border-bottom: 1px solid #3a2a10; padding-bottom: 8px;
+        }
+        .status-row {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 0.3rem; color: #c8a87c; margin: 5px 0;
+            letter-spacing: 0.5px;
+        }
+        .status-val { margin-left: auto; color: #ffefcf; }
+        .status-dot {
+            width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+            box-shadow: 0 0 4px currentColor;
+        }
+        .dot-green { background: #44ff88; color: #44ff88; }
+        .dot-yellow { background: #ffcc00; color: #ffcc00; }
+        .dot-red { background: #ff4444; color: #ff4444; }
+        .status-divider { border-top: 1px dashed #3a2a10; margin: 8px 0; }
+        .status-clock {
+            font-size: 1rem; color: #ff9900; text-align: center;
+            text-shadow: 0 0 10px #ff6600, 0 0 20px rgba(255,102,0,0.3);
+            letter-spacing: 3px; animation: ledFlicker 8s ease infinite;
+        }
+        .status-date {
+            font-size: 0.3rem; color: #8b6946; text-align: center;
+            margin-top: 4px; letter-spacing: 1px;
+        }
+
+        /* ── Gato clickeable easter egg ── */
+        #catEmoji {
+            display: inline-block; transition: transform 0.12s; user-select: none;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Cpolygon points='2,2 14,8 8,10 6,16' fill='%235a3e2a' stroke='%23e7c8a3' stroke-width='1.5'/%3E%3C/svg%3E") 2 2, pointer;
+        }
+        #catEmoji:hover { transform: scale(1.5) rotate(-10deg); filter: drop-shadow(0 0 4px #ffcc88); }
+        #catEmoji:active { transform: scale(0.75) rotate(15deg); }
+        #catClickIndicator {
+            position: fixed; bottom: 60px; right: 20px;
+            background: #0e0800; color: #ff9900;
+            font-family: 'Press Start 2P', monospace; font-size: 0.38rem;
+            padding: 7px 12px; border: 2px ridge #5a3e2a; z-index: 500;
+            display: none; pointer-events: none;
+            box-shadow: 0 0 10px rgba(255,100,0,0.3), 3px 3px 0 #3a2010;
+            animation: ledFlicker 4s ease infinite;
+        }
+
+        /* ── VENTANA WINDOWS 98 ── */
+        .win98-dialog-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.35);
+            z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            animation: win98FadeIn 0.12s ease-out;
+        }
+        @keyframes win98FadeIn { from{opacity:0} to{opacity:1} }
+        .win98-window {
+            background: #c0c0c0;
+            border: 3px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            box-shadow: 2px 2px 0 #000, inset 1px 1px 0 #dfdfdf;
+            min-width: 280px; max-width: 420px; width: 90%;
+            font-family: 'Courier New', monospace;
+            animation: win98Pop 0.15s ease-out;
+        }
+        @keyframes win98Pop { from{transform:scale(0.85)} to{transform:scale(1)} }
+        .win98-titlebar {
+            background: #000080;
+            color: #fff;
+            padding: 4px 6px;
+            display: flex; align-items: center; justify-content: space-between;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.38rem;
+            letter-spacing: 0.5px;
+            user-select: none;
+        }
+        .win98-controls { display: flex; gap: 2px; }
+        .win98-ctrl {
+            background: #c0c0c0; color: #000;
+            border: 2px solid; border-color: #fff #808080 #808080 #fff;
+            width: 16px; height: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: monospace; font-size: 0.65rem;
+            cursor: pointer; font-weight: bold;
+        }
+        .win98-ctrl:active { border-color: #808080 #fff #fff #808080; }
+        .win98-close-x { cursor: pointer; }
+        .win98-body {
+            padding: 18px 16px 12px;
+            display: flex; align-items: flex-start; gap: 14px;
+        }
+        .win98-icon { font-size: 2rem; flex-shrink: 0; }
+        .win98-message {
+            font-size: 0.82rem; line-height: 1.55;
+            color: #000; flex: 1;
+        }
+        .win98-footer {
+            padding: 8px 16px 12px;
+            display: flex; justify-content: center; gap: 8px;
+            border-top: 1px solid #808080;
+        }
+        .win98-btn {
+            background: #c0c0c0;
+            border: 2px solid; border-color: #fff #808080 #808080 #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem; font-weight: bold;
+            padding: 4px 20px; cursor: pointer; color: #000;
+            box-shadow: 1px 1px 0 #000;
+            min-width: 80px;
+        }
+        .win98-btn:hover { background: #d0d0d0; }
+        .win98-btn:active { border-color: #808080 #fff #fff #808080; transform: translateY(1px); }
+
+        /* ── Transición suave entre páginas ── */
+        .page { opacity: 0; display: none; }
+        .page.active-page { display: block; animation: pageFadeIn 0.28s ease-out forwards; }
+        @keyframes pageFadeIn { from{opacity:0;transform:translateY(7px)} to{opacity:1;transform:translateY(0)} }
+
+        /* ── Marquee mejorado ── */
+        marquee {
+            background: linear-gradient(90deg, #000050, #00008a, #000070, #000050);
+            background-size: 300%;
+            animation: marqueeBg 8s linear infinite;
+            border-top: 2px solid #4040cc;
+            border-bottom: 1px solid #2020aa;
+            text-shadow: 0 0 6px rgba(200,200,255,0.4);
+        }
+        @keyframes marqueeBg { 0%{background-position:0%} 100%{background-position:300%} }
+
+        /* ── Registro btn pulse ── */
+        .blink-btn {
+            position: relative; overflow: hidden;
+        }
+        .blink-btn::after {
+            content: '';
+            position: absolute; top: -50%; left: -75%;
+            width: 50%; height: 200%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transform: skewX(-20deg);
+            animation: btnShine 3s ease-in-out infinite;
+        }
+        @keyframes btnShine { 0%,70%{left:-75%} 85%{left:125%} 100%{left:125%} }
+
         .custom-alert {
             position: fixed;
             top: 50%;
@@ -425,7 +826,7 @@
 
 <div class="auto-save-indicator" id="autoSaveIndicator">💾 DATOS GUARDADOS</div>
 
-<marquee behavior="scroll" direction="left" scrollamount="3"><i class="fas fa-hand-peace"></i> ✧ ALPHA AGENCY ✧ ¡En búsqueda de miembros! <i class="fas fa-cat"></i> ✧ Yep Yep ✧</marquee>
+<marquee behavior="scroll" direction="left" scrollamount="3"><i class="fas fa-hand-peace"></i> ✧ ALPHA AGENCY ✧ ¡En búsqueda de miembros! <span id="catEmoji">🐱</span> ✧ Yep Yep ✧</marquee>
 
 <div class="old-container">
     <div class="retro-header">
@@ -433,13 +834,12 @@
         <div class="nav-links">
             <a class="nav-link active" data-page="home">🏠 HOME</a>
             <a class="nav-link" data-page="about">📖 SOBRE MÍ</a>
-            <!-- SECCIÓN POR HACER - oculta por defecto -->
-            <div id="missionsNavContainer" style="display: none;">
-                <a class="nav-link" href="misiones.html" target="_blank">🎯 POR HACER</a>
+            <!-- ocultas: desbloquear en consola con window.ALPHA_UNLOCK=true -->
+            <div id="missionsNavContainer" style="display:none;">
+                <a id="missionsLink" class="nav-link" href="login.html?dest=misiones.html">🎯 POR HACER</a>
             </div>
-            <!-- SECCIÓN ARCHIVADOS - oculta por defecto -->
-            <div id="archivadosNavContainer" style="display: none;">
-                <a class="nav-link" href="archivado.html" target="_blank">📁 ARCHIVADOS</a>
+            <div id="archivadosNavContainer" style="display:none;">
+                <a id="archivadosLink" class="nav-link" href="login.html?dest=archivado.html">📁 ARCHIVADOS</a>
             </div>
             <a class="nav-link" data-page="contact">📧 CONTÁCTAME</a>
         </div>
@@ -460,6 +860,7 @@
                         📟 Entra en "Contáctame" para registrarte ^-^
                     </div>
                 </div>
+
             </div>
 
             <div id="about-page" class="page">
@@ -496,6 +897,7 @@
         </div>
 
         <div class="sidebar" id="globalSidebar">
+
             <div class="daily-mood" id="dailyMoodWidget">
                 <i class="fas fa-sun"></i> <strong>🌙 HUMOR DEL DÍA 🌙</strong><br>
                 <div class="mood-text" id="dailyMood">cargando...</div>
@@ -590,6 +992,9 @@
         </div>
     </div>
 </div>
+
+<!-- CAT INDICATOR — debe estar antes del script para que JS lo encuentre -->
+<div id="catClickIndicator">🐱 0/5</div>
 
 <script>
     (function(){
@@ -725,15 +1130,6 @@
         };
         function getDailyMood() { const today = new Date().getDay(); return moodsPorDia[today][Math.floor(Math.random() * 3)]; }
         document.getElementById('dailyMood').innerText = getDailyMood();
-        
-        // ========== CONFIGURACIÓN SECCIONES OCULTAS ==========
-        const showMissions = false;   // Cambiar a true para mostrar "POR HACER"
-        const showArchivados = false; // Cambiar a true para mostrar "ARCHIVADOS"
-        
-        const missionsNavContainer = document.getElementById('missionsNavContainer');
-        if (missionsNavContainer) missionsNavContainer.style.display = showMissions ? 'block' : 'none';
-        const archivadosNavContainer = document.getElementById('archivadosNavContainer');
-        if (archivadosNavContainer) archivadosNavContainer.style.display = showArchivados ? 'block' : 'none';
         
         // ========== NAVEGACIÓN ==========
         const sidebar = document.getElementById('globalSidebar');
@@ -880,36 +1276,65 @@
             });
         }
         
-        function showNotification(message, icon = "📸", isError = false) {
-            const existingNotif = document.querySelector('.custom-notification');
-            if(existingNotif) existingNotif.remove();
-            const notif = document.createElement('div');
-            notif.className = 'custom-notification';
-            notif.style.border = isError ? '6px ridge #cc0000' : '6px ridge #c2a074';
-            notif.innerHTML = `<div class="notification-icon">${icon}</div><div class="notification-message">${message}</div><button class="notification-close">ACEPTAR</button>`;
-            document.body.appendChild(notif);
-            const closeBtn = notif.querySelector('.notification-close');
-            closeBtn.onclick = () => notif.remove();
-            setTimeout(() => { if(notif.parentNode) notif.remove(); }, 4000);
+        // ========== VENTANAS ESTILO WINDOWS 98 ==========
+        function showWin98Dialog({ title = 'Alpha Agency', message, icon = '💬', buttons = ['Aceptar'], onClose = null, isError = false }) {
+            const existing = document.querySelector('.win98-dialog-overlay');
+            if (existing) existing.remove();
+
+            const overlay = document.createElement('div');
+            overlay.className = 'win98-dialog-overlay';
+
+            const titleBarColor = isError ? '#800000' : '#000080';
+            const btnHtml = buttons.map((b, i) => `<button class="win98-btn" data-idx="${i}">${b}</button>`).join('');
+
+            overlay.innerHTML = `
+            <div class="win98-window">
+                <div class="win98-titlebar" style="background:${titleBarColor};">
+                    <span class="win98-title">${icon} ${title}</span>
+                    <div class="win98-controls">
+                        <span class="win98-ctrl">_</span>
+                        <span class="win98-ctrl">□</span>
+                        <span class="win98-ctrl win98-close-x">✕</span>
+                    </div>
+                </div>
+                <div class="win98-body">
+                    <div class="win98-icon">${isError ? '🚫' : icon}</div>
+                    <div class="win98-message">${message}</div>
+                </div>
+                <div class="win98-footer">${btnHtml}</div>
+            </div>`;
+
+            document.body.appendChild(overlay);
+
+            const close = () => { overlay.remove(); if (onClose) onClose(); };
+            overlay.querySelectorAll('.win98-btn').forEach(b => b.onclick = close);
+            overlay.querySelector('.win98-close-x').onclick = close;
         }
-        
+
+        function showNotification(message, icon = '📸', isError = false) {
+            showWin98Dialog({ title: isError ? 'Error — Alpha Agency' : 'Alpha Agency', message, icon, isError });
+        }
+
         function showLimitAlert(exceededFields) {
-            const existingAlert = document.querySelector('.custom-alert');
-            if(existingAlert) existingAlert.remove();
-            const alertDiv = document.createElement('div');
-            alertDiv.className = 'custom-alert';
-            let message = `⚠️ <strong>¡ATENCIÓN!</strong> ⚠️<br><br>Los siguientes campos superan el límite de caracteres permitido:<br><br><ul>`;
-            for(let field of exceededFields) message += `<li>📌 ${field}</li>`;
-            message += `</ul>Por favor, reduce el texto en estos campos antes de continuar.`;
-            alertDiv.innerHTML = `<div class="notification-icon">⚠️</div><div>${message}</div><button class="alert-close">ACEPTAR</button>`;
-            document.body.appendChild(alertDiv);
-            const closeBtn = alertDiv.querySelector('.alert-close');
-            closeBtn.onclick = () => alertDiv.remove();
+            let msg = `Los siguientes campos superan el límite de caracteres:<br><br>`;
+            msg += exceededFields.map(f => `&nbsp;&nbsp;📌 ${f}`).join('<br>');
+            msg += `<br><br>Por favor, reduce el texto antes de continuar.`;
+            showWin98Dialog({ title: '⚠️ Límite de caracteres', message: msg, icon: '⚠️', isError: true });
+        }
+
+        function showWin98Success(name) {
+            showWin98Dialog({
+                title: '✅ Registro completado',
+                message: `<strong>¡FICHA GENERADA CORRECTAMENTE!</strong><br><br>Bienvenido/a a Alpha Agency, <strong>${name}</strong>.<br><br>Tu ficha ha sido descargada. Envíala al canal correspondiente.`,
+                icon: '🎉',
+                isError: false
+            });
         }
         
         if(openBtn) openBtn.onclick = (e) => { e.preventDefault(); modal.style.display = 'block'; };
         if(closeSpan) closeSpan.onclick = () => { modal.style.display = 'none'; };
         window.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; };
+
         
         // ========== POLAROID ==========
         const polaroidFrame = document.getElementById('polaroidFrame');
@@ -1047,139 +1472,93 @@
             if(photoUploadInput) photoUploadInput.value = '';
         }
         
-        // ========== FUNCIONES MEJORADAS PARA LA FICHA ==========
-        function truncateText(text, maxLength) { 
-            if(!text) return '';
-            if(text.length <= maxLength) return text; 
-            return text.substring(0, maxLength - 3) + '...'; 
-        }
-        
-        // Función para dividir texto en líneas respetando palabras
-        function wrapText(text, maxCharsPerLine) {
+        // ========== FUNCIONES DE DIBUJO MEJORADAS (ALINEACIÓN FIJA) ==========
+        function wrapText(text, max) {
             if(!text) return [];
-            const words = text.split(' ');
-            const lines = [];
-            let currentLine = '';
-            for(let word of words) {
-                const testLine = currentLine ? currentLine + ' ' + word : word;
-                if(testLine.length <= maxCharsPerLine) {
-                    currentLine = testLine;
-                } else {
-                    if(currentLine) lines.push(currentLine);
-                    currentLine = word;
-                }
-            }
-            if(currentLine) lines.push(currentLine);
-            return lines;
+            const words = text.split(' '), lines = []; let cur = '';
+            for(let w of words) { const t = cur ? cur+' '+w : w; if(t.length <= max) cur = t; else { if(cur) lines.push(cur); cur = w; } }
+            if(cur) lines.push(cur); return lines;
         }
+        function wrapLongText(text, max) { return wrapText(text, max); }
         
-        // Función para textos largos (Gustos, Disgustos, Hobby)
-        function wrapLongText(text, maxCharsPerLine) {
-            if(!text) return [''];
-            if(text.length <= maxCharsPerLine) return [text];
-            const words = text.split(' ');
-            const lines = [];
-            let currentLine = '';
-            for(let word of words) {
-                const testLine = currentLine ? currentLine + ' ' + word : word;
-                if(testLine.length <= maxCharsPerLine) {
-                    currentLine = testLine;
-                } else {
-                    if(currentLine) lines.push(currentLine);
-                    currentLine = word;
-                }
-            }
-            if(currentLine) lines.push(currentLine);
-            return lines;
+        function getOptimalFontSize(text, maxW, ctx, maxFS, minFS=10) {
+            let fs = maxFS; ctx.font = `${fs}px "Courier New", monospace`;
+            while(ctx.measureText(text).width > maxW && fs > minFS) { fs--; ctx.font = `${fs}px "Courier New", monospace`; }
+            return fs;
         }
-        
-        function getOptimalFontSize(text, maxWidth, ctx, maxFontSize, minFontSize = 10) {
-            let fontSize = maxFontSize;
-            ctx.font = `${fontSize}px "Courier New", monospace`;
-            let textWidth = ctx.measureText(text).width;
-            while(textWidth > maxWidth && fontSize > minFontSize) {
-                fontSize -= 1;
-                ctx.font = `${fontSize}px "Courier New", monospace`;
-                textWidth = ctx.measureText(text).width;
-            }
-            return fontSize;
+
+        // Dibujar separador de sección
+        function drawSep(ctx, y, label, hMid) {
+            ctx.strokeStyle = 'rgba(180,140,80,0.35)'; ctx.lineWidth = 1.2; ctx.setLineDash([5,4]);
+            ctx.beginPath(); ctx.moveTo(30,y); ctx.lineTo(580,y); ctx.stroke(); ctx.setLineDash([]);
+            if(label) { ctx.font = 'bold 15px "Montserrat", sans-serif'; ctx.fillStyle = hMid; ctx.textAlign = 'center'; ctx.fillText('· '+label+' ·', 320, y-7); ctx.textAlign = 'left'; }
         }
-        
-        function drawMultiLineField(ctx, label, value, x, y, maxWidth, maxFontSize) {
-            const lines = wrapLongText(value, 45);
-            let currentY = y;
-            let labelFontSize = getOptimalFontSize(label, 130, ctx, maxFontSize, 12);
-            ctx.font = `${labelFontSize}px "Courier New", monospace`;
-            ctx.fillStyle = '#3b2a1f';
-            ctx.fillText(label, x, currentY);
-            let startX = x + 125;
-            for(let i = 0; i < lines.length && i < 3; i++) {
-                let fontSize = getOptimalFontSize(lines[i], maxWidth - 125, ctx, maxFontSize - 2, 10);
-                ctx.font = `${fontSize}px "Courier New", monospace`;
-                ctx.fillText(lines[i], startX, currentY + (i * 20));
-            }
-            return currentY + (Math.max(1, lines.length) * 20);
-        }
-        
-        function drawNameField(ctx, label, value, x, y, maxWidth, maxFontSize) {
-            const lines = wrapLongText(value, 40);
-            let currentY = y;
-            let labelFontSize = getOptimalFontSize(label, 130, ctx, maxFontSize, 12);
-            ctx.font = `${labelFontSize}px "Courier New", monospace`;
-            ctx.fillStyle = '#3b2a1f';
-            ctx.fillText(label, x, currentY);
-            let startX = x + 125;
-            for(let i = 0; i < lines.length && i < 2; i++) {
-                let fontSize = getOptimalFontSize(lines[i], maxWidth - 125, ctx, maxFontSize - 2, 10);
-                ctx.font = `${fontSize}px "Courier New", monospace`;
-                ctx.fillText(lines[i], startX, currentY + (i * 20));
-            }
-            return currentY + (Math.max(1, lines.length) * 20);
-        }
-        
-        // Frase con comillas simples al inicio y al final
-        function drawPhraseInPolaroid(ctx, phrase, centerX, y, maxWidth) {
-            let cleanPhrase = phrase.replace(/^["']|["']$/g, '');
-            const displayPhrase = `"${cleanPhrase}"`;
-            const lines = wrapLongText(displayPhrase, 30);
-            ctx.font = 'bold 16px "Montserrat", sans-serif';
-            ctx.fillStyle = '#5a3e2a';
-            ctx.textAlign = 'center';
-            let currentY = y;
-            for(let i = 0; i < lines.length && i < 3; i++) {
-                let fontSize = getOptimalFontSize(lines[i], maxWidth, ctx, 16, 11);
-                ctx.font = `bold ${fontSize}px "Montserrat", sans-serif`;
-                ctx.fillText(lines[i], centerX, currentY);
-                currentY += 22;
-            }
+
+        // Dibujar campo simple alineado: label a la derecha en labelRight, valor a la izquierda en valueLeft
+        function drawSimpleField(ctx, label, value, labelRight, valueLeft, y, maxValueWidth, maxFontSize) {
+            ctx.font = `bold 16px "Montserrat", sans-serif`;
+            ctx.fillStyle = '#2c1c0a';
+            ctx.textAlign = 'right';
+            ctx.fillText(label, labelRight, y);
             ctx.textAlign = 'left';
-            return currentY;
+            let fontSize = getOptimalFontSize(value, maxValueWidth, ctx, maxFontSize, 12);
+            ctx.font = `${fontSize}px "Courier New", monospace`;
+            ctx.fillStyle = '#3b2a1f';
+            ctx.fillText(value, valueLeft, y);
+            return y + 26;
         }
-        
-        // FUNCIÓN MEJORADA PARA DIBUJAR EL MOTIVO - SIN LÍMITE DE CARACTERES
-        function drawMotivoCompleto(ctx, motivLines, rectX, rectY, rectWidth, rectHeight) {
-            let yMot = rectY + 85;
-            let linesDrawn = 0;
-            
+
+        // Campo nombre (multilínea pero etiqueta fija)
+        function drawNameField(ctx, label, value, labelRight, valueLeft, y, maxValueWidth, maxFontSize) {
+            const lines = wrapLongText(value, 38);
+            let cy = y;
+            ctx.font = `bold 16px "Montserrat", sans-serif`;
+            ctx.fillStyle = '#2c1c0a';
+            ctx.textAlign = 'right';
+            ctx.fillText(label, labelRight, cy);
+            ctx.textAlign = 'left';
+            for(let i=0; i<lines.length && i<2; i++) {
+                let fs = getOptimalFontSize(lines[i], maxValueWidth, ctx, maxFontSize, 12);
+                ctx.font = `${fs}px "Courier New", monospace`;
+                ctx.fillStyle = '#3b2a1f';
+                ctx.fillText(lines[i], valueLeft, cy + i*22);
+            }
+            return cy + Math.max(1, lines.length)*22;
+        }
+
+        // Campo multilínea (Gustos, etc.)
+        function drawMultiLineField(ctx, label, value, labelRight, valueLeft, y, maxValueWidth, maxFontSize) {
+            const lines = wrapLongText(value, 42);
+            let cy = y;
+            ctx.font = `bold 16px "Montserrat", sans-serif`;
+            ctx.fillStyle = '#2c1c0a';
+            ctx.textAlign = 'right';
+            ctx.fillText(label, labelRight, cy);
+            ctx.textAlign = 'left';
+            for(let i=0; i<lines.length && i<3; i++) {
+                let fs = getOptimalFontSize(lines[i], maxValueWidth, ctx, maxFontSize, 11);
+                ctx.font = `${fs}px "Courier New", monospace`;
+                ctx.fillStyle = '#3b2a1f';
+                ctx.fillText(lines[i], valueLeft, cy + i*22);
+            }
+            return cy + Math.max(1, lines.length)*22;
+        }
+
+        function drawPhraseInPolaroid(ctx, phrase, cx, y, maxW) {
+            const clean = phrase.replace(/^["']|["']$/g, ''); const lines = wrapLongText(`"${clean}"`, 28);
+            ctx.textAlign = 'center'; let cy = y;
+            for(let line of lines.slice(0,3)) { ctx.font = `bold ${getOptimalFontSize(line,maxW,ctx,16,11)}px "Montserrat", sans-serif`; ctx.fillStyle='#5a3e2a'; ctx.fillText(line, cx, cy); cy += 24; }
+            ctx.textAlign = 'left'; return cy;
+        }
+
+        function drawMotivoCompleto(ctx, motivLines, rx, ry, rw, rh) {
+            let y = ry+90, drawn = 0;
             for(let line of motivLines) {
-                if(yMot < rectY + rectHeight - 30) {
-                    let fontSize = getOptimalFontSize(`✧ ${line}`, rectWidth - 50, ctx, 15, 9);
-                    ctx.font = `${fontSize}px "Courier New", monospace`;
-                    ctx.fillStyle = '#1a1a1a';
-                    ctx.fillText(`✧ ${line}`, rectX + 20, yMot);
-                    yMot += 24;
-                    linesDrawn++;
-                }
+                if(y < ry+rh-30) { ctx.font = `${getOptimalFontSize('✧ '+line, rw-60, ctx, 16, 10)}px "Courier New", monospace`; ctx.fillStyle='#1a1a1a'; ctx.fillText('✧ '+line, rx+24, y); y+=26; drawn++; }
             }
-            
-            // Si hay más líneas y no entraron todas, añadir indicador
-            if(motivLines.length > linesDrawn && yMot < rectY + rectHeight - 30) {
-                ctx.font = '9px "Courier New", monospace';
-                ctx.fillStyle = '#888';
-                ctx.fillText(`... y ${motivLines.length - linesDrawn} líneas más`, rectX + 20, rectY + rectHeight - 20);
-            }
+            if(motivLines.length > drawn && y < ry+rh-30) { ctx.font='10px "Courier New", monospace'; ctx.fillStyle='#888'; ctx.fillText(`... y ${motivLines.length-drawn} líneas más`, rx+24, ry+rh-22); }
         }
-        
+
         function validateForm() {
             let isValid = true;
             let exceededFields = [];
@@ -1242,7 +1621,7 @@
             
             return isValid;
         }
-        
+
         const submitBtn = document.getElementById('submitRegistration');
         if(submitBtn) {
             submitBtn.onclick = () => {
@@ -1263,201 +1642,371 @@
                 const description = document.getElementById('regDescription').value;
                 const motivation = document.getElementById('regMotivationVisible').value;
                 const phrase = document.getElementById('regPhrase').value.trim();
-                const personajeNombre = `${name} ${lastname}`;
                 const fullName = `${name} ${lastname}`;
                 const finalImageData = uploadedImageData || window.uploadedImageData;
                 
-                // CORREGIDO: Frase con comillas simples
                 if(phrase) { 
                     let cleanPhrase = phrase.replace(/^["']|["']$/g, '');
                     document.getElementById('polaroidCaption').innerHTML = `<i class="fas fa-tag"></i> "${cleanPhrase}"`; 
                 } else { 
-                    document.getElementById('polaroidCaption').innerHTML = `<i class="fas fa-tag"></i> ${truncateText(personajeNombre, 50)}`; 
+                    document.getElementById('polaroidCaption').innerHTML = `<i class="fas fa-tag"></i> ${fullName.substring(0,50)}`; 
                 }
                 
-                // Dividir textos correctamente
-                const descLines = wrapText(description, 50);
-                // Dividir motivación en líneas (55 caracteres por línea máximo)
-                const motivLines = wrapText(motivation, 55);
-                
-                // Calcular alturas dinámicas
-                const descHeight = Math.max(60, Math.min(descLines.length * 26, 200));
-                // Altura del motivación: basada en líneas reales, sin límite artificial
-                const motivHeight = Math.max(160, motivLines.length * 26 + 90);
-                
-                const baseHeight = 520;
-                const canvasHeight = baseHeight + descHeight + motivHeight;
-                
+                const descLines = wrapText(description, 48);
+                const motivLines = wrapText(motivation, 52);
+                const motivHeight = Math.max(190, motivLines.length * 28 + 110);
+
+                // Calcular dimensiones del canvas
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
                 canvas.width = 950;
-                canvas.height = canvasHeight;
-                
-                ctx.fillStyle = '#fef5e6';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.strokeStyle = '#c28a5c';
-                ctx.lineWidth = 6;
-                ctx.strokeRect(15, 15, canvas.width-30, canvas.height-30);
-                ctx.strokeStyle = '#e8c99e';
-                ctx.lineWidth = 2;
-                ctx.strokeRect(20, 20, canvas.width-40, canvas.height-40);
-                
-                ctx.font = 'bold 34px "Montserrat", "Arial Black", sans-serif';
-                ctx.fillStyle = '#2c1a0a';
-                ctx.fillText('✦ ALPHA AGENCY - FICHA OFICIAL ✦', 50, 70);
-                ctx.font = 'bold 26px "Montserrat", sans-serif';
-                ctx.fillStyle = '#5a2e14';
-                ctx.fillText('DATOS DEL ASPIRANTE', 50, 130);
-                
-                let currentY = 175;
-                currentY = drawNameField(ctx, '📛 Nombre:', fullName, 50, currentY, 550, 18);
-                currentY += 5;
-                ctx.font = `18px "Courier New", monospace`;
-                ctx.fillStyle = '#3b2a1f';
-                ctx.fillText(`🎂 Edad: ${age}`, 50, currentY);
-                currentY += 34;
-                ctx.fillText(`⚧ Género: ${gender}`, 50, currentY);
-                currentY += 34;
-                currentY = drawMultiLineField(ctx, '❤️ Gustos:', likes, 50, currentY, 550, 18);
-                currentY += 5;
-                currentY = drawMultiLineField(ctx, '💔 Disgustos:', dislikes, 50, currentY, 550, 18);
-                currentY += 5;
-                currentY = drawMultiLineField(ctx, '🎯 Hobby:', hobby, 50, currentY, 550, 18);
-                currentY += 5;
-                ctx.fillText(`💼 Ocupación: ${occupation}`, 50, currentY);
-                currentY += 40;
-                ctx.font = 'bold 22px "Montserrat", sans-serif';
-                ctx.fillStyle = '#5a2e14';
-                ctx.fillText('🎭 DESCRIPCIÓN DEL PERSONAJE', 50, currentY);
-                currentY += 35;
-                ctx.font = `14px "Courier New", monospace`;
-                for(let line of descLines.slice(0, 8)) {
-                    let fontSize = getOptimalFontSize(line, 530, ctx, 14, 10);
-                    ctx.font = `${fontSize}px "Courier New", monospace`;
-                    ctx.fillStyle = '#2c1c0c';
-                    ctx.fillText(line, 55, currentY);
-                    currentY += 26;
+
+                // Medir ancho máximo de etiquetas para alinear
+                const labels = ['📛 Nombre:', '🎂 Edad:', '⚧ Género:', '❤️ Gustos:', '💔 Disgustos:', '🎯 Hobby:', '💼 Ocupación:'];
+                ctx.font = 'bold 16px "Montserrat", sans-serif';
+                let maxLabelWidth = 0;
+                labels.forEach(l => { const w = ctx.measureText(l).width; if(w > maxLabelWidth) maxLabelWidth = w; });
+                const labelRight = 32 + maxLabelWidth + 10;
+                const valueLeft = labelRight + 15;
+                const maxValueWidth = 580 - valueLeft;
+
+                // Precalcular altura
+                function calculateTotalHeight() {
+                    let y = 122;
+                    y += 20;
+                    const nameLines = wrapLongText(fullName, 38);
+                    y += Math.max(1, nameLines.length) * 22;
+                    y += 8;
+                    y += 26;
+                    y += 6;
+                    y += 26;
+                    y += 28;
+                    y += 22;
+                    const likesLines = wrapLongText(likes, 42);
+                    y += Math.max(1, likesLines.length) * 22;
+                    y += 6;
+                    const dislikesLines = wrapLongText(dislikes, 42);
+                    y += Math.max(1, dislikesLines.length) * 22;
+                    y += 6;
+                    const hobbyLines = wrapLongText(hobby, 42);
+                    y += Math.max(1, hobbyLines.length) * 22;
+                    y += 6;
+                    y += 26;
+                    y += 30;
+                    y += 22;
+                    const descCount = Math.min(descLines.length, 8);
+                    y += descCount * 26;
+                    y += 20;
+                    return y;
                 }
-                currentY += 20;
-                
-                const rectY = currentY;
-                const rectHeight = motivHeight;
-                const rectWidth = canvas.width - 160;
-                const rectX = 80;
-                
-                ctx.shadowBlur = 4;
-                ctx.shadowColor = "rgba(0,0,0,0.15)";
-                ctx.fillStyle = '#fffef5';
-                ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
-                ctx.shadowBlur = 0;
-                ctx.strokeStyle = '#c8a87c';
-                ctx.lineWidth = 3;
-                ctx.strokeRect(rectX, rectY, rectWidth, rectHeight);
-                
-                ctx.font = 'bold 22px "Montserrat", sans-serif';
-                ctx.fillStyle = '#5a2e14';
-                ctx.fillText('💬 MOTIVO PARA UNIRME', rectX + 25, rectY + 38);
-                
-                ctx.beginPath();
-                ctx.strokeStyle = '#d8bc8c';
-                ctx.lineWidth = 1;
-                ctx.moveTo(rectX + 15, rectY + 55);
-                ctx.lineTo(rectX + rectWidth - 15, rectY + 55);
-                ctx.stroke();
-                
-                // Dibujar el motivo completo (sin límite de caracteres)
-                drawMotivoCompleto(ctx, motivLines, rectX, rectY, rectWidth, rectHeight);
-                
+                const descEndY = calculateTotalHeight();
+                const motiveY = Math.max(descEndY + 20, 560);
+                canvas.height = motiveY + motivHeight + 30;
+
+                // ========== DIBUJO ==========
+                ctx.fillStyle = '#fef5e6'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+                const stains = [
+                    {x:820,y:80,r:60,a:0.04},{x:100,y:canvas.height-120,r:80,a:0.05},
+                    {x:500,y:200,r:50,a:0.03},{x:30,y:300,r:40,a:0.04}
+                ];
+                stains.forEach(s => {
+                    const g = ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r);
+                    g.addColorStop(0,`rgba(160,100,40,${s.a})`); g.addColorStop(1,'rgba(160,100,40,0)');
+                    ctx.fillStyle = g; ctx.fillRect(0,0,canvas.width,canvas.height);
+                });
+                ctx.strokeStyle = 'rgba(180,140,80,0.06)'; ctx.lineWidth = 1;
+                for(let y=30; y<canvas.height; y+=28) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(canvas.width,y); ctx.stroke(); }
+
+                const genderColors = {
+                    'Femenino':['#6b1a3a','#a0405e','#ffe0ec'],'Masculino':['#1a3a6b','#2e5c9e','#e0ecff'],
+                    'No binario':['#3a1a6b','#6b3aa0','#ece0ff'],'Prefiero no decirlo':['#2c1a0a','#5a3e2a','#fef5e6']
+                };
+                const [hDark, hMid] = genderColors[gender] || genderColors['Prefiero no decirlo'];
+
+                // ── HEADER SIMPLIFICADO (sin fecha) ──
+                ctx.fillStyle = hDark;
+                ctx.fillRect(0, 0, canvas.width, 80);
                 ctx.save();
-                ctx.shadowBlur = 2;
-                ctx.shadowColor = "rgba(0,0,0,0.2)";
-                ctx.fillStyle = '#e8e0c8';
-                ctx.fillRect(rectX - 18, rectY + 35, 30, 45);
-                ctx.fillStyle = '#ddd5b8';
-                ctx.fillRect(rectX - 15, rectY + 38, 24, 39);
-                ctx.fillStyle = '#e8e0c8';
-                ctx.fillRect(rectX - 18, rectY + rectHeight - 80, 30, 45);
-                ctx.fillStyle = '#ddd5b8';
-                ctx.fillRect(rectX - 15, rectY + rectHeight - 77, 24, 39);
-                ctx.fillStyle = '#e8e0c8';
-                ctx.fillRect(rectX + rectWidth - 12, rectY + 35, 30, 45);
-                ctx.fillStyle = '#ddd5b8';
-                ctx.fillRect(rectX + rectWidth - 9, rectY + 38, 24, 39);
-                ctx.fillStyle = '#e8e0c8';
-                ctx.fillRect(rectX + rectWidth - 12, rectY + rectHeight - 80, 30, 45);
-                ctx.fillStyle = '#ddd5b8';
-                ctx.fillRect(rectX + rectWidth - 9, rectY + rectHeight - 77, 24, 39);
-                ctx.restore();
-                
-                if(finalImageData) {
-                    const img = new Image();
-                    img.onload = () => {
-                        ctx.fillStyle = '#faf5e8';
-                        ctx.fillRect(610, 85, 300, 380);
-                        ctx.strokeStyle = '#b88754';
-                        ctx.lineWidth = 3;
-                        ctx.strokeRect(610, 85, 300, 380);
-                        ctx.drawImage(img, 628, 103, 264, 250);
-                        
-                        if(phrase) { drawPhraseInPolaroid(ctx, phrase, 760, 390, 260); }
-                        else {
-                            let displayName = fullName.length > 32 ? fullName.substring(0, 29) + '...' : fullName;
-                            let fontSize = getOptimalFontSize(displayName, 260, ctx, 16, 12);
-                            ctx.font = `bold ${fontSize}px "Montserrat", sans-serif`;
-                            ctx.fillStyle = '#5a3e2a';
-                            ctx.textAlign = 'center';
-                            ctx.fillText(displayName, 760, 415);
-                            ctx.textAlign = 'left';
-                        }
-                        
-                        const link = document.createElement('a');
-                        link.download = `carnet_${name}_${lastname}.png`;
-                        link.href = canvas.toDataURL();
-                        link.click();
-                        showNotification(`🎉 ¡FICHA GENERADA, ${personajeNombre}! 🎉`, "📸");
-                        modal.style.display = 'none';
-                        
-                        document.getElementById('regName').value = '';
-                        document.getElementById('regLastname').value = '';
-                        document.getElementById('regAge').value = '';
-                        document.getElementById('regGender').value = '';
-                        document.getElementById('regLikes').value = '';
-                        document.getElementById('regDislikes').value = '';
-                        document.getElementById('regHobby').value = '';
-                        document.getElementById('regOccupation').value = '';
-                        document.getElementById('regDescription').value = '';
-                        document.getElementById('regMotivationVisible').value = '';
-                        document.getElementById('regPhrase').value = '';
-                        
-                        if(nameInput) updateCounter(nameInput, 'nameCounter', 35);
-                        if(lastnameInput) updateCounter(lastnameInput, 'lastnameCounter', 35);
-                        if(likesInput) updateCounter(likesInput, 'likesCounter', 80);
-                        if(dislikesInput) updateCounter(dislikesInput, 'dislikesCounter', 80);
-                        if(hobbyInput) updateCounter(hobbyInput, 'hobbyCounter', 70);
-                        if(occupationInput) updateCounter(occupationInput, 'occupationCounter', 50);
-                        if(phraseInput) updateCounter(phraseInput, 'phraseCounter', 60);
-                        if(descTextarea) updateCounter(descTextarea, 'descCounter', 200);
-                        if(motivTextarea) updateCounter(motivTextarea, 'motivCounter', 300);
-                        
-                        resetPhotoUpload();
-                        document.getElementById('polaroidCaption').innerHTML = '<i class="fas fa-tag"></i> ';
-                        localStorage.removeItem('alphaAgencyFormData');
-                    };
-                    img.src = finalImageData;
+                ctx.clip();
+                ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+                ctx.lineWidth = 8;
+                for(let x = -90; x < canvas.width + 90; x += 18) {
+                    ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x+90,80); ctx.stroke();
                 }
+                ctx.restore();
+
+                // Escudo "α"
+                ctx.fillStyle = hMid;
+                ctx.beginPath();
+                ctx.moveTo(52,12); ctx.lineTo(88,12); ctx.lineTo(92,48); ctx.lineTo(70,74); ctx.lineTo(48,48); ctx.closePath();
+                ctx.fill();
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 34px "Georgia", serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('α', 70, 54);
+                ctx.textAlign = 'left';
+
+                // Título principal
+                ctx.font = 'bold 28px "Montserrat","Arial Black",sans-serif';
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText('ALPHA AGENCY — FICHA OFICIAL', 108, 38);
+                ctx.font = '13px "Courier New",monospace';
+                ctx.fillStyle = 'rgba(255,255,255,0.7)';
+                ctx.fillText('REGISTRO DE ASPIRANTE · CLASIFICADO', 108, 60);
+
+                // Código de expediente (sin fecha)
+                const initials = (name.charAt(0)+lastname.charAt(0)).toUpperCase();
+                const hexName = fullName.split('').map(c => c.charCodeAt(0).toString(16).padStart(2,'0')).join('').substring(0,12);
+                const expNum = `${initials}-${hexName}`;
+                ctx.font = 'bold 14px "Courier New",monospace';
+                ctx.fillStyle = 'rgba(255,255,255,0.85)';
+                ctx.textAlign = 'right';
+                ctx.fillText(expNum, canvas.width - 22, 42);
+                ctx.textAlign = 'left';
+
+                // ── BORDE EXTERIOR ──
+                ctx.strokeStyle = hDark;
+                ctx.lineWidth = 6;
+                ctx.strokeRect(10, 10, canvas.width-20, canvas.height-20);
+                ctx.strokeStyle = 'rgba(180,140,80,0.4)';
+                ctx.lineWidth = 1.5;
+                ctx.strokeRect(16, 16, canvas.width-32, canvas.height-32);
+
+                // ── FOTO / POLAROID ──
+                const photoX = 615, photoY = 90, photoW = 310, photoH = 380;
+                ctx.fillStyle = '#faf5e8';
+                ctx.fillRect(photoX, photoY, photoW, photoH);
+                ctx.strokeStyle = hDark;
+                ctx.lineWidth = 3;
+                ctx.strokeRect(photoX, photoY, photoW, photoH);
+                const innerG = ctx.createLinearGradient(photoX,photoY,photoX,photoY+30);
+                innerG.addColorStop(0,'rgba(0,0,0,0.08)');
+                innerG.addColorStop(1,'rgba(0,0,0,0)');
+                ctx.fillStyle = innerG;
+                ctx.fillRect(photoX+3, photoY+3, photoW-6, 28);
+
+                const finishCard = () => {
+                    // Pie polaroid
+                    ctx.fillStyle = '#f5ede0';
+                    ctx.fillRect(photoX, photoY+photoH-64, photoW, 64);
+                    ctx.strokeStyle = 'rgba(180,140,80,0.4)';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath(); ctx.moveTo(photoX+10,photoY+photoH-64); ctx.lineTo(photoX+photoW-10,photoY+photoH-64); ctx.stroke();
+                    if(phrase) {
+                        drawPhraseInPolaroid(ctx, phrase, photoX+photoW/2, photoY+photoH-46, photoW-20);
+                    } else {
+                        let dn = fullName.length>32?fullName.substring(0,29)+'...':fullName;
+                        ctx.font = `bold ${getOptimalFontSize(dn,photoW-20,ctx,16,12)}px "Montserrat"`;
+                        ctx.fillStyle = '#5a3e2a';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(dn, photoX+photoW/2, photoY+photoH-30);
+                        ctx.textAlign = 'left';
+                    }
+
+                    // Código de barras
+                    const bcX = photoX+10, bcY = photoY+photoH+16, bcW = photoW-20, bcH = 38;
+                    ctx.fillStyle = '#fff';
+                    ctx.fillRect(bcX-2, bcY-2, bcW+4, bcH+4);
+                    ctx.strokeStyle = 'rgba(180,140,80,0.3)';
+                    ctx.lineWidth = 1;
+                    ctx.strokeRect(bcX-2, bcY-2, bcW+4, bcH+4);
+                    const nameForBarcode = fullName.replace(/\s/g,'');
+                    const bits = [1,1,0,1,0,0,1,0];
+                    for(let ch of nameForBarcode) { const code = ch.charCodeAt(0); for(let b=7; b>=0; b--) bits.push((code>>b)&1); }
+                    bits.push(1,1,0,1,0,0,1,0);
+                    const barW = Math.max(1, Math.floor(bcW / bits.length));
+                    let xPos = bcX;
+                    for(let bit of bits) { if(bit) { ctx.fillStyle='#1a1a1a'; ctx.fillRect(xPos, bcY, barW, bcH); } xPos += barW; if(xPos > bcX+bcW-barW) break; }
+                    ctx.font = '9px "Courier New"';
+                    ctx.fillStyle = '#666';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(expNum, photoX+photoW/2, bcY+bcH+14);
+                    ctx.textAlign = 'left';
+
+                    // Datos personales alineados
+                    let yPos = 106;
+                    drawSep(ctx, yPos, 'IDENTIFICACIÓN', hMid); yPos += 20;
+                    yPos = drawNameField(ctx, '📛 Nombre:', fullName, labelRight, valueLeft, yPos, maxValueWidth, 19);
+                    yPos += 8;
+                    yPos = drawSimpleField(ctx, '🎂 Edad:', String(age), labelRight, valueLeft, yPos, maxValueWidth, 19);
+                    yPos += 6;
+                    yPos = drawSimpleField(ctx, '⚧ Género:', gender, labelRight, valueLeft, yPos, maxValueWidth, 19);
+                    yPos += 28;
+
+                    drawSep(ctx, yPos, 'PERFIL PERSONAL', hMid); yPos += 22;
+                    yPos = drawMultiLineField(ctx, '❤️ Gustos:', likes, labelRight, valueLeft, yPos, maxValueWidth, 19);
+                    yPos += 6;
+                    yPos = drawMultiLineField(ctx, '💔 Disgustos:', dislikes, labelRight, valueLeft, yPos, maxValueWidth, 19);
+                    yPos += 6;
+                    yPos = drawMultiLineField(ctx, '🎯 Hobby:', hobby, labelRight, valueLeft, yPos, maxValueWidth, 19);
+                    yPos += 6;
+                    yPos = drawSimpleField(ctx, '💼 Ocupación:', occupation, labelRight, valueLeft, yPos, maxValueWidth, 19);
+                    yPos += 30;
+
+                    drawSep(ctx, yPos, 'DESCRIPCIÓN', hMid); yPos += 22;
+                    for(let line of descLines.slice(0,8)) {
+                        ctx.font = `${getOptimalFontSize(line,530,ctx,16,11)}px "Courier New", monospace`;
+                        ctx.fillStyle = '#2c1c0c';
+                        ctx.fillText(line, 38, yPos);
+                        yPos += 26;
+                    }
+                    yPos += 20;
+
+                    // Motivo
+                    const rectX = 32, rectW = canvas.width-80;
+                    ctx.shadowBlur = 5;
+                    ctx.shadowColor = 'rgba(0,0,0,0.12)';
+                    ctx.fillStyle = '#fffef5';
+                    ctx.fillRect(rectX, motiveY, rectW, motivHeight);
+                    ctx.shadowBlur = 0;
+                    ctx.strokeStyle = hMid;
+                    ctx.lineWidth = 2.5;
+                    ctx.strokeRect(rectX, motiveY, rectW, motivHeight);
+                    ctx.fillStyle = hDark;
+                    ctx.fillRect(rectX, motiveY, rectW, 40);
+                    ctx.font = 'bold 18px "Montserrat"';
+                    ctx.fillStyle = '#fff';
+                    ctx.fillText('💬 MOTIVO PARA UNIRME A ALPHA AGENCY', rectX+18, motiveY+28);
+                    drawMotivoCompleto(ctx, motivLines, rectX, motiveY, rectW, motivHeight);
+
+                    // Sello
+                    const sealX = rectX + rectW - 90, sealY = motiveY + motivHeight - 40;
+                    ctx.save();
+                    ctx.translate(sealX, sealY);
+                    ctx.rotate(Math.PI/6);
+                    ctx.globalAlpha = 0.25;
+                    ctx.strokeStyle = '#8b0000';
+                    ctx.lineWidth = 5;
+                    ctx.strokeRect(-60, -25, 120, 50);
+                    ctx.font = 'bold 20px "Press Start 2P"';
+                    ctx.fillStyle = '#8b0000';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('ASPIRANTE', 0, 8);
+                    ctx.globalAlpha = 1;
+                    ctx.restore();
+
+                    // Pie
+                    ctx.fillStyle = hDark;
+                    ctx.fillRect(0, canvas.height-30, canvas.width, 30);
+                    ctx.font = '12px "Courier New"';
+                    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+                    ctx.fillText('ALPHA AGENCY © — DOCUMENTO OFICIAL — USO INTERNO', 22, canvas.height-11);
+                    ctx.textAlign = 'right';
+                    ctx.fillText(expNum, canvas.width-22, canvas.height-11);
+                    ctx.textAlign = 'left';
+
+                    const link = document.createElement('a');
+                    link.download = `carnet_${name}_${lastname}.png`;
+                    link.href = canvas.toDataURL();
+                    link.click();
+                    showWin98Success(fullName);
+                    modal.style.display = 'none';
+                    ['regName','regLastname','regAge','regGender','regLikes','regDislikes','regHobby','regOccupation','regDescription','regMotivationVisible','regPhrase'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+                    [['nameCounter',35],['lastnameCounter',35],['likesCounter',80],['dislikesCounter',80],['hobbyCounter',70],['occupationCounter',50],['phraseCounter',60],['descCounter',200],['motivCounter',300]].forEach(([id,max]) => { const el=document.getElementById(id); if(el) el.textContent=`0/${max}`; });
+                    resetPhotoUpload();
+                    document.getElementById('polaroidCaption').innerHTML='<i class="fas fa-tag"></i> ';
+                    localStorage.removeItem('alphaAgencyFormData');
+                };
+
+                if(finalImageData) { const img = new Image(); img.onload = () => { ctx.drawImage(img, photoX+16, photoY+16, photoW-32, photoH-80); finishCard(); }; img.src = finalImageData; }
+                else finishCard();
             };
         }
         
         loadFormData();
+
+        // ========== RELOJ EN TIEMPO REAL ==========
+        function updateClock() {
+            const now = new Date();
+            const hh = String(now.getHours()).padStart(2,'0');
+            const mm = String(now.getMinutes()).padStart(2,'0');
+            const ss = String(now.getSeconds()).padStart(2,'0');
+            const cl = document.getElementById('statusClock');
+            if (cl) cl.textContent = `${hh}:${mm}:${ss}`;
+            const days = ['DOM','LUN','MAR','MIÉ','JUE','VIE','SÁB'];
+            const months = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+            const dt = document.getElementById('statusDate');
+            if (dt) dt.textContent = `${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // Contar misiones activas del JSON
+        fetch('misiones.json').then(r=>r.json()).then(data=>{
+            const active = (data.missions||[]).filter(m=>!m.completed).length;
+            const el = document.getElementById('activeMissionCount');
+            if(el) el.textContent = active;
+        }).catch(()=>{});
         
-        let counter = localStorage.getItem('sticky_counter');
-        if(!counter) counter = 8193;
-        else counter = parseInt(counter)+1;
-        localStorage.setItem('sticky_counter', counter);
-        document.getElementById('hitCounter').innerText = String(counter).padStart(6,'0');
-        
-        console.log("✨ Alpha Agency - Motivo sin límite de caracteres, se expande automáticamente ✨");
+        // ========== UNLOCK PERSISTENTE ==========
+        const UNLOCK_KEY = 'alphaAgency_unlocked';
+
+        function applyUnlock(unlocked) {
+            ['missionsNavContainer','archivadosNavContainer'].forEach(id => {
+                const c = document.getElementById(id);
+                if (!c) return;
+                const link = c.querySelector('.nav-link');
+                if (unlocked) {
+                    c.classList.remove('nav-locked');
+                    if (link) { link.classList.remove('nav-locked-link'); link.style.pointerEvents = ''; link.style.opacity = ''; link.style.filter = ''; }
+                } else {
+                    c.classList.add('nav-locked');
+                    if (link) { link.classList.add('nav-locked-link'); link.style.pointerEvents = 'none'; link.style.opacity = '0.75'; link.style.filter = 'blur(0.3px)'; }
+                }
+            });
+        }
+
+        if (localStorage.getItem(UNLOCK_KEY) === 'true') {
+            applyUnlock(true);
+            console.log('%c🔓 Secciones desbloqueadas (sesión previa)', 'color:#2a6b2a;font-family:monospace;font-size:11px;');
+        }
+
+        Object.defineProperty(window, 'ALPHA_UNLOCK', {
+            set: function(val) {
+                if (val === true) {
+                    localStorage.setItem(UNLOCK_KEY, 'true');
+                    applyUnlock(true);
+                    console.log('%c✅ DESBLOQUEADO — persistirá hasta que pongas window.ALPHA_UNLOCK = false', 'color:#2a6b2a;font-family:"Press Start 2P",monospace;font-size:11px;font-weight:bold;background:#f0fff4;padding:4px 8px;');
+                } else if (val === false) {
+                    localStorage.removeItem(UNLOCK_KEY);
+                    applyUnlock(false);
+                    console.log('%c🔒 BLOQUEADO de nuevo.', 'color:#8b0000;font-family:monospace;font-size:11px;');
+                }
+            },
+            get: function() { return localStorage.getItem(UNLOCK_KEY) === 'true'; },
+            configurable: true
+        });
+
+        console.log('%c🔒 ALPHA AGENCY', 'color:#8b0000;font-family:"Press Start 2P",monospace;font-size:14px;');
+        console.log('%cSi puedes leer esto, ya sabes lo que tienes que hacer.', 'color:#8b6946;font-family:monospace;font-size:11px;font-style:italic;');
+
+        // ========== EASTER EGG: TETRIS (5 clicks al gato) ==========
+        let catClicks = 0;
+        let catTimer = null;
+        const catEmoji = document.getElementById('catEmoji');
+        const catIndicator = document.getElementById('catClickIndicator');
+
+        if (catEmoji) {
+            catEmoji.addEventListener('click', function(e) {
+                e.stopPropagation();
+                catClicks++;
+                clearTimeout(catTimer);
+                if (catClicks >= 5) {
+                    catClicks = 0;
+                    catIndicator.style.display = 'none';
+                    window.location.href = 'tetris.html';
+                } else {
+                    catIndicator.textContent = '🐱 ' + catClicks + '/5';
+                    catIndicator.style.display = 'block';
+                    catTimer = setTimeout(() => {
+                        catClicks = 0;
+                        catIndicator.style.display = 'none';
+                    }, 3000);
+                }
+            });
+        }
     })();
 </script>
+
 </body>
 </html>
