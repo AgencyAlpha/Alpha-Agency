@@ -319,16 +319,58 @@
             font-size: 0.8rem;
             color: #8b6946;
         }
-        .no-results {
-            text-align: center;
-            padding: 40px;
-            font-family: 'Courier New', monospace;
-            font-size: 1rem;
-            color: #8b6946;
+        /* ===== RESPONSIVE MÓVIL ===== */
+        @media (max-width: 700px) {
+            body { padding: 8px 4px; font-size: 16px; }
+            .old-container { padding: 10px 8px 18px; }
+            .retro-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                padding: 10px;
+            }
+            .site-title { font-size: clamp(1rem, 6vw, 1.6rem); }
+            .back-link { font-size: 1rem; padding: 5px 10px; }
+
+            .archive-section { padding: 12px 10px; }
+            .archive-section h2 { font-size: 0.7rem; padding: 6px 10px; }
+
+            .cards-grid { grid-template-columns: 1fr; gap: 18px; }
+            .id-card { flex-direction: column; align-items: center; text-align: center; }
+            .card-photo { flex: none; width: 80px; }
+            .card-photo img { max-width: 80px; }
+            .card-info { font-size: 0.75rem; }
+            .card-info p { justify-content: center; }
+
+            .controls { flex-direction: column; gap: 10px; }
+            .search-box { min-width: unset; }
+            .order-box { flex-wrap: wrap; }
+            .order-box select { flex: 1; }
+
+            .modal-card { width: 96%; padding: 14px; }
+        }
+
+        @media (max-width: 400px) {
+            .cards-grid { gap: 12px; }
         }
     </style>
 </head>
 <body>
+
+<!-- PROTECCIÓN DE SESIÓN -->
+<script>
+    (function(){
+        const STORAGE_KEY = 'alphaAgency_session';
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) { window.location.replace('login.html?dest=archivado.html'); }
+            else {
+                const s = JSON.parse(raw);
+                if (!s || !s.nombre) window.location.replace('login.html?dest=archivado.html');
+            }
+        } catch(e) { window.location.replace('login.html?dest=archivado.html'); }
+    })();
+</script>
 
 <marquee behavior="scroll" direction="left" scrollamount="3"><i class="fas fa-archive"></i> ✧ ALPHA AGENCY - ARCHIVOS DE PERSONAJES ✧ fichas confidenciales ✧ <i class="fas fa-id-card"></i></marquee>
 
@@ -336,8 +378,7 @@
     <div class="retro-header">
         <div class="site-title"><i class="fas fa-archive"></i> ALPHA AGENCY</div>
         <a href="index.html" class="back-link">← VOLVER AL INICIO</a>
-    </div>
-    <div class="archive-section">
+        <button onclick="localStorage.removeItem('alphaAgency_session'); window.location.href='login.html';" style="background:#5a3e2a;border:2px outset #8b6946;color:#ffefcf;font-family:'Press Start 2P',monospace;font-size:0.45rem;padding:6px 10px;cursor:pointer;">🔓 CERRAR SESIÓN</button>
         <h2><i class="fas fa-id-card"></i> 📁 ARCHIVOS CONFIDENCIALES</h2>
         <div class="controls">
             <div class="search-box">
