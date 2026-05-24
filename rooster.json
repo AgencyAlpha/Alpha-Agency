@@ -1,0 +1,34 @@
+{
+    "agentes": [
+        {
+            "id": 1,
+            "nombre": "Agente Phantom",
+            "password": "phantom123",
+            "foto": "imagenes_rooster/preba.png"
+        },
+        {
+            "id": 2,
+            "nombre": "Agente Nox",
+            "password": "nox456",
+            "foto": "imagenes_rooster/nox.webp"
+        },
+        {
+            "id": 3,
+            "nombre": "Agente Luna",
+            "password": "luna789",
+            "foto": "imagenes_rooster/luna.webp"
+        },
+        {
+            "id": 4,
+            "nombre": "Agente Cósmica",
+            "password": "cosmica000",
+            "foto": "imagenes_rooster/cosmica.webp"
+        },
+        {
+            "id": 5,
+            "nombre": "Agente Eclipse",
+            "password": "eclipse321",
+            "foto": "imagenes_rooster/eclipse.webp"
+        }
+    ]
+}

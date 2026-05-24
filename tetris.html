@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐱 ALPHA AGENCY · SECTOR SECRETO</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:#0a0800;
+  background-image:repeating-linear-gradient(0deg,rgba(0,255,80,0.03) 0px,rgba(0,255,80,0.03) 1px,transparent 1px,transparent 4px);
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+  font-family:'Press Start 2P',monospace;
+  color:#39ff14;
+  padding:16px 8px 24px;
+}
+body::after{
+  content:'';position:fixed;inset:0;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,0.06) 0px,rgba(0,0,0,0.06) 1px,transparent 1px,transparent 4px);
+  pointer-events:none;z-index:1000;
+}
+
+/* HEADER */
+.secret-header{
+  text-align:center;margin-bottom:18px;
+}
+.secret-title{
+  font-size:clamp(0.7rem,3.5vw,1.1rem);
+  color:#39ff14;
+  text-shadow:0 0 12px #39ff14,0 0 24px rgba(57,255,20,0.4);
+  letter-spacing:2px;
+  animation:glow 2s ease-in-out infinite;
+}
+@keyframes glow{0%,100%{text-shadow:0 0 8px #39ff14}50%{text-shadow:0 0 20px #39ff14,0 0 40px rgba(57,255,20,0.5)}}
+.secret-sub{
+  font-size:0.35rem;color:#888;margin-top:8px;letter-spacing:1px;
+}
+
+/* LAYOUT */
+.game-layout{
+  display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;justify-content:center;
+}
+
+/* CANVAS */
+.canvas-wrap{
+  border:3px solid #39ff14;
+  box-shadow:0 0 20px rgba(57,255,20,0.3),inset 0 0 10px rgba(57,255,20,0.05);
+  position:relative;
+}
+#tetrisCanvas{display:block;background:#050500;}
+
+/* PANEL DERECHO */
+.side-panel{
+  display:flex;flex-direction:column;gap:14px;min-width:140px;
+}
+.panel-box{
+  border:2px solid #39ff14;
+  padding:10px 12px;
+  box-shadow:0 0 8px rgba(57,255,20,0.2);
+  background:#050500;
+}
+.panel-label{
+  font-size:0.3rem;color:#888;letter-spacing:1px;margin-bottom:6px;
+}
+.panel-value{
+  font-size:1.1rem;color:#ffcc00;
+  text-shadow:0 0 8px #ffcc00;
+  letter-spacing:2px;
+}
+.next-label{font-size:0.3rem;color:#888;letter-spacing:1px;margin-bottom:8px;}
+#nextCanvas{display:block;background:#050500;margin:0 auto;}
+
+/* CONTROLES */
+.controls-info{
+  font-size:0.28rem;color:#555;line-height:2;letter-spacing:0.5px;
+}
+.ctrl-key{
+  display:inline-block;
+  border:1px solid #444;padding:1px 4px;
+  color:#39ff14;background:#111;font-size:0.28rem;
+}
+
+/* BOTÓN MENÚ */
+.menu-btn{
+  margin-top:16px;
+  background:#000;
+  border:2px solid #ff4444;
+  color:#ff4444;
+  font-family:'Press Start 2P',monospace;
+  font-size:0.4rem;
+  padding:8px 18px;
+  cursor:pointer;
+  letter-spacing:1px;
+  box-shadow:0 0 8px rgba(255,68,68,0.3);
+  transition:0.08s;
+}
+.menu-btn:hover{background:#1a0000;box-shadow:0 0 16px rgba(255,68,68,0.5);}
+
+/* GAME OVER / PAUSA texto */
+.overlay-text{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  pointer-events:none;
+}
+.overlay-text .big{font-size:clamp(0.6rem,3vw,0.9rem);color:#ff4444;text-shadow:0 0 14px #ff4444;}
+.overlay-text .small{font-size:0.32rem;color:#888;margin-top:8px;}
+
+/* WINDOWS 98 DIALOG */
+.win98-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.6);
+  z-index:9999;display:none;align-items:center;justify-content:center;
+}
+.win98-overlay.active{display:flex;animation:wFadeIn 0.15s ease-out;}
+@keyframes wFadeIn{from{opacity:0}to{opacity:1}}
+.win98-win{
+  background:#c0c0c0;
+  border:3px solid;border-color:#ffffff #808080 #808080 #ffffff;
+  box-shadow:2px 2px 0 #000,inset 1px 1px 0 #dfdfdf;
+  min-width:300px;max-width:380px;width:90%;
+  animation:wPop 0.18s ease-out;
+}
+@keyframes wPop{from{transform:scale(0.8)}to{transform:scale(1)}}
+.win98-tb{
+  background:#000080;color:#fff;
+  padding:4px 6px;
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:'Press Start 2P',monospace;font-size:0.38rem;
+  user-select:none;
+}
+.win98-x{
+  background:#c0c0c0;color:#000;
+  border:2px solid;border-color:#fff #808080 #808080 #fff;
+  width:16px;height:14px;display:flex;align-items:center;justify-content:center;
+  font-weight:bold;cursor:pointer;font-size:0.7rem;
+}
+.win98-body{padding:20px 18px 14px;display:flex;gap:14px;align-items:flex-start;}
+.win98-ico{font-size:2.2rem;flex-shrink:0;}
+.win98-msg{font-family:'Courier New',monospace;font-size:0.8rem;line-height:1.6;color:#000;}
+.win98-footer{
+  padding:8px 16px 12px;
+  display:flex;justify-content:center;gap:10px;
+  border-top:1px solid #808080;
+}
+.win98-btn{
+  background:#c0c0c0;
+  border:2px solid;border-color:#fff #808080 #808080 #fff;
+  font-family:'Courier New',monospace;font-size:0.8rem;font-weight:bold;
+  padding:4px 24px;cursor:pointer;color:#000;
+  box-shadow:1px 1px 0 #000;min-width:90px;
+}
+.win98-btn:active{border-color:#808080 #fff #fff #808080;transform:translateY(1px);}
+
+@media(max-width:480px){
+  .side-panel{flex-direction:row;flex-wrap:wrap;min-width:unset;width:100%;gap:8px;}
+  .panel-box{flex:1;min-width:100px;}
+}
+</style>
+</head>
+<body>
+
+<div class="secret-header">
+  <div class="secret-title">🐱 SECTOR SECRETO · ALPHA AGENCY</div>
+  <div class="secret-sub">encontraste algo que no debías ver...</div>
+</div>
+
+<div class="game-layout">
+  <div class="canvas-wrap" id="canvasWrap">
+    <canvas id="tetrisCanvas" width="200" height="400"></canvas>
+    <div class="overlay-text" id="overlayText" style="display:none;">
+      <div class="big" id="overlayBig"></div>
+      <div class="small" id="overlaySub"></div>
+    </div>
+  </div>
+
+  <div class="side-panel">
+    <div class="panel-box">
+      <div class="panel-label">PUNTOS</div>
+      <div class="panel-value" id="scoreDisplay">0</div>
+    </div>
+    <div class="panel-box">
+      <div class="panel-label">NIVEL</div>
+      <div class="panel-value" id="levelDisplay">1</div>
+    </div>
+    <div class="panel-box">
+      <div class="panel-label">LÍNEAS</div>
+      <div class="panel-value" id="linesDisplay">0</div>
+    </div>
+    <div class="panel-box">
+      <div class="next-label">SIGUIENTE</div>
+      <canvas id="nextCanvas" width="80" height="80"></canvas>
+    </div>
+    <div class="panel-box">
+      <div class="controls-info">
+        <span class="ctrl-key">←→</span> mover<br>
+        <span class="ctrl-key">↑</span> rotar<br>
+        <span class="ctrl-key">↓</span> bajar<br>
+        <span class="ctrl-key">SPC</span> caída<br>
+        <span class="ctrl-key">P</span> pausa
+      </div>
+    </div>
+    <button class="menu-btn" onclick="window.location.href='index.html'">← VOLVER AL MENÚ</button>
+  </div>
+</div>
+
+<!-- WINDOWS 98: 3000 pts -->
+<div class="win98-overlay" id="maoDialog">
+  <div class="win98-win">
+    <div class="win98-tb">
+      <span>📺 Alpha Agency — Mensaje Importante</span>
+      <div class="win98-x" id="maoX">✕</div>
+    </div>
+    <div class="win98-body">
+      <div class="win98-ico">📺</div>
+      <div class="win98-msg">
+        <strong>¡BUEN TRABAJO, AGENTE!</strong><br><br>
+        Has demostrado suficiente concentración.<br><br>
+        Vuelve a echarle un ojo al<br><strong>video de Mao</strong> cuando puedas.<br><br>
+        Está en el canal correspondiente de Discord.
+      </div>
+    </div>
+    <div class="win98-footer">
+      <button class="win98-btn" id="maoOk">Entendido</button>
+      <button class="win98-btn" onclick="window.location.href='index.html'">Ir al menú</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('tetrisCanvas');
+const ctx = canvas.getContext('2d');
+const nextCanvas = document.getElementById('nextCanvas');
+const nctx = nextCanvas.getContext('2d');
+
+const COLS = 10, ROWS = 20, BLOCK = 20;
+canvas.width = COLS * BLOCK;
+canvas.height = ROWS * BLOCK;
+
+const COLORS = ['','#ff4444','#44aaff','#ffcc00','#44ff88','#ff88ff','#ff8844','#88aaff'];
+
+const SHAPES = [
+  [],
+  [[1,1,1,1]],              // I
+  [[2,2],[2,2]],            // O
+  [[0,3,0],[3,3,3]],        // T
+  [[4,0],[4,0],[4,4]],      // L
+  [[0,5],[0,5],[5,5]],      // J
+  [[6,6,0],[0,6,6]],        // S
+  [[0,7,7],[7,7,0]]         // Z
+];
+
+let board, score, level, lines, piece, nextPiece, gameOver, paused, running, dropInterval, lastTime, maoShown;
+
+function initGame() {
+  board = Array.from({length:ROWS}, () => Array(COLS).fill(0));
+  score = 0; level = 1; lines = 0;
+  gameOver = false; paused = false; running = true; maoShown = false;
+  dropInterval = 800;
+  lastTime = 0;
+  updateHUD();
+  nextPiece = randomPiece();
+  spawnPiece();
+  hideOverlay();
+  requestAnimationFrame(loop);
+}
+
+function randomPiece() {
+  const type = Math.floor(Math.random() * 7) + 1;
+  const shape = SHAPES[type].map(r => [...r]);
+  return { type, shape, x: Math.floor(COLS/2) - Math.floor(shape[0].length/2), y: 0 };
+}
+
+function spawnPiece() {
+  piece = nextPiece;
+  piece.x = Math.floor(COLS/2) - Math.floor(piece.shape[0].length/2);
+  piece.y = 0;
+  nextPiece = randomPiece();
+  drawNext();
+  if (collides(piece, 0, 0)) { gameOver = true; running = false; showOverlay('GAME OVER', 'Pulsa R para reiniciar'); }
+}
+
+function collides(p, dx, dy, shape) {
+  shape = shape || p.shape;
+  for (let r = 0; r < shape.length; r++) {
+    for (let c = 0; c < shape[r].length; c++) {
+      if (!shape[r][c]) continue;
+      const nx = p.x + c + dx, ny = p.y + r + dy;
+      if (nx < 0 || nx >= COLS || ny >= ROWS) return true;
+      if (ny >= 0 && board[ny][nx]) return true;
+    }
+  }
+  return false;
+}
+
+function rotate(shape) {
+  return shape[0].map((_,c) => shape.map(r => r[c]).reverse());
+}
+
+function lockPiece() {
+  piece.shape.forEach((row, r) => row.forEach((v, c) => {
+    if (v && piece.y + r >= 0) board[piece.y + r][piece.x + c] = piece.type;
+  }));
+  clearLines();
+  spawnPiece();
+}
+
+function clearLines() {
+  let cleared = 0;
+  for (let r = ROWS - 1; r >= 0; r--) {
+    if (board[r].every(v => v)) {
+      board.splice(r, 1);
+      board.unshift(Array(COLS).fill(0));
+      cleared++; r++;
+    }
+  }
+  if (cleared) {
+    const pts = [0,100,300,500,800][cleared] * level;
+    score += pts; lines += cleared;
+    level = Math.floor(lines / 10) + 1;
+    dropInterval = Math.max(100, 800 - (level - 1) * 70);
+    updateHUD();
+    if (score >= 3000 && !maoShown) { maoShown = true; showMaoDialog(); }
+  }
+}
+
+function updateHUD() {
+  document.getElementById('scoreDisplay').textContent = score;
+  document.getElementById('levelDisplay').textContent = level;
+  document.getElementById('linesDisplay').textContent = lines;
+}
+
+function draw() {
+  ctx.fillStyle = '#050500';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Grid sutil
+  ctx.strokeStyle = 'rgba(57,255,20,0.05)';
+  ctx.lineWidth = 0.5;
+  for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+    ctx.strokeRect(c * BLOCK, r * BLOCK, BLOCK, BLOCK);
+  }
+
+  // Board
+  board.forEach((row, r) => row.forEach((v, c) => {
+    if (v) drawBlock(ctx, c, r, COLORS[v]);
+  }));
+
+  // Ghost piece
+  if (piece && !gameOver) {
+    let ghostY = 0;
+    while (!collides(piece, 0, ghostY + 1)) ghostY++;
+    piece.shape.forEach((row, r) => row.forEach((v, c) => {
+      if (v) {
+        ctx.fillStyle = 'rgba(57,255,20,0.12)';
+        ctx.fillRect((piece.x + c) * BLOCK + 1, (piece.y + r + ghostY) * BLOCK + 1, BLOCK - 2, BLOCK - 2);
+      }
+    }));
+
+    // Active piece
+    piece.shape.forEach((row, r) => row.forEach((v, c) => {
+      if (v) drawBlock(ctx, piece.x + c, piece.y + r, COLORS[piece.type]);
+    }));
+  }
+}
+
+function drawBlock(c2d, x, y, color) {
+  c2d.fillStyle = color;
+  c2d.fillRect(x * BLOCK + 1, y * BLOCK + 1, BLOCK - 2, BLOCK - 2);
+  c2d.fillStyle = 'rgba(255,255,255,0.2)';
+  c2d.fillRect(x * BLOCK + 1, y * BLOCK + 1, BLOCK - 2, 4);
+  c2d.fillStyle = 'rgba(0,0,0,0.25)';
+  c2d.fillRect(x * BLOCK + 1, y * BLOCK + BLOCK - 5, BLOCK - 2, 4);
+}
+
+function drawNext() {
+  nctx.fillStyle = '#050500';
+  nctx.fillRect(0, 0, nextCanvas.width, nextCanvas.height);
+  if (!nextPiece) return;
+  const B = 14;
+  const ox = Math.floor((nextCanvas.width - nextPiece.shape[0].length * B) / 2);
+  const oy = Math.floor((nextCanvas.height - nextPiece.shape.length * B) / 2);
+  nextPiece.shape.forEach((row, r) => row.forEach((v, c) => {
+    if (v) {
+      nctx.fillStyle = COLORS[nextPiece.type];
+      nctx.fillRect(ox + c * B + 1, oy + r * B + 1, B - 2, B - 2);
+      nctx.fillStyle = 'rgba(255,255,255,0.2)';
+      nctx.fillRect(ox + c * B + 1, oy + r * B + 1, B - 2, 3);
+    }
+  }));
+}
+
+let dropAcc = 0;
+function loop(ts) {
+  if (!running) return;
+  if (paused) { requestAnimationFrame(loop); return; }
+  const dt = ts - lastTime; lastTime = ts;
+  dropAcc += dt;
+  if (dropAcc >= dropInterval) { dropAcc = 0; drop(); }
+  draw();
+  requestAnimationFrame(loop);
+}
+
+function drop() {
+  if (!collides(piece, 0, 1)) { piece.y++; }
+  else { lockPiece(); }
+}
+
+function showOverlay(big, sub) {
+  document.getElementById('overlayText').style.display = 'block';
+  document.getElementById('overlayBig').textContent = big;
+  document.getElementById('overlaySub').textContent = sub;
+}
+function hideOverlay() { document.getElementById('overlayText').style.display = 'none'; }
+
+function showMaoDialog() {
+  document.getElementById('maoDialog').classList.add('active');
+}
+
+document.getElementById('maoOk').onclick = () => {
+  document.getElementById('maoDialog').classList.remove('active');
+};
+document.getElementById('maoX').onclick = () => {
+  document.getElementById('maoDialog').classList.remove('active');
+};
+
+// CONTROLES TECLADO
+document.addEventListener('keydown', e => {
+  if (gameOver) { if (e.key === 'r' || e.key === 'R') initGame(); return; }
+  if (e.key === 'p' || e.key === 'P') {
+    paused = !paused;
+    if (paused) showOverlay('PAUSA','P para continuar');
+    else hideOverlay();
+    return;
+  }
+  if (paused) return;
+  switch(e.key) {
+    case 'ArrowLeft':  if (!collides(piece,-1,0)) piece.x--; break;
+    case 'ArrowRight': if (!collides(piece, 1,0)) piece.x++; break;
+    case 'ArrowDown':  e.preventDefault(); if (!collides(piece,0,1)) piece.y++; else lockPiece(); break;
+    case 'ArrowUp': {
+      const r = rotate(piece.shape);
+      if (!collides(piece,0,0,r)) piece.shape = r;
+      break;
+    }
+    case ' ': {
+      e.preventDefault();
+      while (!collides(piece,0,1)) piece.y++;
+      lockPiece();
+      break;
+    }
+  }
+});
+
+// CONTROLES TÁCTILES
+let touchStartX = 0, touchStartY = 0;
+canvas.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}, {passive:true});
+canvas.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  const adx = Math.abs(dx), ady = Math.abs(dy);
+  if (adx < 10 && ady < 10) { // tap → rotar
+    const r = rotate(piece.shape);
+    if (!collides(piece,0,0,r)) piece.shape = r;
+  } else if (adx > ady) {
+    if (dx > 0) { if (!collides(piece,1,0)) piece.x++; }
+    else         { if (!collides(piece,-1,0)) piece.x--; }
+  } else {
+    if (dy > 30) { while (!collides(piece,0,1)) piece.y++; lockPiece(); }
+  }
+}, {passive:true});
+
+initGame();
+</script>
+</body>
+</html>
