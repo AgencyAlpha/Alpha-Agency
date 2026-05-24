@@ -806,16 +806,68 @@
             font-size: 0.7rem;
         }
         
-        .loading-message {
-            text-align: center;
-            padding: 40px;
-            font-family: 'Press Start 2P', monospace;
-            font-size: 0.8rem;
-            color: #8b6946;
+        /* ===== RESPONSIVE MÓVIL ===== */
+        @media (max-width: 700px) {
+            body { padding: 8px 4px; }
+            .old-container { padding: 10px 8px 18px; }
+            .retro-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                padding: 10px;
+            }
+            .site-title { font-size: clamp(1rem, 6vw, 1.6rem); }
+            .back-link { font-size: 1rem; padding: 5px 10px; }
+
+            .missions-section { padding: 12px 10px; }
+            .missions-section h2 { font-size: 0.7rem; padding: 6px 10px; }
+
+            .folders-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 20px;
+            }
+            .folder-wrapper { width: 150px; height: 130px; }
+            .folder-body { height: 108px; }
+            .folder-name { font-size: 0.65rem; }
+            .folder-reward { font-size: 0.55rem; }
+            .hanging-polaroid { top: 8px; left: 8px; }
+            .polaroid-frame { width: 50px; height: 50px; }
+            .polaroid-frame img { width: 42px; height: 42px; }
+
+            .controls-bar { flex-direction: column; align-items: stretch; gap: 10px; padding: 10px; }
+            .search-box input { width: 100%; }
+            .order-box { justify-content: space-between; }
+            .order-box select { flex: 1; }
+
+            .paper-modal { min-width: unset; width: 95vw; }
+            .paper-content { flex-direction: column; padding: 14px; gap: 14px; align-items: center; }
+            .paper-image-area { width: 140px; }
+            .paper-info { min-width: unset; }
+        }
+
+        @media (max-width: 400px) {
+            .folders-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+            .folder-wrapper { width: 130px; height: 115px; }
+            .folder-body { height: 95px; }
         }
     </style>
 </head>
 <body>
+
+<!-- PROTECCIÓN DE SESIÓN -->
+<script>
+    (function(){
+        const STORAGE_KEY = 'alphaAgency_session';
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) { window.location.replace('login.html?dest=misiones.html'); }
+            else {
+                const s = JSON.parse(raw);
+                if (!s || !s.nombre) window.location.replace('login.html?dest=misiones.html');
+            }
+        } catch(e) { window.location.replace('login.html?dest=misiones.html'); }
+    })();
+</script>
 
 <marquee behavior="scroll" direction="left" scrollamount="3"><i class="fas fa-folder-open"></i> ✧ ALPHA AGENCY - EXPEDIENTES DE MISIONES ✧ abre las carpetas para ver los detalles ✧ <i class="fas fa-stamp"></i></marquee>
 
@@ -825,6 +877,7 @@
             <i class="fas fa-folder-open"></i> ALPHA AGENCY
         </div>
         <a href="index.html" class="back-link">← VOLVER AL INICIO</a>
+        <button onclick="localStorage.removeItem('alphaAgency_session'); window.location.href='login.html';" style="background:#5a3e2a;border:2px outset #8b6946;color:#ffefcf;font-family:'Press Start 2P',monospace;font-size:0.45rem;padding:6px 10px;cursor:pointer;">🔓 CERRAR SESIÓN</button>
     </div>
 
     <div class="missions-section">
