@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>✨ ALPHA AGENCY · rincón noventero ✨</title>
+    <title>✨ ALPHA AGENCY ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Georgia&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -834,7 +834,6 @@
         <div class="nav-links">
             <a class="nav-link active" data-page="home">🏠 HOME</a>
             <a class="nav-link" data-page="about">📖 SOBRE MÍ</a>
-            <!-- ocultas: desbloquear en consola con window.ALPHA_UNLOCK=true -->
             <div id="missionsNavContainer" style="display:none;">
                 <a id="missionsLink" class="nav-link" href="login.html?dest=misiones.html">🎯 POR HACER</a>
             </div>
@@ -1046,7 +1045,7 @@
         const playlist = [
             { name: "🎷 TORNADO - Yuji Ohno", file: "audios/TORNADO - Yuji Ohno.mp3" },
             { name: "🚀 Head Up High - TWRP", file: "audios/Head Up High - TWRP.mp3" },
-            { name: "😊 Happy Life - Omori Toshiyuki", file: "audios/Happy Life - Omori Toshiyuki.mp3" },
+            { name: "😊 Twist And Shout - Beattles", file: "audios/Twist And Shout - Beattles.mp3" },
             { name: "✈️ Ready To Fly - Masayoshi Takanaka", file: "audios/Ready To Fly - Masayoshi Takanaka.mp3" }
         ];
         
@@ -1335,7 +1334,7 @@
         if(closeSpan) closeSpan.onclick = () => { modal.style.display = 'none'; };
         window.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; };
 
-        
+            
         // ========== POLAROID ==========
         const polaroidFrame = document.getElementById('polaroidFrame');
         const photoUploadInput = document.getElementById('photoUpload');
@@ -1723,93 +1722,45 @@
                 };
                 const [hDark, hMid] = genderColors[gender] || genderColors['Prefiero no decirlo'];
 
-                // ── HEADER SIMPLIFICADO (sin fecha) ──
-                ctx.fillStyle = hDark;
-                ctx.fillRect(0, 0, canvas.width, 80);
-                ctx.save();
-                ctx.clip();
-                ctx.strokeStyle = 'rgba(255,255,255,0.04)';
-                ctx.lineWidth = 8;
-                for(let x = -90; x < canvas.width + 90; x += 18) {
-                    ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x+90,80); ctx.stroke();
-                }
-                ctx.restore();
+                // Header
+                ctx.fillStyle = hDark; ctx.fillRect(0,0,canvas.width,96);
+                ctx.save(); ctx.clip(); ctx.strokeStyle = 'rgba(255,255,255,0.04)'; ctx.lineWidth=8;
+                for(let x=-90; x<canvas.width+90; x+=18) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x+90,96); ctx.stroke(); } ctx.restore();
+                ctx.fillStyle = hMid; ctx.beginPath(); ctx.moveTo(52,14); ctx.lineTo(90,14); ctx.lineTo(94,54); ctx.lineTo(71,84); ctx.lineTo(48,54); ctx.closePath(); ctx.fill();
+                ctx.fillStyle='#fff'; ctx.font='bold 38px "Georgia"'; ctx.textAlign='center'; ctx.fillText('α',71,62); ctx.textAlign='left';
+                ctx.font='bold 30px "Montserrat","Arial Black"'; ctx.fillStyle='#fff'; ctx.fillText('ALPHA AGENCY — FICHA OFICIAL',110,46);
+                ctx.font='15px "Courier New"'; ctx.fillStyle='rgba(255,255,255,0.7)'; ctx.fillText('REGISTRO DE ASPIRANTE · CLASIFICADO',110,74);
 
-                // Escudo "α"
-                ctx.fillStyle = hMid;
-                ctx.beginPath();
-                ctx.moveTo(52,12); ctx.lineTo(88,12); ctx.lineTo(92,48); ctx.lineTo(70,74); ctx.lineTo(48,48); ctx.closePath();
-                ctx.fill();
-                ctx.fillStyle = '#fff';
-                ctx.font = 'bold 34px "Georgia", serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('α', 70, 54);
-                ctx.textAlign = 'left';
-
-                // Título principal
-                ctx.font = 'bold 28px "Montserrat","Arial Black",sans-serif';
-                ctx.fillStyle = '#ffffff';
-                ctx.fillText('ALPHA AGENCY — FICHA OFICIAL', 108, 38);
-                ctx.font = '13px "Courier New",monospace';
-                ctx.fillStyle = 'rgba(255,255,255,0.7)';
-                ctx.fillText('REGISTRO DE ASPIRANTE · CLASIFICADO', 108, 60);
-
-                // Código de expediente (sin fecha)
                 const initials = (name.charAt(0)+lastname.charAt(0)).toUpperCase();
                 const hexName = fullName.split('').map(c => c.charCodeAt(0).toString(16).padStart(2,'0')).join('').substring(0,12);
                 const expNum = `${initials}-${hexName}`;
-                ctx.font = 'bold 14px "Courier New",monospace';
-                ctx.fillStyle = 'rgba(255,255,255,0.85)';
-                ctx.textAlign = 'right';
-                ctx.fillText(expNum, canvas.width - 22, 42);
-                ctx.textAlign = 'left';
+                ctx.font='bold 14px "Courier New"'; ctx.fillStyle='rgba(255,255,255,0.85)'; ctx.textAlign='right';
+                ctx.fillText(expNum, canvas.width-22,38); ctx.fillText(new Date().toLocaleDateString('es-ES'), canvas.width-22,64); ctx.textAlign='left';
 
-                // ── BORDE EXTERIOR ──
-                ctx.strokeStyle = hDark;
-                ctx.lineWidth = 6;
-                ctx.strokeRect(10, 10, canvas.width-20, canvas.height-20);
-                ctx.strokeStyle = 'rgba(180,140,80,0.4)';
-                ctx.lineWidth = 1.5;
-                ctx.strokeRect(16, 16, canvas.width-32, canvas.height-32);
+                ctx.strokeStyle = hDark; ctx.lineWidth=6; ctx.strokeRect(10,10,canvas.width-20,canvas.height-20);
+                ctx.strokeStyle='rgba(180,140,80,0.4)'; ctx.lineWidth=1.5; ctx.strokeRect(16,16,canvas.width-32,canvas.height-32);
 
-                // ── FOTO / POLAROID ──
-                const photoX = 615, photoY = 90, photoW = 310, photoH = 380;
-                ctx.fillStyle = '#faf5e8';
-                ctx.fillRect(photoX, photoY, photoW, photoH);
-                ctx.strokeStyle = hDark;
-                ctx.lineWidth = 3;
-                ctx.strokeRect(photoX, photoY, photoW, photoH);
-                const innerG = ctx.createLinearGradient(photoX,photoY,photoX,photoY+30);
-                innerG.addColorStop(0,'rgba(0,0,0,0.08)');
-                innerG.addColorStop(1,'rgba(0,0,0,0)');
-                ctx.fillStyle = innerG;
-                ctx.fillRect(photoX+3, photoY+3, photoW-6, 28);
+                const photoX=615, photoY=106, photoW=310, photoH=380;
+                ctx.fillStyle='#faf5e8'; ctx.fillRect(photoX,photoY,photoW,photoH);
+                ctx.strokeStyle=hDark; ctx.lineWidth=3; ctx.strokeRect(photoX,photoY,photoW,photoH);
+                const innerG = ctx.createLinearGradient(photoX,photoY,photoX,photoY+30); innerG.addColorStop(0,'rgba(0,0,0,0.08)'); innerG.addColorStop(1,'rgba(0,0,0,0)');
+                ctx.fillStyle=innerG; ctx.fillRect(photoX+3,photoY+3,photoW-6,28);
 
                 const finishCard = () => {
                     // Pie polaroid
-                    ctx.fillStyle = '#f5ede0';
-                    ctx.fillRect(photoX, photoY+photoH-64, photoW, 64);
-                    ctx.strokeStyle = 'rgba(180,140,80,0.4)';
-                    ctx.lineWidth = 1;
-                    ctx.beginPath(); ctx.moveTo(photoX+10,photoY+photoH-64); ctx.lineTo(photoX+photoW-10,photoY+photoH-64); ctx.stroke();
-                    if(phrase) {
-                        drawPhraseInPolaroid(ctx, phrase, photoX+photoW/2, photoY+photoH-46, photoW-20);
-                    } else {
+                    ctx.fillStyle='#f5ede0'; ctx.fillRect(photoX, photoY+photoH-64, photoW, 64);
+                    ctx.strokeStyle='rgba(180,140,80,0.4)'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(photoX+10,photoY+photoH-64); ctx.lineTo(photoX+photoW-10,photoY+photoH-64); ctx.stroke();
+                    if(phrase) drawPhraseInPolaroid(ctx, phrase, photoX+photoW/2, photoY+photoH-46, photoW-20);
+                    else {
                         let dn = fullName.length>32?fullName.substring(0,29)+'...':fullName;
-                        ctx.font = `bold ${getOptimalFontSize(dn,photoW-20,ctx,16,12)}px "Montserrat"`;
-                        ctx.fillStyle = '#5a3e2a';
-                        ctx.textAlign = 'center';
-                        ctx.fillText(dn, photoX+photoW/2, photoY+photoH-30);
-                        ctx.textAlign = 'left';
+                        ctx.font = `bold ${getOptimalFontSize(dn,photoW-20,ctx,16,12)}px "Montserrat"`; ctx.fillStyle='#5a3e2a'; ctx.textAlign='center';
+                        ctx.fillText(dn, photoX+photoW/2, photoY+photoH-30); ctx.textAlign='left';
                     }
 
                     // Código de barras
-                    const bcX = photoX+10, bcY = photoY+photoH+16, bcW = photoW-20, bcH = 38;
-                    ctx.fillStyle = '#fff';
-                    ctx.fillRect(bcX-2, bcY-2, bcW+4, bcH+4);
-                    ctx.strokeStyle = 'rgba(180,140,80,0.3)';
-                    ctx.lineWidth = 1;
-                    ctx.strokeRect(bcX-2, bcY-2, bcW+4, bcH+4);
+                    const bcX=photoX+10, bcY=photoY+photoH+16, bcW=photoW-20, bcH=38;
+                    ctx.fillStyle='#fff'; ctx.fillRect(bcX-2,bcY-2,bcW+4,bcH+4);
+                    ctx.strokeStyle='rgba(180,140,80,0.3)'; ctx.lineWidth=1; ctx.strokeRect(bcX-2,bcY-2,bcW+4,bcH+4);
                     const nameForBarcode = fullName.replace(/\s/g,'');
                     const bits = [1,1,0,1,0,0,1,0];
                     for(let ch of nameForBarcode) { const code = ch.charCodeAt(0); for(let b=7; b>=0; b--) bits.push((code>>b)&1); }
@@ -1817,14 +1768,10 @@
                     const barW = Math.max(1, Math.floor(bcW / bits.length));
                     let xPos = bcX;
                     for(let bit of bits) { if(bit) { ctx.fillStyle='#1a1a1a'; ctx.fillRect(xPos, bcY, barW, bcH); } xPos += barW; if(xPos > bcX+bcW-barW) break; }
-                    ctx.font = '9px "Courier New"';
-                    ctx.fillStyle = '#666';
-                    ctx.textAlign = 'center';
-                    ctx.fillText(expNum, photoX+photoW/2, bcY+bcH+14);
-                    ctx.textAlign = 'left';
+                    ctx.font='9px "Courier New"'; ctx.fillStyle='#666'; ctx.textAlign='center'; ctx.fillText(expNum, photoX+photoW/2, bcY+bcH+14); ctx.textAlign='left';
 
                     // Datos personales alineados
-                    let yPos = 106;
+                    let yPos = 122;
                     drawSep(ctx, yPos, 'IDENTIFICACIÓN', hMid); yPos += 20;
                     yPos = drawNameField(ctx, '📛 Nombre:', fullName, labelRight, valueLeft, yPos, maxValueWidth, 19);
                     yPos += 8;
@@ -1845,60 +1792,38 @@
 
                     drawSep(ctx, yPos, 'DESCRIPCIÓN', hMid); yPos += 22;
                     for(let line of descLines.slice(0,8)) {
-                        ctx.font = `${getOptimalFontSize(line,530,ctx,16,11)}px "Courier New", monospace`;
-                        ctx.fillStyle = '#2c1c0c';
-                        ctx.fillText(line, 38, yPos);
-                        yPos += 26;
+                        ctx.font = `${getOptimalFontSize(line,530,ctx,16,11)}px "Courier New", monospace`; ctx.fillStyle='#2c1c0c';
+                        ctx.fillText(line, 38, yPos); yPos += 26;
                     }
                     yPos += 20;
 
                     // Motivo
                     const rectX = 32, rectW = canvas.width-80;
-                    ctx.shadowBlur = 5;
-                    ctx.shadowColor = 'rgba(0,0,0,0.12)';
-                    ctx.fillStyle = '#fffef5';
-                    ctx.fillRect(rectX, motiveY, rectW, motivHeight);
-                    ctx.shadowBlur = 0;
-                    ctx.strokeStyle = hMid;
-                    ctx.lineWidth = 2.5;
-                    ctx.strokeRect(rectX, motiveY, rectW, motivHeight);
-                    ctx.fillStyle = hDark;
-                    ctx.fillRect(rectX, motiveY, rectW, 40);
-                    ctx.font = 'bold 18px "Montserrat"';
-                    ctx.fillStyle = '#fff';
+                    ctx.shadowBlur=5; ctx.shadowColor='rgba(0,0,0,0.12)';
+                    ctx.fillStyle='#fffef5'; ctx.fillRect(rectX, motiveY, rectW, motivHeight);
+                    ctx.shadowBlur=0;
+                    ctx.strokeStyle=hMid; ctx.lineWidth=2.5; ctx.strokeRect(rectX, motiveY, rectW, motivHeight);
+                    ctx.fillStyle=hDark; ctx.fillRect(rectX, motiveY, rectW, 40);
+                    ctx.font='bold 18px "Montserrat"'; ctx.fillStyle='#fff';
                     ctx.fillText('💬 MOTIVO PARA UNIRME A ALPHA AGENCY', rectX+18, motiveY+28);
                     drawMotivoCompleto(ctx, motivLines, rectX, motiveY, rectW, motivHeight);
 
                     // Sello
                     const sealX = rectX + rectW - 90, sealY = motiveY + motivHeight - 40;
-                    ctx.save();
-                    ctx.translate(sealX, sealY);
-                    ctx.rotate(Math.PI/6);
-                    ctx.globalAlpha = 0.25;
-                    ctx.strokeStyle = '#8b0000';
-                    ctx.lineWidth = 5;
-                    ctx.strokeRect(-60, -25, 120, 50);
-                    ctx.font = 'bold 20px "Press Start 2P"';
-                    ctx.fillStyle = '#8b0000';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('ASPIRANTE', 0, 8);
-                    ctx.globalAlpha = 1;
-                    ctx.restore();
+                    ctx.save(); ctx.translate(sealX, sealY); ctx.rotate(Math.PI/6); ctx.globalAlpha = 0.25;
+                    ctx.strokeStyle='#8b0000'; ctx.lineWidth=5; ctx.strokeRect(-60,-25,120,50);
+                    ctx.font='bold 20px "Press Start 2P"'; ctx.fillStyle='#8b0000'; ctx.textAlign='center'; ctx.fillText('ASPIRANTE',0,8);
+                    ctx.globalAlpha=1; ctx.restore();
 
                     // Pie
-                    ctx.fillStyle = hDark;
-                    ctx.fillRect(0, canvas.height-30, canvas.width, 30);
-                    ctx.font = '12px "Courier New"';
-                    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+                    ctx.fillStyle = hDark; ctx.fillRect(0, canvas.height-30, canvas.width, 30);
+                    ctx.font='12px "Courier New"'; ctx.fillStyle='rgba(255,255,255,0.7)';
                     ctx.fillText('ALPHA AGENCY © — DOCUMENTO OFICIAL — USO INTERNO', 22, canvas.height-11);
-                    ctx.textAlign = 'right';
-                    ctx.fillText(expNum, canvas.width-22, canvas.height-11);
-                    ctx.textAlign = 'left';
+                    ctx.textAlign='right'; ctx.fillText(expNum, canvas.width-22, canvas.height-11); ctx.textAlign='left';
 
                     const link = document.createElement('a');
                     link.download = `carnet_${name}_${lastname}.png`;
-                    link.href = canvas.toDataURL();
-                    link.click();
+                    link.href = canvas.toDataURL(); link.click();
                     showWin98Success(fullName);
                     modal.style.display = 'none';
                     ['regName','regLastname','regAge','regGender','regLikes','regDislikes','regHobby','regOccupation','regDescription','regMotivationVisible','regPhrase'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
@@ -1938,49 +1863,69 @@
             if(el) el.textContent = active;
         }).catch(()=>{});
         
-        // ========== UNLOCK PERSISTENTE ==========
+        // ========== UNLOCK PERSISTENTE CORREGIDO ==========
         const UNLOCK_KEY = 'alphaAgency_unlocked';
 
         function applyUnlock(unlocked) {
-            ['missionsNavContainer','archivadosNavContainer'].forEach(id => {
-                const c = document.getElementById(id);
-                if (!c) return;
-                const link = c.querySelector('.nav-link');
-                if (unlocked) {
-                    c.classList.remove('nav-locked');
-                    if (link) { link.classList.remove('nav-locked-link'); link.style.pointerEvents = ''; link.style.opacity = ''; link.style.filter = ''; }
-                } else {
-                    c.classList.add('nav-locked');
-                    if (link) { link.classList.add('nav-locked-link'); link.style.pointerEvents = 'none'; link.style.opacity = '0.75'; link.style.filter = 'blur(0.3px)'; }
+            const missionsContainer = document.getElementById('missionsNavContainer');
+            const archivadosContainer = document.getElementById('archivadosNavContainer');
+            const missionsLink = document.getElementById('missionsLink');
+            const archivadosLink = document.getElementById('archivadosLink');
+            
+            if (unlocked) {
+                // MOSTRAR las secciones
+                if (missionsContainer) {
+                    missionsContainer.style.display = 'block';
+                    if (missionsLink) {
+                        missionsLink.style.pointerEvents = 'auto';
+                        missionsLink.style.opacity = '1';
+                        missionsLink.style.filter = 'none';
+                    }
                 }
-            });
+                if (archivadosContainer) {
+                    archivadosContainer.style.display = 'block';
+                    if (archivadosLink) {
+                        archivadosLink.style.pointerEvents = 'auto';
+                        archivadosLink.style.opacity = '1';
+                        archivadosLink.style.filter = 'none';
+                    }
+                }
+                console.log('%c✅ SECCIONES DESBLOQUEADAS — "POR HACER" y "ARCHIVADOS" visibles', 'color:#2a6b2a;font-family:"Press Start 2P",monospace;font-size:10px;background:#f0fff4;padding:4px 8px;');
+            } else {
+                // OCULTAR las secciones
+                if (missionsContainer) missionsContainer.style.display = 'none';
+                if (archivadosContainer) archivadosContainer.style.display = 'none';
+                console.log('%c🔒 SECCIONES BLOQUEADAS', 'color:#8b0000;font-family:monospace;font-size:11px;');
+            }
         }
 
+        // Verificar si ya estaba desbloqueado antes
         if (localStorage.getItem(UNLOCK_KEY) === 'true') {
             applyUnlock(true);
-            console.log('%c🔓 Secciones desbloqueadas (sesión previa)', 'color:#2a6b2a;font-family:monospace;font-size:11px;');
         }
 
+        // Definir la propiedad con getter/setter CORRECTOS
         Object.defineProperty(window, 'ALPHA_UNLOCK', {
             set: function(val) {
                 if (val === true) {
                     localStorage.setItem(UNLOCK_KEY, 'true');
                     applyUnlock(true);
-                    console.log('%c✅ DESBLOQUEADO — persistirá hasta que pongas window.ALPHA_UNLOCK = false', 'color:#2a6b2a;font-family:"Press Start 2P",monospace;font-size:11px;font-weight:bold;background:#f0fff4;padding:4px 8px;');
+                    console.log('%c🔓 ALPHA_UNLOCK = true — ¡Secciones desbloqueadas!', 'color:#2a6b2a;font-family:"Press Start 2P",monospace;font-size:11px;font-weight:bold;background:#f0fff4;padding:4px 8px;');
                 } else if (val === false) {
                     localStorage.removeItem(UNLOCK_KEY);
                     applyUnlock(false);
-                    console.log('%c🔒 BLOQUEADO de nuevo.', 'color:#8b0000;font-family:monospace;font-size:11px;');
+                    console.log('%c🔒 ALPHA_UNLOCK = false — Secciones bloqueadas.', 'color:#8b0000;font-family:monospace;font-size:11px;');
                 }
             },
-            get: function() { return localStorage.getItem(UNLOCK_KEY) === 'true'; },
+            get: function() { 
+                return localStorage.getItem(UNLOCK_KEY) === 'true';
+            },
             configurable: true
         });
 
         console.log('%c🔒 ALPHA AGENCY', 'color:#8b0000;font-family:"Press Start 2P",monospace;font-size:14px;');
-        console.log('%cSi puedes leer esto, ya sabes lo que tienes que hacer.', 'color:#8b6946;font-family:monospace;font-size:11px;font-style:italic;');
+        console.log('%cSi puedes leer esto, ya sabes que hacer', 'color:#8b6946;font-family:monospace;font-size:11px;font-style:italic;');
 
-        // ========== EASTER EGG: TETRIS (5 clicks al gato) ==========
         let catClicks = 0;
         let catTimer = null;
         const catEmoji = document.getElementById('catEmoji');
