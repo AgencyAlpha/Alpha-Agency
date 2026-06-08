@@ -1,0 +1,44 @@
+{
+  "posts": [
+    {
+      "id": 5,
+      "title": "De paseo con Noah",
+      "tag": "",
+      "cover": "",
+      "excerpt": "El dia sin retorno",
+      "content": "<p>Desde hace unas semanas estuvimos discutiendo sobre un tema. Noah es demasiado flojo con su pelo, por naturaleza lo tiene muy largo y revuelto en una jungla gigante de pelo. Comiendo junto a Noah y Bazett, esta le propuso quitarse de problemas y ser una persona decente por una vez, si se hacia una permanente de alisado todos sus problemas se irian...¿Verdad?</p> <br> <p>El dia de la cita llego, me había despertado tarde y cuando sali corriendo a ver que sucedio con el, Noah estaba bastante tranquilo para mi sorpresa, estaba hablando con las señoras de la manera mas tranquila posible mientras bebia cafe, casi parecian familia...</p> <br> <p>Cuando llego el momento de la permanente, Noah se puso un poco nervioso, pero se dejo hacer todo el proceso sin quejarse, incluso se quedo dormido en la silla de la peluqueria, lo cual me parecio bastante raro, pero bueno, cada quien con sus cosas...</p> <br> <p>Varias mujeres me terminaron preguntando cual era mi hijo y porque me quedaba esperando, normalmente era una peluquería conocida por cortar mas que nada niños...Y al tonto de Noah, al final solo apuntaba a Noah y se empezaban a reir de como a veces se quedaba dormido</p>"
+    },
+      {
+        "id": 4,
+        "title": "Un día con Bazett",
+        "tag": "",
+        "cover": "",
+        "excerpt": "¿Alguna vez te has preguntado cómo es un día típico para una persona tan seria?",
+        "content": "<p>Hoy decidi ir a pasear con Bazett. Era un día bastante tranquilo, nos sentamos en el parque y charlamos sobre cosas de la vida. Le estuve planteando una idea que lleva en mi mente desde hace mucho, un sitio donde todos la gente con pulso anomalo pueda convivir de manera tranquila. Ella dijo que era mucho problema para algo que al final deberia terminarse regularizando. Estuvimos comprandole algo de ropa a Bazett con todo mi esfuerzo, ella tiende a no llevar ropa nada femenina y utilizar siempre traje I_I'' </p> <br> <p>Fue un dia tranquilo despues de todo aunque su formalidad me sigue pareciendo aterradora, hasta no me dejaba pagar ni una sola vez, me gritaba que ella era la que propuso el plan asi que ella pagaba...Al menos pude dar las propinas</p>"
+      },
+      {
+        "id": 3,
+        "title": "Mi horario de sueño es un desastre",
+        "tag": "",
+        "cover": "",
+        "excerpt": "Por favor, apliquen una metodologia para vivir...",
+        "content": "<p>Es algo comun pero tengo un pesimo ciclo de sueño, suelo tratar de arreglarlo pero la manera que coordino los dias es horrible, suelo usar el viejo metodo de la pizarra ¿Saben cual es? ¿Anotarse lo que deben hacer en la pizarra? Eso mosmish, pero cada vez se hace peor y se me acumula de manera horrible el trabajo porque suelo dividir demasiado mis trabajos, a veces por querer vaciar la pizarra suelo quedarme despierta y BOOOM, devuelva a recuperar el ciclo de sueño...Si tienen consejos, por favor, haganmelo llegar</p>"
+      },
+      {
+        "id": 2,
+        "title": "POR FAVOR, SAL DE TU CASA",
+        "tag": "",
+        "cover": "",
+        "excerpt": "Vera es una persona problematica...",
+        "content": "<p>Hoy me fije un objetivo, sacar a Vera de su sillon, estoy cansada de escuchar salir de su tele al maldito Charlie Sheen o a todo el helenco de Friends, me arme con planes, me plante en la puerta y...Termine viendo Seinfeild con ella, es un problema constante el ver como ella solo se queda ahí pero al menos salimos un rato cada semana...Espero que logre salir mas seguido...</p>"
+      },
+      {
+        "id": 1,
+        "title": "Bienvenidos a mi blog",
+        "tag": "Como se usa esto?",
+        "cover": "",
+        "excerpt": "Simplemente necesitaba esto.",
+        "content": "<p>¡Hola a todos! Necesitaba un espacio para compartir mis pensamientos y momentos de mi vida para quedar enmarcados para siempre, yo soy Miri Adams, un gusto conocerte pequeño internauta DwD</p>"
+      }
+  ]
+}
