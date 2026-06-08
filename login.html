@@ -152,7 +152,7 @@
         .card-header i { font-size: 0.9rem; opacity: 0.8; }
         .card-body { padding: 20px 18px 22px; }
 
-        /* ── PREVIEW FOTO AGENTE ── */
+        /* ── PREVIEW AGENTE (sin reconocimiento en vivo) ── */
         .agent-preview {
             display: flex;
             align-items: center;
@@ -177,7 +177,6 @@
             width: 100%; height: 100%; object-fit: cover;
             display: none;
         }
-        .agent-photo-wrap img.visible { display: block; }
         .agent-info { flex: 1; }
         .agent-info-name {
             font-family: 'Press Start 2P', monospace;
@@ -192,43 +191,7 @@
             font-style: italic;
         }
 
-        /* ── DESTINO ── */
-        .dest-label {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 0.38rem;
-            color: #4a2e18;
-            display: block;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-        }
-        .dest-buttons {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-        }
-        .dest-btn {
-            flex: 1;
-            min-width: 100px;
-            padding: 8px 6px;
-            background: #e7d8bf;
-            border: 2px outset #fff0d0;
-            font-family: 'VT323', monospace;
-            font-size: 1.1rem;
-            color: #3b2a1f;
-            cursor: pointer;
-            text-align: center;
-            transition: 0.05s;
-        }
-        .dest-btn:hover { border: 2px inset #b88b54; background: #cfb68e; }
-        .dest-btn.selected {
-            border: 2px inset #8b5a2b;
-            background: #c8a87c;
-            color: #1a0e08;
-            font-weight: bold;
-        }
-
-        /* ── FORMULARIO ── */
+        /* ── FORMULARIO (ya no hay selector de destino) ── */
         .form-group { margin-bottom: 14px; }
         .form-label {
             font-family: 'Press Start 2P', monospace;
@@ -321,7 +284,7 @@
             to   { transform: rotate(-4deg) scale(1); opacity: 1; }
         }
 
-        /* ── PANEL LATERAL — nota pegada en el corcho ── */
+        /* ── NOTA (se ha eliminado la pista de contraseña) ── */
         .cork-note {
             background: #fff9a0;
             padding: 14px 16px 18px;
@@ -377,59 +340,42 @@
 <body>
 
 <marquee behavior="scroll" direction="left" scrollamount="3">
-    🔐 ALPHA AGENCY &nbsp;·&nbsp; ZONA RESTRINGIDA &nbsp;·&nbsp; IDENTIFÍCATE ANTES DE CONTINUAR &nbsp;·&nbsp; <i class="fas fa-lock"></i> &nbsp;·&nbsp; SOLO PERSONAL AUTORIZADO
+    🔐 ALPHA AGENCY &nbsp;·&nbsp; ZONA RESTRINGIDA &nbsp;·&nbsp; IDENTÍFICATE ANTES DE CONTINUAR &nbsp;·&nbsp; <i class="fas fa-lock"></i> &nbsp;·&nbsp; SOLO PERSONAL AUTORIZADO
 </marquee>
 
 <div class="old-container">
-    <!-- HEADER idéntico al sitio -->
     <div class="retro-header">
         <div class="site-title"><i class="fas fa-hand-peace"></i> ALPHA AGENCY</div>
         <a href="index.html" class="back-link">← INICIO</a>
     </div>
 
-    <!-- ZONA CORCHO -->
     <div class="cork-zone">
-
-        <!-- FICHA PRINCIPAL -->
         <div class="access-card">
             <div class="card-header">
                 <i class="fas fa-id-badge"></i>
                 VERIFICACIÓN DE AGENTE
             </div>
-
             <div class="card-body">
-                <!-- PREVIEW AGENTE -->
+                <!-- PREVIEW AGENTE (sin reconocimiento en tiempo real) -->
                 <div class="agent-preview">
                     <div class="agent-photo-wrap" id="photoWrap">
-                        <span id="photoPlaceholder">👤</span>
+                        <span id="photoPlaceholder">🔒</span>
                         <img id="agentPhoto" src="" alt="">
                     </div>
                     <div class="agent-info">
-                        <div class="agent-info-name" id="agentNameDisplay">— SIN IDENTIFICAR —</div>
-                        <div class="agent-info-status" id="agentStatusDisplay">Introduce tu nombre de agente</div>
+                        <div class="agent-info-name" id="agentNameDisplay">— SIN AUTENTICAR —</div>
+                        <div class="agent-info-status" id="agentStatusDisplay">Introduce tus credenciales</div>
                     </div>
                 </div>
 
                 <div id="loginForm">
-                    <!-- DESTINO -->
-                    <span class="dest-label">📂 DESTINO DE ACCESO</span>
-                    <div class="dest-buttons">
-                        <button class="dest-btn selected" data-dest="misiones.html" onclick="selectDest(this)">
-                            📁 MISIONES
-                        </button>
-                        <button class="dest-btn" data-dest="archivado.html" onclick="selectDest(this)">
-                            🗂️ ARCHIVADO
-                        </button>
-                    </div>
-
                     <div class="form-group">
                         <label class="form-label" for="inputNombre">
                             <i class="fas fa-user"></i>&nbsp; NOMBRE DEL AGENTE
                         </label>
                         <input type="text" id="inputNombre" class="form-input"
-                            placeholder="Ej: Noah"
-                            autocomplete="off"
-                            oninput="onNombreInput(this.value)">
+                            placeholder="Nombre completo"
+                            autocomplete="off">
                     </div>
 
                     <div class="form-group">
@@ -453,20 +399,20 @@
                     </button>
                 </div>
 
-                <!-- ACCESO CONCEDIDO -->
                 <div id="accessGranted" class="access-granted">
                     <div class="access-stamp">✅ ACCESO<br>CONCEDIDO</div>
                     <p style="font-family:'Courier New',monospace;font-size:0.75rem;margin-top:14px;color:#3b2a1f;">
-                        <span class="blink">▶</span> Redirigiendo...
+                        <span class="blink">▶</span> Redirigiendo al diario...
                     </p>
                 </div>
             </div>
         </div>
 
-        <!-- NOTA PEGADA EN EL CORCHO -->
+        <!-- NOTA PEGADA (sin pista de contraseña) -->
         <div class="cork-note">
-            <div class="cork-note-title">📋 RECORDATORIO</div>
-            Solo agentes registrados pueden acceder a estas secciones.<br><br>
+            <div class="cork-note-title">📋 RESTRICCIÓN</div>
+            Acceso exclusivo para personal autorizado.<br>
+            Verifique sus credenciales.
         </div>
     </div>
 
@@ -476,50 +422,29 @@
 </div>
 
 <script>
-    const STORAGE_KEY = 'alphaAgency_session';
-    let roosterData = [];
-    let selectedDest = 'misiones.html';
 
-    async function loadRooster() {
-        try {
-            const r = await fetch('rooster.json');
-            if (!r.ok) throw new Error();
-            const data = await r.json();
-            roosterData = data.agentes || [];
-        } catch(e) {
-            showMsg('⚠️ No se pudo cargar el archivo de agentes.', 'error');
+    const EXPECTED_NAME_HEX = "6d697269206164616d73";   
+    const EXPECTED_PWD_HEX  = "6d7277696c6c69616d73";   
+
+    function hexToString(hex) {
+        let str = '';
+        for (let i = 0; i < hex.length; i += 2) {
+            const byte = parseInt(hex.substr(i, 2), 16);
+            str += String.fromCharCode(byte);
         }
+        return str;
     }
 
-    function selectDest(btn) {
-        document.querySelectorAll('.dest-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        selectedDest = btn.getAttribute('data-dest');
-    }
+    const SECRET_NAME = hexToString(EXPECTED_NAME_HEX);   
+    const SECRET_PASS = hexToString(EXPECTED_PWD_HEX);    
 
-    function onNombreInput(val) {
-        const norm = val.trim().toLowerCase();
-        const match = roosterData.find(a => a.nombre.toLowerCase() === norm) || null;
-        const photo = document.getElementById('agentPhoto');
-        const placeholder = document.getElementById('photoPlaceholder');
-        const nameDisplay = document.getElementById('agentNameDisplay');
-        const statusDisplay = document.getElementById('agentStatusDisplay');
-        if (match) {
-            photo.src = match.foto;
-            photo.onerror = () => { photo.classList.remove('visible'); placeholder.style.display = ''; };
-            photo.classList.add('visible');
-            placeholder.style.display = 'none';
-            nameDisplay.textContent = match.nombre.toUpperCase();
-            statusDisplay.textContent = '✅ Agente reconocido';
-        } else {
-            photo.classList.remove('visible');
-            placeholder.style.display = '';
-            nameDisplay.textContent = val.trim() ? '— NO RECONOCIDO —' : '— SIN IDENTIFICAR —';
-            statusDisplay.textContent = val.trim() ? 'Introduce tu contraseña' : 'Introduce tu nombre de agente';
-        }
-        clearMsg();
-    }
+    // Destino fijo: blog.html (el diario personal)
+    const REDIRECT_URL = "blog.html";
 
+    // Clave de sesión que utiliza blog.html
+    const SESSION_KEY = "alphaAgency_miriSession";
+
+    // ========== Funciones auxiliares ==========
     function togglePwd() {
         const input = document.getElementById('inputPassword');
         const icon = document.getElementById('eyeIcon');
@@ -532,56 +457,105 @@
         box.textContent = text;
         box.className = `msg-box ${type} visible`;
     }
+
     function clearMsg() {
-        document.getElementById('msgBox').className = 'msg-box';
+        const box = document.getElementById('msgBox');
+        box.className = 'msg-box';
+        box.textContent = '';
     }
 
+    // Verificación SIN mostrar reconocimiento previo
     function doLogin() {
-        const nombre   = document.getElementById('inputNombre').value.trim();
-        const password = document.getElementById('inputPassword').value;
-        if (!nombre)   { showMsg('⚠️ Escribe tu nombre de agente.', 'error'); return; }
-        if (!password) { showMsg('⚠️ Escribe tu contraseña.', 'error'); return; }
+        const nombreRaw = document.getElementById('inputNombre').value.trim();
+        const passwordRaw = document.getElementById('inputPassword').value;
 
-        const agente = roosterData.find(
-            a => a.nombre.toLowerCase() === nombre.toLowerCase() && a.password === password
-        );
-        if (!agente) {
-            showMsg('❌ Credenciales incorrectas. Acceso denegado.', 'error');
-            document.getElementById('inputPassword').value = '';
+        if (!nombreRaw) {
+            showMsg('⚠️ Escribe tu nombre de agente.', 'error');
+            return;
+        }
+        if (!passwordRaw) {
+            showMsg('⚠️ Escribe tu contraseña.', 'error');
             return;
         }
 
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({
-            id: agente.id, nombre: agente.nombre, foto: agente.foto, timestamp: Date.now()
+        // Normalización: minúsculas, sin espacios extra
+        const normalizedName = nombreRaw.toLowerCase();
+        const normalizedPass = passwordRaw.toLowerCase();
+
+        const nameOk = (normalizedName === SECRET_NAME);
+        const passOk = (normalizedPass === SECRET_PASS);
+
+        if (!nameOk || !passOk) {
+            // Credenciales incorrectas: limpiamos el campo contraseña, mostramos error
+            document.getElementById('inputPassword').value = '';
+            showMsg('❌ Credenciales incorrectas. Acceso denegado.', 'error');
+            // No se actualiza la preview para no dar pistas
+            return;
+        }
+
+        // --- ACCESO CONCEDIDO ---
+        // Guardar sesión tal como la espera blog.html (solo necesita que exista la clave)
+        localStorage.setItem(SESSION_KEY, JSON.stringify({
+            user: "Miri Adams",
+            timestamp: Date.now()
         }));
 
-        document.getElementById('loginBtn').disabled = true;
+        // Efecto visual y redirección a blog.html
+        const loginBtn = document.getElementById('loginBtn');
+        loginBtn.disabled = true;
         document.getElementById('loginForm').style.opacity = '0.3';
         document.getElementById('accessGranted').classList.add('visible');
         clearMsg();
-        setTimeout(() => { window.location.href = selectedDest; }, 1600);
+
+        setTimeout(() => {
+            window.location.href = REDIRECT_URL;
+        }, 1600);
     }
 
-    // Leer ?dest= de la URL
-    (function() {
-        const dest = new URLSearchParams(window.location.search).get('dest');
-        if (dest) {
-            selectedDest = dest;
-            document.querySelectorAll('.dest-btn').forEach(b => {
-                b.classList.toggle('selected', b.getAttribute('data-dest') === dest);
-            });
+    // ========== Prevenir reconocimiento en vivo ==========
+    // Eliminamos cualquier listener que pudiera mostrar info antes de enviar.
+    // El campo nombre ya no tiene evento oninput. Dejamos que el usuario escriba sin feedback.
+    // (El HTML ya no tiene oninput en el campo nombre)
+
+    // ========== Sesión activa previa: redirigir directamente a blog ==========
+    (function redirectIfAlreadyLogged() {
+        try {
+            const stored = localStorage.getItem(SESSION_KEY);
+            if (stored) {
+                // Si ya hay sesión (válida, da igual contenido) redirigir al blog
+                window.location.replace(REDIRECT_URL);
+            }
+        } catch(e) {
+            // Ignorar errores de parseo
         }
     })();
 
-    // Si ya hay sesión, redirigir directo
-    (function() {
-        try {
-            const s = JSON.parse(localStorage.getItem(STORAGE_KEY));
-            if (s && s.nombre) setTimeout(() => { window.location.href = selectedDest; }, 300);
-        } catch(e) {}
-    })();
-
-    loadRooster();
+    // Inicialización: aseguramos que la preview muestre un estado neutro (sin datos del agente)
+    // y que no haya residuos de intentos previos.
+    document.addEventListener('DOMContentLoaded', () => {
+        // Forzar estado neutral en la ficha de agente
+        const nameDisplay = document.getElementById('agentNameDisplay');
+        const statusDisplay = document.getElementById('agentStatusDisplay');
+        const photo = document.getElementById('agentPhoto');
+        const placeholderSpan = document.getElementById('photoPlaceholder');
+        
+        nameDisplay.textContent = '— SIN AUTENTICAR —';
+        statusDisplay.textContent = 'Introduce tus credenciales';
+        photo.classList.remove('visible');
+        photo.style.display = 'none';
+        placeholderSpan.style.display = '';
+        placeholderSpan.innerHTML = '🔒';
+        
+        // Asegurar que no haya valores autocompletados visibles en la preview
+        const nombreInput = document.getElementById('inputNombre');
+        if (nombreInput.value.trim() !== "") {
+            // No mostramos nada en preview, solo mantenemos el estado neutral
+            // para no dar ninguna pista sobre si el nombre es válido o no.
+        }
+        
+        // Limpiar cualquier mensaje residual
+        clearMsg();
+    });
 </script>
 </body>
 </html>
