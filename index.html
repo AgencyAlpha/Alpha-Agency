@@ -59,6 +59,7 @@
             font-family: 'VT323', monospace;
             font-size: 1.6rem;
             font-weight: bold;
+            align-items: center;
         }
         .nav-links a {
             background: #e7d8bf;
@@ -68,11 +69,19 @@
             color: #3b2a1f;
             transition: 0.05s linear;
             cursor: pointer;
+            white-space: nowrap;
         }
         .nav-links a:hover, .nav-links a.active {
             border: 2px inset #b88b54;
             background: #cfb68e;
             color: black;
+        }
+        /* Contenedores de misiones y archivados — se integran en el flex */
+        #missionsNavContainer, #archivadosNavContainer {
+            display: none;
+        }
+        #missionsNavContainer.unlocked-nav, #archivadosNavContainer.unlocked-nav {
+            display: contents;
         }
         .two-columns { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 8px; }
         .main-content { flex: 2; min-width: 220px; }
@@ -118,7 +127,79 @@
             margin-bottom: 18px;
         }
         .info-card p { line-height: 1.6; margin: 12px 0; font-size: 1.05rem; }
-        
+
+        /* ── CONSOLA OCULTA (móvil, triple clic en CONTÁCTAME) ── */
+        #hiddenConsole {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 420px;
+            background: #0a0a0a;
+            border: 3px ridge #444;
+            box-shadow: 0 0 20px rgba(0,255,0,0.3), 0 0 40px rgba(0,0,0,0.8);
+            z-index: 9000;
+            padding: 14px;
+            font-family: 'Courier New', monospace;
+        }
+        #hiddenConsole.visible { display: block; animation: consoleSlideUp 0.25s ease-out; }
+        @keyframes consoleSlideUp {
+            from { opacity: 0; transform: translateX(-50%) translateY(30px); }
+            to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+        .console-title {
+            color: #00ff66;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.5rem;
+            margin-bottom: 10px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        .console-input-row {
+            display: flex;
+            gap: 8px;
+        }
+        .console-input-row input {
+            flex: 1;
+            background: #111;
+            border: 1px solid #333;
+            color: #00ff66;
+            padding: 8px 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            caret-color: #00ff66;
+        }
+        .console-input-row input::placeholder { color: #336633; }
+        .console-input-row button {
+            background: #1a3a1a;
+            border: 2px outset #2a5a2a;
+            color: #00ff66;
+            padding: 8px 14px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.45rem;
+        }
+        .console-input-row button:hover { background: #2a5a2a; }
+        .console-close {
+            position: absolute;
+            top: 4px;
+            right: 10px;
+            color: #666;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .console-close:hover { color: #ff4444; }
+        .console-hint {
+            color: #336633;
+            font-size: 0.55rem;
+            margin-top: 8px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+        }
+
         /* RADIO ESTILO */
         .music-player-sidebar {
             background: #2a1f14;
@@ -834,13 +915,13 @@
         <div class="nav-links">
             <a class="nav-link active" data-page="home">🏠 HOME</a>
             <a class="nav-link" data-page="about">📖 SOBRE MÍ</a>
-            <div id="missionsNavContainer" style="display:none;">
+            <div id="missionsNavContainer">
                 <a id="missionsLink" class="nav-link" href="login.html?dest=misiones.html">🎯 POR HACER</a>
             </div>
-            <div id="archivadosNavContainer" style="display:none;">
+            <div id="archivadosNavContainer">
                 <a id="archivadosLink" class="nav-link" href="login.html?dest=archivado.html">📁 ARCHIVADOS</a>
             </div>
-            <a class="nav-link" data-page="contact">📧 CONTÁCTAME</a>
+            <a class="nav-link" data-page="contact" id="contactNavLink">📧 CONTÁCTAME</a>
         </div>
     </div>
     <div class="two-columns">
@@ -859,7 +940,6 @@
                         📟 Entra en "Contáctame" para registrarte ^-^
                     </div>
                 </div>
-
             </div>
 
             <div id="about-page" class="page">
@@ -869,7 +949,6 @@
                     <p><i class="fas fa-bolt"></i> Es difícil iniciar este tipo de cosas, así que iré a lo básico: no programé este sitio, un viejo amigo me hizo el favor.</p>
                     <p><i class="fas fa-mug-hot"></i> Me gusta el <strong>café</strong>. Si me traes uno cuando nos conozcamos, te juro que te lo agradeceré de por vida. Me gustan las películas de los 2000s para abajo, no me gusta leer y, por favor, jamás me traigas una rata.</p>
                 </div>
-
                 <div class="info-card">
                     <h2><i class="fas fa-question-circle"></i> ¿POR QUÉ SE CREÓ ESTE SITIO?</h2>
                     <p>✨ <strong>Alpha Agency</strong> nació como un proyecto para controlar la creciente cantidad de personas con pulso <strong>anómalo</strong> y apoyar a la comunidad de esta ciudad.</p>
@@ -896,12 +975,10 @@
         </div>
 
         <div class="sidebar" id="globalSidebar">
-
             <div class="daily-mood" id="dailyMoodWidget">
                 <i class="fas fa-sun"></i> <strong>🌙 HUMOR DEL DÍA 🌙</strong><br>
                 <div class="mood-text" id="dailyMood">cargando...</div>
             </div>
-            
             <div class="music-player-sidebar">
                 <h3><i class="fas fa-headphones"></i> 🎵 RADIO ALPHA 🎵</h3>
                 <div class="sidebar-song-list" id="songListSidebar"></div>
@@ -936,8 +1013,7 @@
                 
                 <label>⚧ GÉNERO *</label>
                 <select id="regGender"><option value="">Selecciona...</option><option value="Femenino">Femenino</option><option value="Masculino">Masculino</option>
-                    <option value="No binario">No binario</option>
-                    <option value="Prefiero no decirlo">Yo qué sé?</option></select>
+                    <option value="No binario">No binario</option><option value="Prefiero no decirlo">Yo qué sé?</option></select>
                 <div class="error-msg" id="genderError"></div>
                 
                 <label>❤️ GUSTOS * (máx 80)</label>
@@ -992,11 +1068,36 @@
     </div>
 </div>
 
-<!-- CAT INDICATOR — debe estar antes del script para que JS lo encuentre -->
+<!-- CONSOLA OCULTA (triple clic en CONTÁCTAME, solo móvil) -->
+<div id="hiddenConsole">
+    <span class="console-close" id="consoleClose">✕</span>
+    <div class="console-title">🖥️ TERMINAL ALPHA v1.0</div>
+    <div class="console-input-row">
+        <input type="text" id="consoleInput" placeholder="> window.ALPHA_UNLOCK=true" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button id="consoleExecute">EJECUTAR</button>
+    </div>
+    <div class="console-hint">💡 Triple clic en CONTÁCTAME para abrir/cerrar</div>
+</div>
+
+<!-- CAT INDICATOR -->
 <div id="catClickIndicator">🐱 0/5</div>
 
 <script>
     (function(){
+        // ========== DETECCIÓN DE iOS ==========
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        
+        // ========== SANITIZAR TEXTO PARA CANVAS (iOS: quita emojis que rompen el layout) ==========
+        function sanitizeForCanvas(text) {
+            if (!text) return text;
+            if (isIOS) {
+                // Elimina emojis y caracteres de ancho variable problemáticos en canvas de iOS
+                return text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2300}-\u{23FF}\u{2B50}\u{2B55}\u{231A}\u{231B}\u{2328}\u{23CF}\u{23E9}-\u{23F3}\u{23F8}-\u{23FA}\u{2934}\u{2935}\u{25AA}\u{25AB}\u{25B6}\u{25C0}\u{25FB}-\u{25FE}\u{200D}\u{20E3}\u{FE0F}]/gu, '');
+            }
+            return text;
+        }
+
         // ========== SONIDOS ==========
         let audioCtx = null;
         
@@ -1045,7 +1146,7 @@
         const playlist = [
             { name: "🎷 TORNADO - Yuji Ohno", file: "audios/TORNADO - Yuji Ohno.mp3" },
             { name: "🚀 Head Up High - TWRP", file: "audios/Head Up High - TWRP.mp3" },
-            { name: "😊 Twist And Shout - Beattles", file: "audios/Twist And Shout - Beattles.mp3" },
+            { name: "😊 Happy Life - Omori Toshiyuki", file: "audios/Happy Life - Omori Toshiyuki.mp3" },
             { name: "✈️ Ready To Fly - Masayoshi Takanaka", file: "audios/Ready To Fly - Masayoshi Takanaka.mp3" }
         ];
         
@@ -1147,6 +1248,68 @@
             });
         });
         updateSidebarVisibility('home');
+        
+        // ========== CONSOLA OCULTA (triple clic en CONTÁCTAME, solo móvil) ==========
+        const hiddenConsole = document.getElementById('hiddenConsole');
+        const consoleInput = document.getElementById('consoleInput');
+        const consoleExecute = document.getElementById('consoleExecute');
+        const consoleClose = document.getElementById('consoleClose');
+        const contactNavLink = document.getElementById('contactNavLink');
+        
+        let contactClickCount = 0;
+        let contactClickTimer = null;
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        if (contactNavLink && isTouchDevice) {
+            contactNavLink.addEventListener('click', function(e) {
+                // Solo cuenta si NO está ya en la página de contact (evita interferir con navegación normal)
+                contactClickCount++;
+                clearTimeout(contactClickTimer);
+                if (contactClickCount >= 3) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    contactClickCount = 0;
+                    // Alternar visibilidad de la consola
+                    if (hiddenConsole.classList.contains('visible')) {
+                        hiddenConsole.classList.remove('visible');
+                    } else {
+                        hiddenConsole.classList.add('visible');
+                        consoleInput.focus();
+                    }
+                } else {
+                    contactClickTimer = setTimeout(() => { contactClickCount = 0; }, 1500);
+                }
+            });
+        }
+        
+        if (consoleClose) {
+            consoleClose.addEventListener('click', () => {
+                hiddenConsole.classList.remove('visible');
+            });
+        }
+        
+        if (consoleExecute) {
+            consoleExecute.addEventListener('click', () => {
+                const cmd = consoleInput.value.trim();
+                if (cmd) {
+                    try {
+                        eval(cmd);
+                        showNotification('✅ Comando ejecutado: ' + cmd, '🖥️');
+                    } catch(e) {
+                        showNotification('❌ Error: ' + e.message, '⚠️', true);
+                    }
+                    consoleInput.value = '';
+                }
+            });
+        }
+        
+        if (consoleInput) {
+            consoleInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    consoleExecute.click();
+                }
+            });
+        }
         
         // ========== MODAL Y AUTO-SAVE ==========
         const modal = document.getElementById('registerModal');
@@ -1274,8 +1437,8 @@
                 else if(value > 200) this.value = 200;
             });
         }
-        
-        // ========== VENTANAS ESTILO WINDOWS 98 ==========
+
+                // ========== VENTANAS ESTILO WINDOWS 98 ==========
         function showWin98Dialog({ title = 'Alpha Agency', message, icon = '💬', buttons = ['Aceptar'], onClose = null, isError = false }) {
             const existing = document.querySelector('.win98-dialog-overlay');
             if (existing) existing.remove();
@@ -1474,7 +1637,9 @@
         // ========== FUNCIONES DE DIBUJO MEJORADAS (ALINEACIÓN FIJA) ==========
         function wrapText(text, max) {
             if(!text) return [];
-            const words = text.split(' '), lines = []; let cur = '';
+            // Sanitizar para canvas en iOS (quitar emojis)
+            const cleanText = sanitizeForCanvas(text);
+            const words = cleanText.split(' '), lines = []; let cur = '';
             for(let w of words) { const t = cur ? cur+' '+w : w; if(t.length <= max) cur = t; else { if(cur) lines.push(cur); cur = w; } }
             if(cur) lines.push(cur); return lines;
         }
@@ -1544,7 +1709,8 @@
         }
 
         function drawPhraseInPolaroid(ctx, phrase, cx, y, maxW) {
-            const clean = phrase.replace(/^["']|["']$/g, ''); const lines = wrapLongText(`"${clean}"`, 28);
+            const clean = phrase.replace(/^["']|["']$/g, '');
+            const lines = wrapLongText(`"${clean}"`, 28);
             ctx.textAlign = 'center'; let cy = y;
             for(let line of lines.slice(0,3)) { ctx.font = `bold ${getOptimalFontSize(line,maxW,ctx,16,11)}px "Montserrat", sans-serif`; ctx.fillStyle='#5a3e2a'; ctx.fillText(line, cx, cy); cy += 24; }
             ctx.textAlign = 'left'; return cy;
@@ -1641,16 +1807,18 @@
                 const description = document.getElementById('regDescription').value;
                 const motivation = document.getElementById('regMotivationVisible').value;
                 const phrase = document.getElementById('regPhrase').value.trim();
-                const fullName = `${name} ${lastname}`;
+                const fullName = sanitizeForCanvas(`${name} ${lastname}`);
                 const finalImageData = uploadedImageData || window.uploadedImageData;
                 
+                // Actualiza la vista previa de la polaroid
                 if(phrase) { 
-                    let cleanPhrase = phrase.replace(/^["']|["']$/g, '');
+                    let cleanPhrase = sanitizeForCanvas(phrase.replace(/^["']|["']$/g, ''));
                     document.getElementById('polaroidCaption').innerHTML = `<i class="fas fa-tag"></i> "${cleanPhrase}"`; 
                 } else { 
                     document.getElementById('polaroidCaption').innerHTML = `<i class="fas fa-tag"></i> ${fullName.substring(0,50)}`; 
                 }
                 
+                // Sanitizar todos los textos para el canvas
                 const descLines = wrapText(description, 48);
                 const motivLines = wrapText(motivation, 52);
                 const motivHeight = Math.max(190, motivLines.length * 28 + 110);
