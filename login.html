@@ -46,7 +46,7 @@
         }
         @keyframes marqueeBg { 0%{background-position:0%} 100%{background-position:300%} }
 
-        /* ── CONTENEDOR PRINCIPAL — mismo estilo que el sitio ── */
+        /* ── CONTENEDOR PRINCIPAL ── */
         .old-container {
             width: 100%;
             max-width: 680px;
@@ -64,7 +64,7 @@
         }
         .old-container > * { position: relative; z-index: 1; }
 
-        /* ── HEADER — idéntico al sitio ── */
+        /* ── HEADER ── */
         .retro-header {
             display: flex;
             flex-wrap: wrap;
@@ -115,7 +115,7 @@
             flex-wrap: wrap;
         }
 
-        /* ── FICHA DE ACCESO — estilo carpeta clasificada ── */
+        /* ── FICHA DE ACCESO ── */
         .access-card {
             background: #fef7e0;
             border: 3px ridge #b87c4a;
@@ -125,7 +125,6 @@
             position: relative;
         }
         .access-card::before {
-            /* Pestaña superior estilo carpeta */
             content: 'ACCESO RESTRINGIDO';
             position: absolute;
             top: -22px; left: 14px;
@@ -152,7 +151,7 @@
         .card-header i { font-size: 0.9rem; opacity: 0.8; }
         .card-body { padding: 20px 18px 22px; }
 
-        /* ── PREVIEW AGENTE (sin reconocimiento en vivo) ── */
+        /* ── PREVIEW AGENTE ── */
         .agent-preview {
             display: flex;
             align-items: center;
@@ -191,7 +190,7 @@
             font-style: italic;
         }
 
-        /* ── FORMULARIO (ya no hay selector de destino) ── */
+        /* ── FORMULARIO ── */
         .form-group { margin-bottom: 14px; }
         .form-label {
             font-family: 'Press Start 2P', monospace;
@@ -284,7 +283,7 @@
             to   { transform: rotate(-4deg) scale(1); opacity: 1; }
         }
 
-        /* ── NOTA (se ha eliminado la pista de contraseña) ── */
+        /* ── NOTA ── */
         .cork-note {
             background: #fff9a0;
             padding: 14px 16px 18px;
@@ -356,11 +355,11 @@
                 VERIFICACIÓN DE AGENTE
             </div>
             <div class="card-body">
-                <!-- PREVIEW AGENTE (sin reconocimiento en tiempo real) -->
+                <!-- PREVIEW AGENTE -->
                 <div class="agent-preview">
                     <div class="agent-photo-wrap" id="photoWrap">
                         <span id="photoPlaceholder">🔒</span>
-                        <img id="agentPhoto" src="" alt="">
+                        <img id="agentPhoto" src="" alt="Foto agente">
                     </div>
                     <div class="agent-info">
                         <div class="agent-info-name" id="agentNameDisplay">— SIN AUTENTICAR —</div>
@@ -375,7 +374,8 @@
                         </label>
                         <input type="text" id="inputNombre" class="form-input"
                             placeholder="Nombre completo"
-                            autocomplete="off">
+                            autocomplete="off"
+                            oninput="updateAgentPreview()">
                     </div>
 
                     <div class="form-group">
@@ -402,13 +402,13 @@
                 <div id="accessGranted" class="access-granted">
                     <div class="access-stamp">✅ ACCESO<br>CONCEDIDO</div>
                     <p style="font-family:'Courier New',monospace;font-size:0.75rem;margin-top:14px;color:#3b2a1f;">
-                        <span class="blink">▶</span> Redirigiendo al diario...
+                        <span class="blink">▶</span> Redirigiendo...
                     </p>
                 </div>
             </div>
         </div>
 
-        <!-- NOTA PEGADA (sin pista de contraseña) -->
+        <!-- NOTA PEGADA -->
         <div class="cork-note">
             <div class="cork-note-title">📋 RESTRICCIÓN</div>
             Acceso exclusivo para personal autorizado.<br>
@@ -422,29 +422,34 @@
 </div>
 
 <script>
-
     const EXPECTED_NAME_HEX = "6d697269206164616d73";   
     const EXPECTED_PWD_HEX  = "6d7277696c6c69616d73";   
+    const SECRET_NAME = hexToString(EXPECTED_NAME_HEX);
+    const SECRET_PASS = hexToString(EXPECTED_PWD_HEX);
+    const MIRI_USER = {
+        nombre: SECRET_NAME,
+        password: SECRET_PASS,
+        foto: null   
+    };
 
+    const SESSION_KEY = "alphaAgency_miriSession";
+
+    // ─── AGENTES CARGADOS DESDE JSON ───
+    let agents = [];
+
+    // ─── OBTENER DESTINO DE LA URL ───
+    const urlParams = new URLSearchParams(window.location.search);
+    const REDIRECT_DEST = urlParams.get('dest') || 'blog.html'; // por defecto blog.html
+
+    // ─── UTILIDADES ───
     function hexToString(hex) {
         let str = '';
         for (let i = 0; i < hex.length; i += 2) {
-            const byte = parseInt(hex.substr(i, 2), 16);
-            str += String.fromCharCode(byte);
+            str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
         }
         return str;
     }
 
-    const SECRET_NAME = hexToString(EXPECTED_NAME_HEX);   
-    const SECRET_PASS = hexToString(EXPECTED_PWD_HEX);    
-
-    // Destino fijo: blog.html (el diario personal)
-    const REDIRECT_URL = "blog.html";
-
-    // Clave de sesión que utiliza blog.html
-    const SESSION_KEY = "alphaAgency_miriSession";
-
-    // ========== Funciones auxiliares ==========
     function togglePwd() {
         const input = document.getElementById('inputPassword');
         const icon = document.getElementById('eyeIcon');
@@ -464,7 +469,53 @@
         box.textContent = '';
     }
 
-    // Verificación SIN mostrar reconocimiento previo
+    // ─── PREVISUALIZACIÓN DEL AGENTE (SOLO PARA AGENTES DEL ROOSTER) ───
+    function updateAgentPreview() {
+        const nombreInput = document.getElementById('inputNombre');
+        const rawName = nombreInput.value.trim();
+        const normalized = rawName.toLowerCase();
+
+        const nameDisplay = document.getElementById('agentNameDisplay');
+        const statusDisplay = document.getElementById('agentStatusDisplay');
+        const photo = document.getElementById('agentPhoto');
+        const placeholder = document.getElementById('photoPlaceholder');
+
+        // Resetear a estado neutro por defecto
+        nameDisplay.textContent = '— SIN AUTENTICAR —';
+        statusDisplay.textContent = 'Introduce tus credenciales';
+        photo.style.display = 'none';
+        placeholder.style.display = '';
+        placeholder.innerHTML = '🔒';
+
+        if (normalized === '') return;
+
+        const matchedAgent = agents.find(a => a.nombre.toLowerCase() === normalized);
+        if (matchedAgent) {
+            // Mostrar foto y nombre del agente
+            nameDisplay.textContent = matchedAgent.nombre.toUpperCase();
+            statusDisplay.textContent = 'Agente identificado';
+            if (matchedAgent.foto) {
+                photo.src = matchedAgent.foto;
+                photo.style.display = 'block';
+                placeholder.style.display = 'none';
+            }
+        }
+    }
+
+    // ─── CARGA DEL ROOSTER.JSON ───
+    async function loadRooster() {
+        try {
+            const response = await fetch('rooster.json');
+            if (!response.ok) throw new Error('No se pudo cargar rooster.json');
+            const data = await response.json();
+            agents = data.agentes || [];
+        } catch (err) {
+            console.warn('⚠️ No se pudo cargar la lista de agentes.', err);
+            agents = [];
+        }
+    }
+
+    // ─── LÓGICA DE INICIO DE SESIÓN ───
     function doLogin() {
         const nombreRaw = document.getElementById('inputNombre').value.trim();
         const passwordRaw = document.getElementById('inputPassword').value;
@@ -478,29 +529,40 @@
             return;
         }
 
-        // Normalización: minúsculas, sin espacios extra
         const normalizedName = nombreRaw.toLowerCase();
         const normalizedPass = passwordRaw.toLowerCase();
 
-        const nameOk = (normalizedName === SECRET_NAME);
-        const passOk = (normalizedPass === SECRET_PASS);
-
-        if (!nameOk || !passOk) {
-            // Credenciales incorrectas: limpiamos el campo contraseña, mostramos error
-            document.getElementById('inputPassword').value = '';
-            showMsg('❌ Credenciales incorrectas. Acceso denegado.', 'error');
-            // No se actualiza la preview para no dar pistas
+        if (normalizedName === MIRI_USER.nombre && normalizedPass === MIRI_USER.password) {
+            grantAccess(MIRI_USER.nombre, MIRI_USER.foto);
             return;
         }
 
-        // --- ACCESO CONCEDIDO ---
-        // Guardar sesión tal como la espera blog.html (solo necesita que exista la clave)
-        localStorage.setItem(SESSION_KEY, JSON.stringify({
-            user: "Miri Adams",
-            timestamp: Date.now()
-        }));
+        // 2) Verificar agentes del rooster
+        const agent = agents.find(a =>
+            a.nombre.toLowerCase() === normalizedName &&
+            a.password.toLowerCase() === normalizedPass
+        );
 
-        // Efecto visual y redirección a blog.html
+        if (agent) {
+            grantAccess(agent.nombre, agent.foto);
+            return;
+        }
+
+        // Fallo de autenticación
+        document.getElementById('inputPassword').value = '';
+        showMsg('❌ Credenciales incorrectas. Acceso denegado.', 'error');
+    }
+
+    function grantAccess(userName, userPhoto) {
+        // Guardar sesión
+        const sessionData = {
+            user: userName,
+            photo: userPhoto || null,
+            timestamp: Date.now()
+        };
+        localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+
+        // Efecto visual y redirección
         const loginBtn = document.getElementById('loginBtn');
         loginBtn.disabled = true;
         document.getElementById('loginForm').style.opacity = '0.3';
@@ -508,52 +570,29 @@
         clearMsg();
 
         setTimeout(() => {
-            window.location.href = REDIRECT_URL;
+            window.location.href = REDIRECT_DEST;
         }, 1600);
     }
 
-    // ========== Prevenir reconocimiento en vivo ==========
-    // Eliminamos cualquier listener que pudiera mostrar info antes de enviar.
-    // El campo nombre ya no tiene evento oninput. Dejamos que el usuario escriba sin feedback.
-    // (El HTML ya no tiene oninput en el campo nombre)
-
-    // ========== Sesión activa previa: redirigir directamente a blog ==========
-    (function redirectIfAlreadyLogged() {
+    // ─── REDIRECCIÓN SI YA HAY SESIÓN ACTIVA ───
+    function redirectIfAlreadyLogged() {
         try {
             const stored = localStorage.getItem(SESSION_KEY);
             if (stored) {
-                // Si ya hay sesión (válida, da igual contenido) redirigir al blog
-                window.location.replace(REDIRECT_URL);
+                window.location.replace(REDIRECT_DEST);
             }
-        } catch(e) {
-            // Ignorar errores de parseo
-        }
-    })();
+        } catch(e) {}
+    }
 
-    // Inicialización: aseguramos que la preview muestre un estado neutro (sin datos del agente)
-    // y que no haya residuos de intentos previos.
-    document.addEventListener('DOMContentLoaded', () => {
-        // Forzar estado neutral en la ficha de agente
-        const nameDisplay = document.getElementById('agentNameDisplay');
-        const statusDisplay = document.getElementById('agentStatusDisplay');
-        const photo = document.getElementById('agentPhoto');
-        const placeholderSpan = document.getElementById('photoPlaceholder');
-        
-        nameDisplay.textContent = '— SIN AUTENTICAR —';
-        statusDisplay.textContent = 'Introduce tus credenciales';
-        photo.classList.remove('visible');
-        photo.style.display = 'none';
-        placeholderSpan.style.display = '';
-        placeholderSpan.innerHTML = '🔒';
-        
-        // Asegurar que no haya valores autocompletados visibles en la preview
-        const nombreInput = document.getElementById('inputNombre');
-        if (nombreInput.value.trim() !== "") {
-            // No mostramos nada en preview, solo mantenemos el estado neutral
-            // para no dar ninguna pista sobre si el nombre es válido o no.
-        }
-        
-        // Limpiar cualquier mensaje residual
+    // ─── INICIALIZACIÓN ───
+    document.addEventListener('DOMContentLoaded', async () => {
+        // Cargar rooster y luego verificar sesión previa
+        await loadRooster();
+        redirectIfAlreadyLogged();
+
+        // Estado neutral
+        document.getElementById('agentNameDisplay').textContent = '— SIN AUTENTICAR —';
+        document.getElementById('agentStatusDisplay').textContent = 'Introduce tus credenciales';
         clearMsg();
     });
 </script>
