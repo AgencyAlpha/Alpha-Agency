@@ -9,7 +9,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        body {
+            background: #c0c0c0;
+            background-image: repeating-linear-gradient(45deg, #b0b0b0 1px, #d4d0c8 2px, #e0dbcd 8px);
+            font-family: 'Georgia', 'Times New Roman', monospace;
+            padding: 24px 20px;
+            font-size: 18px;
+        }
         marquee {
             font-family: 'VT323', monospace;
             background: #000080;
@@ -19,7 +25,6 @@
             margin-bottom: 12px;
             border: 2px ridge silver;
         }
-
         .old-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -28,19 +33,17 @@
             box-shadow: 8px 8px 0px #5a3e2a;
             padding: 18px 20px 24px;
         }
-
         .retro-header {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            align-items: baseline;
+            align-items: center;
             border-bottom: 4px double #c28a5c;
-            padding-bottom: 12px;
+            padding: 10px 15px;
             margin-bottom: 24px;
             background: #fff3e0;
-            padding: 10px 15px;
+            gap: 15px;
         }
-
         .site-title {
             font-family: 'Press Start 2P', monospace;
             font-size: 2rem;
@@ -48,10 +51,15 @@
             color: #6b2e00;
             text-shadow: 3px 3px 0px #e7c8a3;
         }
-
-        .back-link {
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .back-link, .session-btn {
             background: #e7d8bf;
-            padding: 6px 12px;
+            padding: 8px 15px;
             border: 2px outset #fff0d0;
             text-decoration: none;
             color: #3b2a1f;
@@ -59,12 +67,23 @@
             font-size: 1.2rem;
             font-weight: bold;
             transition: 0.05s linear;
+            cursor: pointer;
+            white-space: nowrap;
+            -webkit-tap-highlight-color: transparent;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
         }
-
-        .back-link:hover {
-            border: 2px inset #b88b54;
+        .session-btn {
+            background: #5a3e2a;
+            color: #ffefcf;
+            border-color: #8b6946;
+        }
+        .back-link:hover, .session-btn:hover {
+            border-style: inset;
             background: #cfb68e;
         }
+        .session-btn:hover { background: #7a5a3a; }
 
         /* CONTROLES DE BÚSQUEDA Y ORDEN */
         .controls-bar {
@@ -81,11 +100,11 @@
         }
         .search-box input {
             width: 250px;
-            padding: 8px 12px;
+            padding: 10px 12px;
             background: #fffff0;
             border: 2px inset #b5976e;
             font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
+            font-size: 16px; /* evita zoom en iOS */
             outline: none;
         }
         .order-box {
@@ -95,19 +114,22 @@
         }
         .order-box label {
             font-family: 'Courier New', monospace;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: bold;
+            flex-shrink: 0;
         }
         .order-box select {
             background: #fffff0;
             border: 2px inset #b5976e;
-            padding: 6px 10px;
+            padding: 8px 10px;
             font-family: monospace;
+            font-size: 0.9rem;
             cursor: pointer;
+            min-height: 44px;
         }
         .results-count {
             font-family: 'Courier New', monospace;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: #8b6946;
         }
 
@@ -118,7 +140,6 @@
             margin-bottom: 28px;
             box-shadow: inset 0 0 0 1px #ffffff, 4px 4px 0 #bc9a6a;
         }
-
         .missions-section h2 {
             font-family: 'Press Start 2P', monospace;
             font-size: 1.2rem;
@@ -141,35 +162,25 @@
             transition: transform 0.2s ease;
             position: relative;
         }
-
-        .folder-card:hover {
-            transform: translateY(-3px);
-        }
-
+        .folder-card:hover { transform: translateY(-3px); }
         .folder-wrapper {
             position: relative;
             width: 200px;
             height: 170px;
             margin: 0 auto 10px;
         }
-
         .folder-back {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            bottom: 0; left: 0;
+            width: 100%; height: 100%;
             background: #c9a87c;
             border-radius: 6px;
             z-index: 1;
         }
-
         .sticking-paper {
             position: absolute;
-            top: -12px;
-            left: 12px;
-            width: 160px;
-            height: 45px;
+            top: -12px; left: 12px;
+            width: 160px; height: 45px;
             background: #fffef5;
             border: 1px solid #d8bc8c;
             border-radius: 3px;
@@ -178,55 +189,40 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
             overflow: hidden;
         }
-
         .sticking-paper .paper-lines {
             position: absolute;
-            top: 10px;
-            left: 8px;
-            right: 8px;
+            top: 10px; left: 8px; right: 8px;
             height: 25px;
             background: repeating-linear-gradient(180deg, #c8d8f0, #c8d8f0 8px, transparent 8px, transparent 16px);
         }
-
         .sticking-paper .paper-lines::before {
             content: "";
             position: absolute;
-            left: -6px;
-            top: 0;
-            width: 3px;
-            height: 100%;
+            left: -6px; top: 0;
+            width: 3px; height: 100%;
             background: #ffaaaa;
         }
-
         .paper-clip-metal {
             position: absolute;
-            top: -6px;
-            right: 12px;
-            width: 18px;
-            height: 22px;
+            top: -6px; right: 12px;
+            width: 18px; height: 22px;
             background: linear-gradient(135deg, #e8e8e8, #b0b0b0);
             border-radius: 2px 2px 6px 6px;
             box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
             z-index: 6;
         }
-
         .paper-clip-metal::before {
             content: "";
             position: absolute;
-            top: 3px;
-            left: 4px;
-            width: 10px;
-            height: 8px;
+            top: 3px; left: 4px;
+            width: 10px; height: 8px;
             background: #999;
             border-radius: 2px;
         }
-
         .folder-body {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 145px;
+            bottom: 0; left: 0;
+            width: 100%; height: 145px;
             background: #e8c99e;
             border-radius: 6px 6px 4px 4px;
             box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
@@ -234,84 +230,60 @@
             transition: all 0.3s ease;
             overflow: hidden;
         }
-
         .folder-body::before {
             content: "";
             position: absolute;
-            top: -10px;
-            left: 12px;
-            width: 65px;
-            height: 12px;
+            top: -10px; left: 12px;
+            width: 65px; height: 12px;
             background: #d4b07a;
             border-radius: 6px 6px 0 0;
         }
-
         .folder-tab {
             position: absolute;
-            right: -6px;
-            top: 20px;
-            width: 8px;
-            height: 35px;
+            right: -6px; top: 20px;
+            width: 8px; height: 35px;
             background: #d4b07a;
             border-radius: 0 3px 3px 0;
             z-index: 11;
         }
-
         /* CINTAS DE POLICÍA */
         .police-tape {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             pointer-events: none;
             z-index: 20;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
-
-        .police-tape.show {
-            opacity: 1;
-        }
-
+        .police-tape.show { opacity: 1; }
         .police-tape-horizontal {
             position: absolute;
-            top: 20%;
-            left: -10%;
-            width: 120%;
-            height: 18px;
-            background: repeating-linear-gradient(
-                45deg,
-                rgba(255, 200, 0, 0.7),
-                rgba(255, 200, 0, 0.7) 20px,
-                rgba(0, 0, 0, 0.7) 20px,
-                rgba(0, 0, 0, 0.7) 40px
-            );
+            top: 20%; left: -10%;
+            width: 120%; height: 18px;
+            background: repeating-linear-gradient(45deg,
+                rgba(255,200,0,0.7),
+                rgba(255,200,0,0.7) 20px,
+                rgba(0,0,0,0.7) 20px,
+                rgba(0,0,0,0.7) 40px);
             transform: rotate(-8deg);
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-
         .police-tape-vertical {
             position: absolute;
-            top: -10%;
-            left: 30%;
-            width: 18px;
-            height: 120%;
-            background: repeating-linear-gradient(
-                135deg,
-                rgba(255, 200, 0, 0.7),
-                rgba(255, 200, 0, 0.7) 20px,
-                rgba(0, 0, 0, 0.7) 20px,
-                rgba(0, 0, 0, 0.7) 40px
-            );
+            top: -10%; left: 30%;
+            width: 18px; height: 120%;
+            background: repeating-linear-gradient(135deg,
+                rgba(255,200,0,0.7),
+                rgba(255,200,0,0.7) 20px,
+                rgba(0,0,0,0.7) 20px,
+                rgba(0,0,0,0.7) 40px);
             transform: rotate(5deg);
             box-shadow: 2px 0 5px rgba(0,0,0,0.2);
         }
-
         .police-text {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%) rotate(-10deg);
             color: #ffcc00;
             font-family: 'Press Start 2P', monospace;
@@ -325,62 +297,46 @@
             padding: 2px 6px;
             border-radius: 3px;
         }
-
         .hanging-polaroid {
             position: absolute;
-            top: 12px;
-            left: 12px;
+            top: 12px; left: 12px;
             cursor: pointer;
             transition: transform 0.2s ease;
             z-index: 15;
         }
-
-        .hanging-polaroid:hover {
-            transform: rotate(3deg);
-        }
-
+        .hanging-polaroid:hover { transform: rotate(3deg); }
         .polaroid-clip {
-            width: 16px;
-            height: 20px;
+            width: 16px; height: 20px;
             background: linear-gradient(135deg, #d0d0d0, #a0a0a0);
             border-radius: 2px 2px 6px 6px;
             margin: 0 auto 2px;
             position: relative;
             box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
-
         .polaroid-clip::before {
             content: "";
             position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 10px;
-            height: 8px;
+            top: 3px; left: 3px;
+            width: 10px; height: 8px;
             background: #888;
             border-radius: 2px;
         }
-
         .polaroid-frame {
             background: #faf5e8;
             padding: 4px;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.15);
             border: 1px solid #e0cfb0;
             display: inline-block;
-            width: 65px;
-            height: 65px;
+            width: 65px; height: 65px;
         }
-
         .polaroid-frame img {
-            width: 57px;
-            height: 57px;
+            width: 57px; height: 57px;
             object-fit: cover;
             display: block;
         }
-
         .folder-stamp {
             position: absolute;
-            bottom: 6px;
-            right: 6px;
+            bottom: 6px; right: 6px;
             background: #ff4444;
             color: white;
             font-family: 'Press Start 2P', monospace;
@@ -393,16 +349,10 @@
             white-space: nowrap;
             opacity: 0;
         }
-
-        .folder-stamp.show {
-            opacity: 1;
-            animation: stampPopIn 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
-        }
-
+        .folder-stamp.show { opacity: 1; animation: stampPopIn 0.4s cubic-bezier(0.34,1.2,0.64,1) forwards; }
         .completion-stamp {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%) scale(0) rotate(8deg);
             background: linear-gradient(135deg, #2a6b2a, #1a4f1a);
             color: #ffdd88;
@@ -420,33 +370,26 @@
             font-weight: bold;
             backdrop-filter: blur(2px);
         }
-
         .completion-stamp::before {
             content: "★";
             position: absolute;
-            top: -12px;
-            left: -12px;
+            top: -12px; left: -12px;
             font-size: 1rem;
             color: #ffdd88;
             text-shadow: 1px 1px 0 #1a4f1a;
         }
-
         .completion-stamp::after {
             content: "★";
             position: absolute;
-            bottom: -12px;
-            right: -12px;
+            bottom: -12px; right: -12px;
             font-size: 1rem;
             color: #ffdd88;
             text-shadow: 1px 1px 0 #1a4f1a;
         }
-
         .stamp-wave {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 30px;
-            height: 30px;
+            top: 50%; left: 50%;
+            width: 30px; height: 30px;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(255,220,100,0.8) 0%, rgba(255,220,100,0) 70%);
             transform: translate(-50%, -50%) scale(0);
@@ -454,33 +397,21 @@
             pointer-events: none;
             z-index: 99;
         }
-
         @keyframes stampPopIn {
             0% { opacity: 0; transform: rotate(-25deg) scale(1.4); filter: blur(4px); }
             40% { opacity: 0.8; transform: rotate(-8deg) scale(1.05); }
             100% { opacity: 1; transform: rotate(-6deg) scale(1); filter: blur(0); }
         }
-
-        .folder-card:hover .folder-body {
-            background: #f0d89e;
-            box-shadow: 0 0 10px rgba(255, 200, 0, 0.4);
-        }
-
-        .folder-card:hover .sticking-paper {
-            transform: translateY(-8px);
-            box-shadow: 0 6px 10px rgba(0,0,0,0.15);
-        }
-
+        .folder-card:hover .folder-body { background: #f0d89e; box-shadow: 0 0 10px rgba(255,200,0,0.4); }
+        .folder-card:hover .sticking-paper { transform: translateY(-8px); box-shadow: 0 6px 10px rgba(0,0,0,0.15); }
         .folder-card.click-animation .sticking-paper {
-            animation: paperFlyUp 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation: paperFlyUp 0.45s cubic-bezier(0.4,0,0.2,1) forwards;
         }
-
         @keyframes paperFlyUp {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
             40% { transform: translateY(-50px) rotate(8deg); opacity: 0.9; }
             100% { transform: translateY(-100px) rotate(15deg); opacity: 0; }
         }
-
         .folder-name {
             font-family: 'Courier New', monospace;
             font-weight: bold;
@@ -492,54 +423,43 @@
             border-radius: 12px;
             margin-top: 8px;
         }
+        .folder-reward { font-size: 0.65rem; color: #2a6b2a; margin-top: 3px; }
+        .completed-badge { font-size: 0.6rem; color: #2a6b2a; margin-top: 3px; font-weight: bold; }
 
-        .folder-reward {
-            font-size: 0.65rem;
-            color: #2a6b2a;
-            margin-top: 3px;
-        }
-
-        .completed-badge {
-            font-size: 0.6rem;
-            color: #2a6b2a;
-            margin-top: 3px;
-            font-weight: bold;
-        }
-
-        /* MODAL */
+        /* MODAL MEJORADO */
         .mission-modal {
             display: none;
             position: fixed;
             z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
             background-color: rgba(0,0,0,0.85);
-            overflow-y: auto;
+            /* Flex para centrar el modal */
+            align-items: center;
+            justify-content: center;
             padding: 20px;
         }
-
+        .mission-modal.show {
+            display: flex; /* se activa desde JS, pero lo dejamos como clase extra */
+        }
         .paper-modal {
             background: #fffef5;
             width: auto;
             max-width: 750px;
             min-width: 300px;
-            position: relative;
-            margin: 0 auto;
-            top: 50%;
-            transform: translateY(-50%) scale(0.9);
             box-shadow: 10px 10px 0 rgba(0,0,0,0.2);
             border: 1px solid #e0cfb0;
             opacity: 0;
+            transform: scale(0.9);
             transition: all 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            margin: 0 auto;
         }
-
         .paper-modal.show {
-            transform: translateY(-50%) scale(1);
             opacity: 1;
+            transform: scale(1);
         }
-
         .paper-content {
             padding: 25px;
             display: flex;
@@ -548,7 +468,6 @@
             justify-content: center;
             align-items: center;
         }
-
         .paper-image-area {
             flex: 0 0 auto;
             width: 200px;
@@ -558,7 +477,6 @@
             align-items: center;
             justify-content: center;
         }
-
         .modal-polaroid-frame {
             background: #faf5e8;
             padding: 10px;
@@ -567,18 +485,16 @@
             width: 100%;
             aspect-ratio: 1 / 1;
         }
-
         .modal-polaroid-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
-
         .image-stamp {
             position: absolute;
-            bottom: 12px;
-            right: 12px;
+            bottom: 8px;
+            right: 8px;
             background: #ff4444;
             color: white;
             font-family: 'Press Start 2P', monospace;
@@ -590,11 +506,7 @@
             white-space: nowrap;
             z-index: 5;
         }
-
-        .image-stamp.completed {
-            background: #2a6b2a;
-        }
-
+        .image-stamp.completed { background: #2a6b2a; }
         .paper-info {
             flex: 1;
             min-width: 220px;
@@ -603,19 +515,16 @@
             gap: 12px;
             justify-content: center;
         }
-
         .paper-header {
             text-align: center;
             border-bottom: 2px dashed #d8bc8c;
             padding-bottom: 10px;
         }
-
         .paper-header h3 {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.2rem;
             color: #4a2e18;
         }
-
         .paper-description {
             font-size: 0.85rem;
             line-height: 1.5;
@@ -625,13 +534,11 @@
             padding: 12px;
             border-radius: 6px;
         }
-
         .paper-details {
             background: #f9f0e0;
             padding: 12px;
             border-radius: 6px;
         }
-
         .paper-reward {
             background: #2a6b2a;
             color: white;
@@ -641,20 +548,17 @@
             font-weight: bold;
             font-size: 0.85rem;
         }
-
         .paper-spots {
             text-align: center;
             margin-top: 8px;
             font-size: 0.75rem;
             color: #8b6946;
         }
-
         .paper-difficulty {
             text-align: center;
             margin-top: 8px;
             font-size: 0.75rem;
         }
-
         .completed-by {
             text-align: center;
             margin-top: 8px;
@@ -662,32 +566,19 @@
             color: #2a6b2a;
             font-style: italic;
         }
-
         .stars-small {
             display: inline-flex;
             gap: 3px;
             margin-left: 8px;
         }
-
-        .star-small {
-            color: #ccc;
-            font-size: 0.9rem;
-        }
-
-        .star-small.active {
-            color: #ffcc00;
-        }
-
-        .star-small.animate {
-            animation: starPop 0.3s ease-out;
-        }
-
+        .star-small { color: #ccc; font-size: 0.9rem; }
+        .star-small.active { color: #ffcc00; }
+        .star-small.animate { animation: starPop 0.3s ease-out; }
         @keyframes starPop {
             0% { transform: scale(0.2) rotate(-20deg); opacity: 0; }
             50% { transform: scale(1.3) rotate(10deg); opacity: 1; }
             100% { transform: scale(1) rotate(0deg); opacity: 1; }
         }
-
         .paper-close {
             display: block;
             margin-top: 10px;
@@ -698,90 +589,43 @@
             font-family: 'Press Start 2P', monospace;
             font-size: 0.6rem;
             width: 100%;
+            min-height: 44px;
         }
-
-        .paper-close:hover {
-            background: #c8ae82;
-            transform: scale(0.98);
-        }
-
-        @media (max-width: 550px) {
-            .paper-image-area {
-                width: 150px;
-            }
-            .image-stamp {
-                font-size: 0.45rem;
-                padding: 3px 6px;
-                bottom: 8px;
-                right: 8px;
-            }
-            .paper-content {
-                padding: 15px;
-                gap: 15px;
-            }
-            .completion-stamp {
-                font-size: 0.5rem;
-                padding: 6px 10px;
-            }
-            .completion-stamp::before, .completion-stamp::after {
-                font-size: 0.7rem;
-            }
-            .police-text {
-                font-size: 0.35rem;
-            }
-            .controls-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .search-box input {
-                width: 100%;
-            }
-            .order-box {
-                justify-content: space-between;
-            }
-        }
+        .paper-close:hover { background: #c8ae82; transform: scale(0.98); }
 
         .image-modal {
             display: none;
             position: fixed;
             z-index: 1100;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
             background-color: rgba(0,0,0,0.9);
             cursor: pointer;
         }
-
         .image-modal-content {
             background: #faf5e8;
             width: auto;
             max-width: 90%;
             max-height: 90vh;
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             padding: 10px;
             box-shadow: 12px 12px 0 rgba(0,0,0,0.2);
             border: 1px solid #e0cfb0;
             text-align: center;
         }
-
         .image-modal-content img {
             max-width: 100%;
             max-height: 70vh;
             object-fit: contain;
         }
-
         .close-image-modal {
             position: absolute;
-            top: -12px;
-            right: -12px;
+            top: -12px; right: -12px;
             background: #dac09a;
             border: 2px outset #ffe1b3;
-            width: 30px;
-            height: 30px;
+            width: 44px; height: 44px;
             border-radius: 50%;
             cursor: pointer;
             font-family: 'Press Start 2P', monospace;
@@ -790,11 +634,7 @@
             align-items: center;
             justify-content: center;
         }
-
-        .close-image-modal:hover {
-            background: #c8ae82;
-            transform: scale(1.05);
-        }
+        .close-image-modal:hover { background: #c8ae82; transform: scale(1.05); }
 
         .footer-note {
             margin-top: 30px;
@@ -805,7 +645,7 @@
             border-top: 3px dotted #b28248;
             font-size: 0.7rem;
         }
-        
+
         /* ===== RESPONSIVE MÓVIL ===== */
         @media (max-width: 700px) {
             body { padding: 8px 4px; }
@@ -813,11 +653,22 @@
             .retro-header {
                 flex-direction: column;
                 align-items: flex-start;
+                gap: 10px;
+            }
+            .header-actions {
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
                 gap: 8px;
-                padding: 10px;
             }
             .site-title { font-size: clamp(1rem, 6vw, 1.6rem); }
-            .back-link { font-size: 1rem; padding: 5px 10px; }
+            .back-link, .session-btn {
+                font-size: 1rem;
+                padding: 10px 15px;
+                text-align: center;
+                justify-content: center;
+                width: 100%;
+            }
 
             .missions-section { padding: 12px 10px; }
             .missions-section h2 { font-size: 0.7rem; padding: 6px 10px; }
@@ -834,21 +685,79 @@
             .polaroid-frame { width: 50px; height: 50px; }
             .polaroid-frame img { width: 42px; height: 42px; }
 
-            .controls-bar { flex-direction: column; align-items: stretch; gap: 10px; padding: 10px; }
-            .search-box input { width: 100%; }
-            .order-box { justify-content: space-between; }
-            .order-box select { flex: 1; }
+            /* Controles de búsqueda y orden */
+            .controls-bar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+                padding: 12px;
+            }
+            .search-box { width: 100%; }
+            .search-box input {
+                width: 100%;
+                max-width: 100%;
+                font-size: 16px;
+                padding: 10px;
+            }
+            .order-box {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: nowrap;
+                width: 100%;
+            }
+            .order-box label { flex-shrink: 0; font-size: 0.85rem; }
+            .order-box select {
+                flex: 1;
+                min-width: 0;
+                font-size: 0.85rem;
+                padding: 8px;
+                min-height: 44px;
+            }
+            .results-count { text-align: center; width: 100%; }
 
-            .paper-modal { min-width: unset; width: 95vw; }
-            .paper-content { flex-direction: column; padding: 14px; gap: 14px; align-items: center; }
+            /* Modal de expediente */
+            .paper-modal {
+                min-width: unset;
+                width: 95vw;
+                max-height: 85vh;
+            }
+            .paper-content {
+                flex-direction: column;
+                padding: 14px;
+                gap: 14px;
+                align-items: center;
+            }
             .paper-image-area { width: 140px; }
             .paper-info { min-width: unset; }
+            .image-stamp { font-size: 0.45rem; padding: 3px 6px; bottom: 5px; right: 5px; }
         }
 
         @media (max-width: 400px) {
             .folders-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
             .folder-wrapper { width: 130px; height: 115px; }
             .folder-body { height: 95px; }
+            .sticking-paper { width: 110px; left: 8px; top: -10px; }
+            .paper-clip-metal { right: 6px; }
+            .hanging-polaroid { top: 5px; left: 5px; }
+            .polaroid-frame { width: 40px; height: 40px; }
+            .polaroid-frame img { width: 32px; height: 32px; }
+            .completion-stamp { font-size: 0.45rem; padding: 5px 8px; }
+            .completion-stamp::before, .completion-stamp::after { font-size: 0.6rem; top: -8px; left: -8px; }
+            .police-text { font-size: 0.3rem; }
+            .order-box label { font-size: 0.75rem; }
+            .order-box select { font-size: 0.75rem; }
+            .paper-modal { width: 98vw; }
+            .paper-image-area { width: 120px; }
+            .paper-header h3 { font-size: 1rem; }
+            .paper-description { font-size: 0.75rem; }
+        }
+
+        @media (max-width: 320px) {
+            .folders-grid { grid-template-columns: 1fr; gap: 16px; }
+            .folder-wrapper { width: 180px; height: 150px; margin: 0 auto; }
+            .folder-body { height: 125px; }
+            .sticking-paper { width: 140px; }
         }
     </style>
 </head>
@@ -872,18 +781,18 @@
 <marquee behavior="scroll" direction="left" scrollamount="3"><i class="fas fa-folder-open"></i> ✧ ALPHA AGENCY - EXPEDIENTES DE MISIONES ✧ abre las carpetas para ver los detalles ✧ <i class="fas fa-stamp"></i></marquee>
 
 <div class="old-container">
-    <div class="retro-header">
-        <div class="site-title">
-            <i class="fas fa-folder-open"></i> ALPHA AGENCY
+    <header class="retro-header">
+        <div class="site-title"><i class="fas fa-folder-open"></i> ALPHA AGENCY</div>
+        <div class="header-actions">
+            <a href="index.html" class="back-link">← VOLVER AL INICIO</a>
+            <a href="archivado.html" class="back-link">📂 ARCHIVADOS</a>
+            <button class="session-btn" onclick="localStorage.removeItem('alphaAgency_session'); window.location.href='login.html';">🔓 CERRAR SESIÓN</button>
         </div>
-        <a href="index.html" class="back-link">← VOLVER AL INICIO</a>
-        <button onclick="localStorage.removeItem('alphaAgency_session'); window.location.href='login.html';" style="background:#5a3e2a;border:2px outset #8b6946;color:#ffefcf;font-family:'Press Start 2P',monospace;font-size:0.45rem;padding:6px 10px;cursor:pointer;">🔓 CERRAR SESIÓN</button>
-    </div>
+    </header>
 
     <div class="missions-section">
         <h2><i class="fas fa-folder"></i> 📁 EXPEDIENTES DE MISIONES</h2>
         
-        <!-- BARRA DE CONTROLES -->
         <div class="controls-bar">
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="🔍 Buscar misión por nombre...">
@@ -1028,16 +937,11 @@
         // ========== ORDENAR MISIONES ==========
         function sortMissions(missions, order) {
             const sorted = [...missions];
-            
-            // Primero separar completadas y no completadas si es el orden por defecto
             if (order === 'default') {
                 const notCompleted = sorted.filter(m => !m.completed);
                 const completed = sorted.filter(m => m.completed);
-                // Las no completadas van primero, luego las completadas
                 return [...notCompleted, ...completed];
             }
-            
-            // Orden por dificultad
             if (order === 'difficulty_asc') {
                 sorted.sort((a, b) => a.difficulty - b.difficulty);
             } else if (order === 'difficulty_desc') {
@@ -1046,14 +950,12 @@
             return sorted;
         }
         
-        // ========== FILTRAR MISIONES ==========
         function filterMissions(missions, searchTerm) {
             if (!searchTerm) return missions;
             const term = searchTerm.toLowerCase().trim();
             return missions.filter(m => m.name.toLowerCase().includes(term));
         }
         
-        // ========== RENDERIZAR MISIONES ==========
         function renderMissions() {
             const grid = document.getElementById('missionsGrid');
             if(!grid) return;
@@ -1061,14 +963,12 @@
             let filtered = filterMissions(allMissions, currentSearchTerm);
             const sorted = sortMissions(filtered, currentOrder);
             
-            // Actualizar contador de resultados
             const resultsCount = document.getElementById('resultsCount');
             if (resultsCount) {
                 resultsCount.innerHTML = `📊 ${sorted.length} misión${sorted.length !== 1 ? 'es' : ''} encontrada${sorted.length !== 1 ? 's' : ''}`;
             }
             
             grid.innerHTML = '';
-            
             if (sorted.length === 0) {
                 grid.innerHTML = '<div class="loading-message">🔍 No se encontraron misiones</div>';
                 return;
@@ -1106,7 +1006,7 @@
                         </div>
                         <div class="folder-tab"></div>
                         ${!isCompleted ? `<div class="folder-stamp" data-stamp="${mission.stamp}">${mission.stamp}</div>` : ''}
-                        <div class="completion-stamp" style="display: ${isCompleted ? 'flex' : 'none'};">✅ COMPLETADO</div>
+                        <div class="completion-stamp" style="display: ${isCompleted ? 'flex' : 'none'};"></div>
                         <div class="stamp-wave"></div>
                     </div>
                     <div class="folder-name">📁 ${mission.name}</div>
@@ -1129,6 +1029,7 @@
                     const waveElement = folder.querySelector('.stamp-wave');
                     const policeTapeElement = folder.querySelector('.police-tape');
                     if(stampElement) {
+                        stampElement.innerHTML = '✅ COMPLETADO';
                         setTimeout(() => { animateCompletionStamp(stampElement, waveElement, policeTapeElement); }, 150);
                     }
                     if(policeTapeElement) {
@@ -1240,9 +1141,11 @@
             
             const modal = document.getElementById('missionModal');
             const paperModal = document.getElementById('paperModal');
-            modal.style.display = 'block';
+            modal.style.display = 'flex'; // Usamos flex en lugar de block para centrar
             paperModal.classList.remove('show');
-            setTimeout(() => paperModal.classList.add('show'), 10);
+            // Forzamos un reflow para que la transición funcione
+            void paperModal.offsetWidth;
+            paperModal.classList.add('show');
             setTimeout(() => animateStars(mission.difficulty), 200);
         }
         
@@ -1261,7 +1164,6 @@
                 const data = await response.json();
                 allMissions = data.missions;
                 
-                // Configurar eventos de búsqueda y orden
                 const searchInput = document.getElementById('searchInput');
                 const orderSelect = document.getElementById('orderSelect');
                 
