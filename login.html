@@ -432,7 +432,8 @@
         foto: null   
     };
 
-    const SESSION_KEY = "alphaAgency_miriSession";
+    // <!-- CORRECCIÓN: Clave de sesión unificada con las demás páginas -->
+    const SESSION_KEY = "alphaAgency_session";  // Antes era "alphaAgency_miriSession"
 
     // ─── AGENTES CARGADOS DESDE JSON ───
     let agents = [];
@@ -553,11 +554,12 @@
         showMsg('❌ Credenciales incorrectas. Acceso denegado.', 'error');
     }
 
+    // <!-- CORRECCIÓN: guardar sesión con la propiedad "nombre" en lugar de "user" -->
     function grantAccess(userName, userPhoto) {
-        // Guardar sesión
+        // Guardar sesión con el formato que esperan las otras páginas (propiedad "nombre")
         const sessionData = {
-            user: userName,
-            photo: userPhoto || null,
+            nombre: userName,            // Antes era "user"
+            foto: userPhoto || null,
             timestamp: Date.now()
         };
         localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
@@ -574,14 +576,24 @@
         }, 1600);
     }
 
-    // ─── REDIRECCIÓN SI YA HAY SESIÓN ACTIVA ───
+    // <!-- CORRECCIÓN: validar sesión existente con la misma clave y propiedad -->
     function redirectIfAlreadyLogged() {
         try {
             const stored = localStorage.getItem(SESSION_KEY);
-            if (stored) {
+            if (!stored) return;
+
+            const session = JSON.parse(stored);
+            // Solo redirigir si la sesión tiene un nombre (es válida)
+            if (session && session.nombre) {
                 window.location.replace(REDIRECT_DEST);
+            } else {
+                // Si la sesión no es válida, limpiarla
+                localStorage.removeItem(SESSION_KEY);
             }
-        } catch(e) {}
+        } catch(e) {
+            // Si hay datos corruptos, los limpiamos
+            localStorage.removeItem(SESSION_KEY);
+        }
     }
 
     // ─── INICIALIZACIÓN ───
