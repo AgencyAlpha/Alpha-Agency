@@ -20,7 +20,6 @@
             align-items: center;
         }
 
-        /* Scanlines globales */
         body::after {
             content: '';
             position: fixed; inset: 0;
@@ -28,7 +27,6 @@
             pointer-events: none; z-index: 8000;
         }
 
-        /* ── MARQUEE ── */
         marquee {
             font-family: 'VT323', monospace;
             background: linear-gradient(90deg, #000050, #00008a, #000070, #000050);
@@ -46,7 +44,6 @@
         }
         @keyframes marqueeBg { 0%{background-position:0%} 100%{background-position:300%} }
 
-        /* ── CONTENEDOR PRINCIPAL ── */
         .old-container {
             width: 100%;
             max-width: 680px;
@@ -64,7 +61,6 @@
         }
         .old-container > * { position: relative; z-index: 1; }
 
-        /* ── HEADER ── */
         .retro-header {
             display: flex;
             flex-wrap: wrap;
@@ -101,7 +97,6 @@
         }
         .back-link:hover { border: 2px inset #b88b54; background: #cfb68e; }
 
-        /* ── ZONA CENTRAL: tablón de corcho ── */
         .cork-zone {
             background: #8B4513;
             background-image:
@@ -115,7 +110,6 @@
             flex-wrap: wrap;
         }
 
-        /* ── FICHA DE ACCESO ── */
         .access-card {
             background: #fef7e0;
             border: 3px ridge #b87c4a;
@@ -151,7 +145,6 @@
         .card-header i { font-size: 0.9rem; opacity: 0.8; }
         .card-body { padding: 20px 18px 22px; }
 
-        /* ── PREVIEW AGENTE ── */
         .agent-preview {
             display: flex;
             align-items: center;
@@ -172,10 +165,7 @@
             font-size: 1.4rem;
             color: #b08060;
         }
-        .agent-photo-wrap img {
-            width: 100%; height: 100%; object-fit: cover;
-            display: none;
-        }
+        .agent-photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: none; }
         .agent-info { flex: 1; }
         .agent-info-name {
             font-family: 'Press Start 2P', monospace;
@@ -190,7 +180,6 @@
             font-style: italic;
         }
 
-        /* ── FORMULARIO ── */
         .form-group { margin-bottom: 14px; }
         .form-label {
             font-family: 'Press Start 2P', monospace;
@@ -219,7 +208,6 @@
             color: #8b6946; font-size: 0.9rem; padding: 2px;
         }
 
-        /* ── BOTÓN PRINCIPAL ── */
         .login-btn {
             width: 100%;
             padding: 11px;
@@ -247,7 +235,6 @@
         .login-btn:active { transform: translateY(1px); }
         .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* ── MENSAJES ── */
         .msg-box {
             padding: 8px 12px;
             margin-top: 10px;
@@ -260,11 +247,49 @@
         .msg-box.success { background: #f0fff4; border-color: #44aa66; color: #1a5c38; }
         .msg-box.visible { display: block; }
 
-        /* ── SELLO ACCESO CONCEDIDO ── */
-        .access-granted {
-            text-align: center; padding: 28px 16px;
+        /* ── SELECTOR DE DESTINO ── */
+        #destSelector {
             display: none;
+            margin-top: 14px;
+            border: 2px ridge #b87c4a;
+            background: #fff9e8;
+            padding: 14px;
         }
+        #destSelector.visible { display: block; }
+        .dest-label {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.34rem;
+            color: #4a2e18;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            display: block;
+        }
+        .dest-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .dest-btn {
+            flex: 1;
+            min-width: 110px;
+            padding: 10px 8px;
+            background: #5a3e2a;
+            border: 3px outset #8b6946;
+            color: #ffefcf;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.35rem;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            text-align: center;
+            transition: 0.05s;
+            line-height: 1.8;
+        }
+        .dest-btn i { display: block; font-size: 1rem; margin-bottom: 6px; opacity: 0.85; }
+        .dest-btn:hover { background: #7a5a3a; border: 3px inset #5a3e2a; }
+        .dest-btn:active { transform: translateY(1px); }
+
+        /* ── ACCESO CONCEDIDO ── */
+        .access-granted { text-align: center; padding: 28px 16px; display: none; }
         .access-granted.visible { display: block; }
         .access-stamp {
             font-family: 'Press Start 2P', monospace;
@@ -283,7 +308,6 @@
             to   { transform: rotate(-4deg) scale(1); opacity: 1; }
         }
 
-        /* ── NOTA ── */
         .cork-note {
             background: #fff9a0;
             padding: 14px 16px 18px;
@@ -313,7 +337,6 @@
             letter-spacing: 1px;
         }
 
-        /* ── FOOTER ── */
         .retro-footer {
             background: #eddbbc;
             border-top: 3px dotted #b28248;
@@ -324,15 +347,14 @@
             color: #5a3e2a;
         }
 
-        /* ── BLINK ── */
         .blink { animation: blink-anim 1s step-end infinite; }
         @keyframes blink-anim { 50% { opacity: 0; } }
 
-        /* ── RESPONSIVE ── */
         @media (max-width: 520px) {
             .cork-zone { padding: 18px 12px 24px; }
             .cork-note { display: none; }
             .access-card { max-width: 100%; }
+            .dest-options { flex-direction: column; }
         }
     </style>
 </head>
@@ -355,7 +377,7 @@
                 VERIFICACIÓN DE AGENTE
             </div>
             <div class="card-body">
-                <!-- PREVIEW AGENTE -->
+
                 <div class="agent-preview">
                     <div class="agent-photo-wrap" id="photoWrap">
                         <span id="photoPlaceholder">🔒</span>
@@ -394,6 +416,23 @@
 
                     <div id="msgBox" class="msg-box"></div>
 
+                    <!-- SELECTOR DE DESTINO (solo aparece si sesión OK y sin dest) -->
+                    <div id="destSelector">
+                        <span class="dest-label">
+                            <i class="fas fa-map-marked-alt"></i>&nbsp; SELECCIONA TU DESTINO
+                        </span>
+                        <div class="dest-options">
+                            <button class="dest-btn" onclick="chooseDestAndGrant('archivado.html')">
+                                <i class="fas fa-archive"></i>
+                                ARCHIVADO
+                            </button>
+                            <button class="dest-btn" onclick="chooseDestAndGrant('misiones.html')">
+                                <i class="fas fa-crosshairs"></i>
+                                MISIONES
+                            </button>
+                        </div>
+                    </div>
+
                     <button class="login-btn" onclick="doLogin()" id="loginBtn">
                         <i class="fas fa-sign-in-alt"></i>&nbsp; ENTRAR AL SISTEMA
                     </button>
@@ -405,10 +444,10 @@
                         <span class="blink">▶</span> Redirigiendo...
                     </p>
                 </div>
+
             </div>
         </div>
 
-        <!-- NOTA PEGADA -->
         <div class="cork-note">
             <div class="cork-note-title">📋 RESTRICCIÓN</div>
             Acceso exclusivo para personal autorizado.<br>
@@ -422,46 +461,57 @@
 </div>
 
 <script>
-    const EXPECTED_NAME_HEX = "6d697269206164616d73";   
-    const EXPECTED_PWD_HEX  = "6d7277696c6c69616d73";   
-    const SECRET_NAME = hexToString(EXPECTED_NAME_HEX);
-    const SECRET_PASS = hexToString(EXPECTED_PWD_HEX);
-    const MIRI_USER = {
-        nombre: SECRET_NAME,
-        password: SECRET_PASS,
-        foto: null   
-    };
+    // ── CREDENCIALES MIRI ──
+    const EXPECTED_NAME_HEX = "6d697269206164616d73";
+    const EXPECTED_PWD_HEX  = "6d7277696c6c69616d73";
+    const SECRET_NAME = hexToString(EXPECTED_NAME_HEX); // "miri adams"
+    const SECRET_PASS = hexToString(EXPECTED_PWD_HEX);  // "mrwilliams"
+    const MIRI_DEST   = 'blog.html'; // Miri SIEMPRE aquí, sin excepción
 
-    // <!-- CORRECCIÓN: Clave de sesión unificada con las demás páginas -->
-    const SESSION_KEY = "alphaAgency_session";  // Antes era "alphaAgency_miriSession"
+    const SESSION_KEY = 'alphaAgency_session';
 
-    // ─── AGENTES CARGADOS DESDE JSON ───
     let agents = [];
 
-    // ─── OBTENER DESTINO DE LA URL ───
-    const urlParams = new URLSearchParams(window.location.search);
-    const REDIRECT_DEST = urlParams.get('dest') || 'blog.html'; // por defecto blog.html
+    // Agente autenticado pendiente de elegir destino
+    let pendingAgent = null;
 
-    // ─── UTILIDADES ───
+    // ── RESOLVER DESTINO PARA EL ROOSTER ──
+    (function resolveDestination() {
+        const urlParams  = new URLSearchParams(window.location.search);
+        const destFromURL = urlParams.get('dest');
+        if (destFromURL) {
+            const isValid = /^[a-zA-Z0-9_\-]+\.html$/.test(destFromURL);
+            if (isValid) {
+                sessionStorage.setItem('alphaAgency_dest', destFromURL);
+            } else {
+                sessionStorage.removeItem('alphaAgency_dest');
+            }
+        }
+    })();
+
+    function getRoosterDest() {
+        return sessionStorage.getItem('alphaAgency_dest') || null;
+    }
+
+    // ── UTILIDADES ──
     function hexToString(hex) {
         let str = '';
-        for (let i = 0; i < hex.length; i += 2) {
+        for (let i = 0; i < hex.length; i += 2)
             str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-        }
         return str;
     }
 
     function togglePwd() {
         const input = document.getElementById('inputPassword');
-        const icon = document.getElementById('eyeIcon');
-        input.type = input.type === 'password' ? 'text' : 'password';
+        const icon  = document.getElementById('eyeIcon');
+        input.type  = input.type === 'password' ? 'text' : 'password';
         icon.className = input.type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
     }
 
     function showMsg(text, type) {
         const box = document.getElementById('msgBox');
         box.textContent = text;
-        box.className = `msg-box ${type} visible`;
+        box.className = 'msg-box ' + type + ' visible';
     }
 
     function clearMsg() {
@@ -470,44 +520,55 @@
         box.textContent = '';
     }
 
-    // ─── PREVISUALIZACIÓN DEL AGENTE (SOLO PARA AGENTES DEL ROOSTER) ───
+    function showDestSelector() {
+        document.getElementById('destSelector').classList.add('visible');
+        document.getElementById('loginBtn').style.display = 'none';
+    }
+
+    function hideDestSelector() {
+        document.getElementById('destSelector').classList.remove('visible');
+        document.getElementById('loginBtn').style.display = '';
+    }
+
+    // ── PREVIEW DEL AGENTE ──
     function updateAgentPreview() {
-        const nombreInput = document.getElementById('inputNombre');
-        const rawName = nombreInput.value.trim();
+        const rawName    = document.getElementById('inputNombre').value.trim();
         const normalized = rawName.toLowerCase();
 
-        const nameDisplay = document.getElementById('agentNameDisplay');
+        const nameDisplay   = document.getElementById('agentNameDisplay');
         const statusDisplay = document.getElementById('agentStatusDisplay');
-        const photo = document.getElementById('agentPhoto');
-        const placeholder = document.getElementById('photoPlaceholder');
+        const photo         = document.getElementById('agentPhoto');
+        const placeholder   = document.getElementById('photoPlaceholder');
 
-        // Resetear a estado neutro por defecto
-        nameDisplay.textContent = '— SIN AUTENTICAR —';
+        nameDisplay.textContent   = '— SIN AUTENTICAR —';
         statusDisplay.textContent = 'Introduce tus credenciales';
-        photo.style.display = 'none';
+        photo.style.display       = 'none';
         placeholder.style.display = '';
-        placeholder.innerHTML = '🔒';
+        placeholder.innerHTML     = '🔒';
+
+        // Si el selector estaba abierto y el usuario cambia el nombre, lo ocultamos
+        hideDestSelector();
+        pendingAgent = null;
 
         if (normalized === '') return;
 
         const matchedAgent = agents.find(a => a.nombre.toLowerCase() === normalized);
         if (matchedAgent) {
-            // Mostrar foto y nombre del agente
-            nameDisplay.textContent = matchedAgent.nombre.toUpperCase();
+            nameDisplay.textContent   = matchedAgent.nombre.toUpperCase();
             statusDisplay.textContent = 'Agente identificado';
             if (matchedAgent.foto) {
-                photo.src = matchedAgent.foto;
-                photo.style.display = 'block';
+                photo.src             = matchedAgent.foto;
+                photo.style.display   = 'block';
                 placeholder.style.display = 'none';
             }
         }
     }
 
-    // ─── CARGA DEL ROOSTER.JSON ───
+    // ── CARGAR ROOSTER ──
     async function loadRooster() {
         try {
             const response = await fetch('rooster.json');
-            if (!response.ok) throw new Error('No se pudo cargar rooster.json');
+            if (!response.ok) throw new Error('Sin rooster');
             const data = await response.json();
             agents = data.agentes || [];
         } catch (err) {
@@ -516,94 +577,115 @@
         }
     }
 
-    // ─── LÓGICA DE INICIO DE SESIÓN ───
+    // ── LOGIN ──
     function doLogin() {
-        const nombreRaw = document.getElementById('inputNombre').value.trim();
+        const nombreRaw  = document.getElementById('inputNombre').value.trim();
         const passwordRaw = document.getElementById('inputPassword').value;
 
-        if (!nombreRaw) {
-            showMsg('⚠️ Escribe tu nombre de agente.', 'error');
-            return;
-        }
-        if (!passwordRaw) {
-            showMsg('⚠️ Escribe tu contraseña.', 'error');
-            return;
-        }
+        if (!nombreRaw)   { showMsg('⚠️ Escribe tu nombre de agente.', 'error'); return; }
+        if (!passwordRaw) { showMsg('⚠️ Escribe tu contraseña.', 'error'); return; }
 
         const normalizedName = nombreRaw.toLowerCase();
         const normalizedPass = passwordRaw.toLowerCase();
 
-        if (normalizedName === MIRI_USER.nombre && normalizedPass === MIRI_USER.password) {
-            grantAccess(MIRI_USER.nombre, MIRI_USER.foto);
+        // ── PRIORIDAD ABSOLUTA: Miri → siempre blog.html ──
+        if (normalizedName === SECRET_NAME.toLowerCase() &&
+            normalizedPass === SECRET_PASS.toLowerCase()) {
+            grantAccess(SECRET_NAME, null, MIRI_DEST);
             return;
         }
 
-        // 2) Verificar agentes del rooster
+        // ── Agentes del rooster ──
         const agent = agents.find(a =>
-            a.nombre.toLowerCase() === normalizedName &&
+            a.nombre.toLowerCase()   === normalizedName &&
             a.password.toLowerCase() === normalizedPass
         );
 
         if (agent) {
-            grantAccess(agent.nombre, agent.foto);
+            const dest = getRoosterDest();
+            if (dest) {
+                // Tiene destino: entrar directo
+                grantAccess(agent.nombre, agent.foto || null, dest);
+            } else {
+                // Credenciales correctas pero sin dest: mostrar selector
+                pendingAgent = agent;
+                clearMsg();
+                showDestSelector();
+            }
             return;
         }
 
-        // Fallo de autenticación
+        // ── Credenciales incorrectas ──
+        hideDestSelector();
+        pendingAgent = null;
         document.getElementById('inputPassword').value = '';
         showMsg('❌ Credenciales incorrectas. Acceso denegado.', 'error');
     }
 
-    // <!-- CORRECCIÓN: guardar sesión con la propiedad "nombre" en lugar de "user" -->
-    function grantAccess(userName, userPhoto) {
-        // Guardar sesión con el formato que esperan las otras páginas (propiedad "nombre")
+    // Llamado al pulsar uno de los botones de destino
+    function chooseDestAndGrant(dest) {
+        if (!pendingAgent) return;
+        sessionStorage.setItem('alphaAgency_dest', dest);
+        grantAccess(pendingAgent.nombre, pendingAgent.foto || null, dest);
+    }
+
+    // ── CONCEDER ACCESO ──
+    function grantAccess(userName, userPhoto, destination) {
         const sessionData = {
-            nombre: userName,            // Antes era "user"
-            foto: userPhoto || null,
+            nombre: userName,
+            foto:   userPhoto || null,
+            dest:   destination,
             timestamp: Date.now()
         };
         localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+        sessionStorage.removeItem('alphaAgency_dest');
 
-        // Efecto visual y redirección
-        const loginBtn = document.getElementById('loginBtn');
-        loginBtn.disabled = true;
+        document.getElementById('loginBtn').disabled = true;
+        hideDestSelector();
         document.getElementById('loginForm').style.opacity = '0.3';
         document.getElementById('accessGranted').classList.add('visible');
         clearMsg();
 
-        setTimeout(() => {
-            window.location.href = REDIRECT_DEST;
-        }, 1600);
+        setTimeout(() => { window.location.href = destination; }, 1600);
     }
 
-    // <!-- CORRECCIÓN: validar sesión existente con la misma clave y propiedad -->
+    // ── REDIRIGIR SI YA HAY SESIÓN ──
     function redirectIfAlreadyLogged() {
         try {
             const stored = localStorage.getItem(SESSION_KEY);
             if (!stored) return;
 
             const session = JSON.parse(stored);
-            // Solo redirigir si la sesión tiene un nombre (es válida)
-            if (session && session.nombre) {
-                window.location.replace(REDIRECT_DEST);
+            if (!session || !session.nombre) {
+                localStorage.removeItem(SESSION_KEY);
+                return;
+            }
+
+            // Miri: siempre blog.html
+            if (session.nombre.toLowerCase() === SECRET_NAME.toLowerCase()) {
+                window.location.replace(MIRI_DEST);
+                return;
+            }
+
+            // Otros agentes: usar dest guardado en sesión si es válido
+            const target = session.dest;
+            if (target && /^[a-zA-Z0-9_\-]+\.html$/.test(target)) {
+                window.location.replace(target);
             } else {
-                // Si la sesión no es válida, limpiarla
+                // Sesión sin dest válido: limpiar silenciosamente
                 localStorage.removeItem(SESSION_KEY);
             }
         } catch(e) {
-            // Si hay datos corruptos, los limpiamos
             localStorage.removeItem(SESSION_KEY);
         }
     }
 
-    // ─── INICIALIZACIÓN ───
+    // ── INICIALIZACIÓN ──
     document.addEventListener('DOMContentLoaded', async () => {
-        // Cargar rooster y luego verificar sesión previa
         await loadRooster();
         redirectIfAlreadyLogged();
 
-        // Estado neutral
-        document.getElementById('agentNameDisplay').textContent = '— SIN AUTENTICAR —';
+        document.getElementById('agentNameDisplay').textContent   = '— SIN AUTENTICAR —';
         document.getElementById('agentStatusDisplay').textContent = 'Introduce tus credenciales';
         clearMsg();
     });
