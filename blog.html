@@ -30,7 +30,6 @@ body {
     min-height: 100vh;
 }
 
-/* LAYOUT BLOGSPOT-INSPIRED */
 .blog-container {
     max-width: 1100px;
     margin: 0 auto;
@@ -40,7 +39,6 @@ body {
     gap: 40px;
 }
 
-/* HEADER minimalista */
 .blog-header {
     grid-column: 1 / -1;
     text-align: center;
@@ -101,7 +99,6 @@ body {
     color: var(--rose);
 }
 
-/* MAIN FEED - estilo Blogspot */
 .post-card {
     background: var(--paper);
     margin-bottom: 35px;
@@ -139,18 +136,14 @@ body {
     cursor: pointer;
     transition: color 0.15s;
 }
-.post-title:hover {
-    color: var(--rose-dark);
-}
+.post-title:hover { color: var(--rose-dark); }
 .post-excerpt {
     font-family: 'Lora', serif;
     font-size: 0.95rem;
     line-height: 1.7;
     color: #4a3830;
 }
-.post-excerpt p {
-    margin-bottom: 12px;
-}
+.post-excerpt p { margin-bottom: 12px; }
 .post-footer {
     display: flex;
     align-items: center;
@@ -172,10 +165,7 @@ body {
     gap: 6px;
     transition: 0.12s;
 }
-.read-more:hover {
-    color: var(--rose);
-    gap: 10px;
-}
+.read-more:hover { color: var(--rose); gap: 10px; }
 .reaction-btn {
     background: none;
     border: none;
@@ -188,14 +178,9 @@ body {
     font-family: 'Lora', serif;
     transition: 0.12s;
 }
-.reaction-btn:hover {
-    color: var(--rose);
-}
-.reaction-btn.liked {
-    color: var(--rose-dark);
-}
+.reaction-btn:hover { color: var(--rose); }
+.reaction-btn.liked { color: var(--rose-dark); }
 
-/* PAGINACIÓN */
 .pagination {
     display: flex;
     justify-content: center;
@@ -214,14 +199,8 @@ body {
     color: var(--ink);
     border-radius: 4px;
 }
-.page-btn:hover:not(:disabled) {
-    background: var(--cream);
-    border-color: var(--rose);
-}
-.page-btn:disabled {
-    opacity: 0.4;
-    cursor: default;
-}
+.page-btn:hover:not(:disabled) { background: var(--cream); border-color: var(--rose); }
+.page-btn:disabled { opacity: 0.4; cursor: default; }
 .page-number {
     background: var(--paper);
     border: 1px solid var(--border);
@@ -238,11 +217,8 @@ body {
     border-color: var(--rose-dark);
     color: white;
 }
-.page-number:hover:not(.active) {
-    background: var(--cream);
-}
+.page-number:hover:not(.active) { background: var(--cream); }
 
-/* SIDEBAR */
 .blog-sidebar {
     display: flex;
     flex-direction: column;
@@ -264,9 +240,7 @@ body {
     border-bottom: 1px solid var(--border);
     color: var(--rose-dark);
 }
-.widget-body {
-    padding: 16px;
-}
+.widget-body { padding: 16px; }
 .about-photo {
     width: 80px;
     height: 80px;
@@ -284,9 +258,7 @@ body {
     font-style: italic;
     text-align: center;
 }
-.cat-list {
-    list-style: none;
-}
+.cat-list { list-style: none; }
 .cat-list li {
     border-bottom: 1px dotted var(--border);
     padding: 8px 0;
@@ -294,9 +266,7 @@ body {
     justify-content: space-between;
     align-items: center;
 }
-.cat-list li:last-child {
-    border-bottom: none;
-}
+.cat-list li:last-child { border-bottom: none; }
 .cat-list a {
     font-family: 'Lora', serif;
     font-size: 0.85rem;
@@ -305,9 +275,7 @@ body {
     cursor: pointer;
     transition: 0.1s;
 }
-.cat-list a:hover {
-    color: var(--gold);
-}
+.cat-list a:hover { color: var(--gold); }
 .cat-count {
     font-size: 0.7rem;
     background: var(--cream);
@@ -332,9 +300,7 @@ body {
     margin-top: 8px;
     text-align: right;
 }
-.archive-list {
-    list-style: none;
-}
+.archive-list { list-style: none; }
 .archive-list li {
     padding: 6px 0;
     border-bottom: 1px dotted var(--border);
@@ -343,20 +309,15 @@ body {
     display: flex;
     justify-content: space-between;
 }
-.archive-list li:last-child {
-    border-bottom: none;
-}
+.archive-list li:last-child { border-bottom: none; }
 .archive-list a {
     color: var(--ink);
     text-decoration: none;
     cursor: pointer;
     transition: 0.1s;
 }
-.archive-list a:hover {
-    color: var(--rose-dark);
-}
+.archive-list a:hover { color: var(--rose-dark); }
 
-/* MODAL */
 .entry-overlay {
     display: none;
     position: fixed;
@@ -372,10 +333,7 @@ body {
     display: flex;
     animation: fadeIn 0.2s ease-out;
 }
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .entry-modal {
     background: var(--paper);
     border-radius: 4px;
@@ -407,19 +365,14 @@ body {
     font-size: 1rem;
     transition: 0.1s;
 }
-.entry-close-btn:hover {
-    background: var(--rose-dark);
-    color: white;
-}
+.entry-close-btn:hover { background: var(--rose-dark); color: white; }
 .entry-cover {
     width: 100%;
     max-height: 300px;
     object-fit: cover;
     display: block;
 }
-.entry-body {
-    padding: 28px 32px 40px;
-}
+.entry-body { padding: 28px 32px 40px; }
 .entry-title {
     font-family: 'Playfair Display', serif;
     font-size: clamp(1.5rem, 4vw, 2.2rem);
@@ -433,9 +386,7 @@ body {
     line-height: 1.8;
     color: #3a2820;
 }
-.entry-content p {
-    margin-bottom: 18px;
-}
+.entry-content p { margin-bottom: 18px; }
 .entry-content p:first-child::first-letter {
     font-family: 'Playfair Display', serif;
     font-size: 3rem;
@@ -452,7 +403,6 @@ body {
     font-style: italic;
 }
 
-/* LOADING & EMPTY */
 .loading, .empty-feed {
     text-align: center;
     padding: 50px;
@@ -461,19 +411,14 @@ body {
     font-style: italic;
 }
 
-/* RESPONSIVE */
 @media (max-width: 768px) {
     .blog-container {
         grid-template-columns: 1fr;
         gap: 30px;
         padding: 20px 16px;
     }
-    .entry-body {
-        padding: 20px;
-    }
-    .post-cover {
-        max-height: 200px;
-    }
+    .entry-body { padding: 20px; }
+    .post-cover { max-height: 200px; }
 }
 </style>
 </head>
@@ -484,7 +429,6 @@ body {
         <div class="blog-title">✦ Diario de Miri ✦</div>
         <div class="blog-subtitle">pensamientos, notas y pequeñas memorias</div>
         <div class="nav-links">
-
             <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Salir</button>
         </div>
     </header>
@@ -517,7 +461,7 @@ body {
             </div>
         </div>
 
-        <div >
+        <div>
             <div class="widget-body">
                 <ul class="archive-list" id="archiveList"></ul>
             </div>
@@ -539,21 +483,38 @@ body {
 
 <script>
 // ========== PROTECCIÓN DE SESIÓN ==========
-(function() {
-    const sessionKey = 'alphaAgency_miriSession';
-    if (!localStorage.getItem(sessionKey)) {
+// Clave unificada con login.html
+const SESSION_KEY = 'alphaAgency_session';
+const MIRI_NAME   = 'miri adams'; // debe coincidir con el hex del login
+
+(function checkSession() {
+    try {
+        const stored = localStorage.getItem(SESSION_KEY);
+        if (!stored) {
+            window.location.replace('login.html?dest=blog.html');
+            return;
+        }
+        const session = JSON.parse(stored);
+        // Verificar que hay nombre y que es Miri
+        if (!session || !session.nombre ||
+            session.nombre.toLowerCase() !== MIRI_NAME) {
+            // Sesión de otro agente: no tiene acceso al blog de Miri
+            localStorage.removeItem(SESSION_KEY);
+            window.location.replace('login.html?dest=blog.html');
+        }
+    } catch(e) {
+        localStorage.removeItem(SESSION_KEY);
         window.location.replace('login.html?dest=blog.html');
     }
 })();
 
 // ========== GLOBALES ==========
-let allPosts = [];       // todos los posts desde JSON
+let allPosts     = [];
 let currentFilter = 'all';
-let currentPage = 1;
+let currentPage  = 1;
 const POSTS_PER_PAGE = 5;
 let likes = JSON.parse(localStorage.getItem('miri_likes') || '{}');
 
-// Frases fijas (no dependen del JSON)
 const QUOTES = [
     { q: 'No todas las personas que deambulan están perdidas.', a: 'J.R.R. Tolkien' },
     { q: 'Hay que tener caos dentro de uno para dar luz a una estrella danzante.', a: 'Friedrich Nietzsche' },
@@ -563,69 +524,60 @@ const QUOTES = [
     { q: 'Algunos son nacidos grandes, algunos alcanzan la grandeza...', a: 'Shakespeare' }
 ];
 
-// ========== CARGAR POSTS DESDE JSON ==========
+// ========== CARGAR POSTS ==========
 async function loadPosts() {
     try {
         const response = await fetch('posts.json');
         if (!response.ok) throw new Error('No se pudo cargar posts.json');
         const data = await response.json();
         allPosts = data.posts || [];
-        
-        // Ordenar: del más nuevo al más viejo (por fecha descendente)
         allPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
-        
         renderEverything();
     } catch (error) {
         console.error(error);
-        document.getElementById('postFeed').innerHTML = '<div class="empty-feed">⚠️ No se pudo cargar el archivo posts.json. Asegúrate de que existe.</div>';
+        document.getElementById('postFeed').innerHTML =
+            '<div class="empty-feed">⚠️ No se pudo cargar el archivo posts.json.</div>';
     }
 }
 
-// ========== RENDER COMPLETO ==========
+// ========== RENDER ==========
 function renderEverything() {
     updateCategoriesAndArchive();
     renderFeed();
     renderPagination();
 }
 
-// Actualizar sidebar (categorías y archivo)
 function updateCategoriesAndArchive() {
-    // Filtramos por el filtro actual para contar? No, las categorías y archivo cuentan sobre TODOS los posts
-    const tagCount = {};
+    const tagCount   = {};
     const monthCount = {};
-    
+
     allPosts.forEach(post => {
         const tag = post.tag || 'sin categoría';
         tagCount[tag] = (tagCount[tag] || 0) + 1;
-        
         if (post.date) {
-            const month = post.date.slice(0, 7); // YYYY-MM
+            const month = post.date.slice(0, 7);
             monthCount[month] = (monthCount[month] || 0) + 1;
         }
     });
-    
-    // Render categorías
-    const categoryList = document.getElementById('categoryList');
-    categoryList.innerHTML = Object.entries(tagCount)
-        .map(([tag, count]) => `
+
+    document.getElementById('categoryList').innerHTML =
+        Object.entries(tagCount).map(([tag, count]) => `
             <li>
                 <a onclick="setFilter('${tag}')">${tag.charAt(0).toUpperCase() + tag.slice(1)}</a>
                 <span class="cat-count">${count}</span>
             </li>
         `).join('');
-    
-    // Render archivo (orden descendente)
-    const archiveList = document.getElementById('archiveList');
-    archiveList.innerHTML = Object.entries(monthCount)
-        .sort((a, b) => b[0].localeCompare(a[0]))
-        .map(([month, count]) => {
-            const date = new Date(month + '-01T12:00:00');
-            const label = date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long' });
-            return `<li><a onclick="setArchiveFilter('${month}')">${label}</a><span class="cat-count">${count}</span></li>`;
-        }).join('');
+
+    document.getElementById('archiveList').innerHTML =
+        Object.entries(monthCount)
+            .sort((a, b) => b[0].localeCompare(a[0]))
+            .map(([month, count]) => {
+                const date  = new Date(month + '-01T12:00:00');
+                const label = date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long' });
+                return `<li><a onclick="setArchiveFilter('${month}')">${label}</a><span class="cat-count">${count}</span></li>`;
+            }).join('');
 }
 
-// Filtrar posts según tag o archivo
 function getFilteredPosts() {
     if (currentFilter === 'all') return allPosts;
     if (currentFilter.startsWith('archive:')) {
@@ -637,51 +589,42 @@ function getFilteredPosts() {
 
 function setFilter(tag) {
     currentFilter = tag;
-    currentPage = 1;
-    // Actualizar clase activa en nav-links
+    currentPage   = 1;
     document.querySelectorAll('.nav-link').forEach(link => {
-        const filterVal = link.getAttribute('data-filter');
-        if ((filterVal === tag) || (tag === 'all' && filterVal === 'all')) {
-            link.classList.add('active');
-        } else {
-            link.classList.remove('active');
-        }
+        link.classList.toggle('active', link.getAttribute('data-filter') === tag);
     });
     renderFeed();
     renderPagination();
 }
 
 function setArchiveFilter(month) {
-    currentFilter = `archive:${month}`;
-    currentPage = 1;
-    // Quitar active de los nav-links
+    currentFilter = 'archive:' + month;
+    currentPage   = 1;
     document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
     renderFeed();
     renderPagination();
 }
 
-// Renderizar posts con paginación
 function renderFeed() {
-    const filtered = getFilteredPosts();
-    const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE);
+    const filtered    = getFilteredPosts();
+    const totalPages  = Math.ceil(filtered.length / POSTS_PER_PAGE);
     if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
     if (currentPage < 1) currentPage = 1;
-    
-    const start = (currentPage - 1) * POSTS_PER_PAGE;
+
+    const start     = (currentPage - 1) * POSTS_PER_PAGE;
     const pagePosts = filtered.slice(start, start + POSTS_PER_PAGE);
-    
-    const feed = document.getElementById('postFeed');
-    
+    const feed      = document.getElementById('postFeed');
+
     if (pagePosts.length === 0) {
         feed.innerHTML = '<div class="empty-feed">✨ No hay entradas en esta categoría.</div>';
         return;
     }
-    
+
     feed.innerHTML = pagePosts.map(post => `
         <article class="post-card">
-            ${post.cover ? `<img src="${post.cover}" class="post-cover" alt="${post.title}" onerror="this.style.display='none'">` : ''}
+            ${post.cover ? `<img src="${post.cover}" class="post-cover" alt="${escapeHtml(post.title)}" onerror="this.style.display='none'">` : ''}
             <div class="post-inner">
-                <div class="post-tag">${(post.tag || 'sin categoría').toUpperCase()}</div>
+                <div class="post-tag">${escapeHtml((post.tag || 'sin categoría').toUpperCase())}</div>
                 <h2 class="post-title" onclick="openEntry(${post.id})">${escapeHtml(post.title)}</h2>
                 <div class="post-excerpt">${post.excerpt || (post.content ? post.content.substring(0, 200) + '...' : '')}</div>
                 <div class="post-footer">
@@ -698,21 +641,18 @@ function renderFeed() {
 }
 
 function renderPagination() {
-    const filtered = getFilteredPosts();
+    const filtered   = getFilteredPosts();
     const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE);
-    const paginationDiv = document.getElementById('pagination');
-    
-    if (totalPages <= 1) {
-        paginationDiv.innerHTML = '';
-        return;
-    }
-    
+    const div        = document.getElementById('pagination');
+
+    if (totalPages <= 1) { div.innerHTML = ''; return; }
+
     let pagesHtml = '';
     for (let i = 1; i <= totalPages; i++) {
         pagesHtml += `<button class="page-number ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
     }
-    
-    paginationDiv.innerHTML = `
+
+    div.innerHTML = `
         <button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>← Anterior</button>
         ${pagesHtml}
         <button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Siguiente →</button>
@@ -720,7 +660,7 @@ function renderPagination() {
 }
 
 function goToPage(page) {
-    const filtered = getFilteredPosts();
+    const filtered   = getFilteredPosts();
     const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE);
     if (page < 1 || page > totalPages) return;
     currentPage = page;
@@ -739,11 +679,10 @@ function toggleLike(id, btn) {
 function openEntry(id) {
     const post = allPosts.find(p => p.id === id);
     if (!post) return;
-    const contentDiv = document.getElementById('entryModalContent');
-    contentDiv.innerHTML = `
-        ${post.cover ? `<img src="${post.cover}" class="entry-cover" alt="${post.title}" onerror="this.style.display='none'">` : ''}
+    document.getElementById('entryModalContent').innerHTML = `
+        ${post.cover ? `<img src="${post.cover}" class="entry-cover" alt="${escapeHtml(post.title)}" onerror="this.style.display='none'">` : ''}
         <div class="entry-body">
-            <div class="post-tag" style="margin-bottom:10px;">${(post.tag || 'sin categoría').toUpperCase()}</div>
+            <div class="post-tag" style="margin-bottom:10px;">${escapeHtml((post.tag || 'sin categoría').toUpperCase())}</div>
             <h1 class="entry-title">${escapeHtml(post.title)}</h1>
             <div class="entry-content">${post.content || post.excerpt || ''}</div>
         </div>
@@ -759,16 +698,13 @@ function closeEntry() {
 
 function escapeHtml(str) {
     if (!str) return '';
-    return str.replace(/[&<>]/g, function(m) {
-        if (m === '&') return '&amp;';
-        if (m === '<') return '&lt;';
-        if (m === '>') return '&gt;';
-        return m;
-    });
+    return str.replace(/[&<>"']/g, m => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[m]));
 }
 
 function logout() {
-    localStorage.removeItem('alphaAgency_miriSession');
+    localStorage.removeItem(SESSION_KEY);
     window.location.href = 'login.html';
 }
 
@@ -779,21 +715,20 @@ function logout() {
     document.getElementById('dailyQuoteAttr').textContent = '— ' + q.a;
 })();
 
-// Event listeners para filtros
+// Filtros de navegación
 document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function(e) {
+    link.addEventListener('click', function() {
         const filter = this.getAttribute('data-filter');
         if (filter === 'all') setFilter('all');
         else setFilter(filter);
     });
 });
 
-// Clic en overlay para cerrar modal
+// Cerrar modal al clicar el fondo
 document.getElementById('entryOverlay').addEventListener('click', e => {
     if (e.target === document.getElementById('entryOverlay')) closeEntry();
 });
 
-// Inicializar
 loadPosts();
 </script>
 </body>
