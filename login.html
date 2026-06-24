@@ -603,11 +603,13 @@
 
         if (agent) {
             const dest = getRoosterDest();
-            if (dest) {
-                // Tiene destino: entrar directo
+            // ✅ MODIFICACIÓN: Si el destino es blog.html, lo ignoramos para agentes normales
+            if (dest && dest !== 'blog.html') {
+                // Tiene destino válido (archivado o misiones): entrar directo
                 grantAccess(agent.nombre, agent.foto || null, dest);
             } else {
-                // Credenciales correctas pero sin dest: mostrar selector
+                // Sin destino válido, o el destino es blog.html (no permitido para no-Miri):
+                // mostrar selector
                 pendingAgent = agent;
                 clearMsg();
                 showDestSelector();
@@ -667,12 +669,12 @@
                 return;
             }
 
-            // Otros agentes: usar dest guardado en sesión si es válido
+            // ✅ MODIFICACIÓN: Si un agente normal tiene blog.html como destino, limpiar sesión
             const target = session.dest;
-            if (target && /^[a-zA-Z0-9_\-]+\.html$/.test(target)) {
+            if (target && /^[a-zA-Z0-9_\-]+\.html$/.test(target) && target !== 'blog.html') {
                 window.location.replace(target);
             } else {
-                // Sesión sin dest válido: limpiar silenciosamente
+                // Sesión inválida o destino blog.html no permitido para no-Miri
                 localStorage.removeItem(SESSION_KEY);
             }
         } catch(e) {
