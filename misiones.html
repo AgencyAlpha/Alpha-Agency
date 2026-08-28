@@ -1011,8 +1011,8 @@
                     </div>
                     <div class="folder-name">📁 ${mission.name}</div>
                     <div class="folder-reward">💰 ${mission.reward} EDIS</div>
- <div class="folder-reward" style="color:#8b6946;">📋 ${availableSpots}/${mission.maxParticipants} plazas</div>
- ${isCompleted ? '<div class="completed-badge">✅ MISIÓN COMPLETADA</div>' : ''}
+<div class="folder-reward" style="color:#8b6946;">📋 ${mission.participants}/${mission.maxParticipants} plazas</div>
+${isCompleted ? '<div class="completed-badge">✅ MISIÓN COMPLETADA</div>' : ''}
                 `;
                 
                 folder.addEventListener('mouseenter', () => { playHoverSound(); });
@@ -1108,8 +1108,7 @@
             document.getElementById('modalTitle').innerHTML = mission.name;
             document.getElementById('modalDesc').innerHTML = mission.description;
             document.getElementById('modalReward').innerHTML = `💰 ${mission.reward} EDIS`;
-            document.getElementById('modalSpots').innerHTML = `📋 Plazas disponibles: ${availableSpots} ${availableSpots === 0 ? '🔒 (Completa)' : '✅ ¡Únete!'}`;
-            
+document.getElementById('modalSpots').innerHTML = `📋 Plazas ocupadas: ${mission.participants}/${mission.maxParticipants} · Disponibles: ${availableSpots} ${availableSpots === 0 ? '🔒 (Completa)' : '✅ ¡Únete!'}`;            
             const modalStamp = document.getElementById('modalImageStamp');
             if(isCompleted) {
                 modalStamp.innerHTML = '✅ COMPLETADA';
