@@ -2,13 +2,13 @@
     "personajes": [
         {
             "id": 5,
-            "nombre": "Ey, si ves esto mandame dm con una captura de esto",
-            "edad": 24,
-            "profesion": "Ey, si ves esto mandame dm con una captura de esto",
-            "habilidad": "Ey, si ves esto mandame dm con una captura de esto",
-            "datos": "Ey, si ves esto mandame dm con una captura de esto.",
-            "foto": "imagenes_personajes/star.webp",
-            "nuevo": false
+            "nombre": "Noah Voltaire",
+            "edad": "Oye, eso es privado",
+            "profesion": "Lider suena muy prepotente...¿Un miembro de la estrella?",
+            "habilidad": "Transformador",
+            "datos": "Mi gato me esta sacando el aire estando encima mio...Y esa es la unica foto donde salgo bien",
+            "foto": "imagenes_personajes/Noah.jpg",
+            "nuevo": true
         }
       
     ]
