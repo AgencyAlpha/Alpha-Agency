@@ -2,33 +2,81 @@
     "agentes": [
         {
             "id": 1,
-            "nombre": "Agente Phantom",
-            "password": "phantom123",
-            "foto": "imagenes_rooster/preba.png"
+            "nombre": "Moxy Yakumo",
+            "password": "Ambar2809",
+            "foto": "imagenes_rooster/Moxy_Glasses.PNG"
         },
         {
             "id": 2,
-            "nombre": "Agente Nox",
-            "password": "nox456",
-            "foto": "imagenes_rooster/nox.webp"
+            "nombre": "Nathan Pouls",
+            "password": "NP-4e617468616e",
+            "foto": "imagenes_rooster/Nathan.png"
         },
         {
             "id": 3,
-            "nombre": "Agente Luna",
-            "password": "luna789",
-            "foto": "imagenes_rooster/luna.webp"
+            "nombre": "Static Shock",
+            "password": "StatShaq24",
+            "foto": "imagenes_rooster/Static.jpg"
         },
         {
             "id": 4,
-            "nombre": "Agente Cósmica",
-            "password": "cosmica000",
-            "foto": "imagenes_rooster/cosmica.webp"
+            "nombre": "May Jellyfish",
+            "password": "TotsuGekiiiJellyJelly(ദ്ദി˙ᗜ˙)",
+            "foto": "imagenes_rooster/May.png"
         },
         {
             "id": 5,
-            "nombre": "Agente Eclipse",
-            "password": "eclipse321",
-            "foto": "imagenes_rooster/eclipse.webp"
+            "nombre": "Andreas Valerians",
+            "password": "AntareSarron09/30",
+            "foto": "imagenes_rooster/Andreas.jpg"
+        },
+        {
+            "id": 6,
+            "nombre": "Eva Benedetti",
+            "password": "Risotto",
+            "foto": "imagenes_rooster/Eva.png"
+        },
+        {
+            "id": 7,
+            "nombre": "Yakui Futaba",
+            "password": "House",
+            "foto": "imagenes_rooster/Yakui.png"
+        },
+        {
+            "id": 8,
+            "nombre": "Judai Yuki",
+            "password": "flamewingman123",
+            "foto": "imagenes_rooster/Judai.png"
+        },
+        {
+            "id": 9,
+            "nombre": "Iris Thompson",
+            "password": "Iris105",
+            "foto": "imagenes_rooster/Iris.jpg"
+        },
+        {
+            "id": 10,
+            "nombre": "Daniel Valfard",
+            "password": "7uX2uiZ",
+            "foto": "imagenes_rooster/Daniel.png"
+        },
+        {
+            "id": 11,
+            "nombre": "Helen Logan",
+            "password": "St4lk3r_Consequ3nces",
+            "foto": "imagenes_rooster/Helen.png"
+        },
+        {
+            "id": 12,
+            "nombre": "Akihiro Yamamoto",
+            "password": "V1rtu4l_1n54n17y",
+            "foto": "imagenes_rooster/Akihiro.png"
+        },
+        {
+            "id": 13,
+            "nombre": "Mindy Atherson",
+            "password": "MinAther0101rr",
+            "foto": "imagenes_rooster/Mindy.jpg"
         }
     ]
 }
