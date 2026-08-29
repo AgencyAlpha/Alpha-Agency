@@ -350,11 +350,160 @@
         .blink { animation: blink-anim 1s step-end infinite; }
         @keyframes blink-anim { 50% { opacity: 0; } }
 
+        /* ── MODAL DE DIÁLOGO ── */
+        .dialog-modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: modalFadeIn 0.2s ease-out;
+        }
+        .dialog-modal.visible { display: flex; }
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+        .dialog-box {
+            width: 90%;
+            max-width: 420px;
+            background: #fef7e0;
+            border: 4px ridge #b87c4a;
+            box-shadow: 8px 8px 0px #3a1a00;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            animation: dialogPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes dialogPop {
+            from { transform: scale(0.7); opacity: 0; }
+            to   { transform: scale(1); opacity: 1; }
+        }
+        .dialog-box .close-btn {
+            position: absolute;
+            top: 8px; right: 12px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #5a3e2a;
+            font-family: 'Courier New', monospace;
+        }
+        .dialog-box .dialog-image {
+            width: 100px;
+            height: 100px;
+            border: 3px ridge #b87c4a;
+            background: #e8d8b0;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .dialog-box .dialog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .dialog-box .dialog-text {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #000; /* Color por defecto: negro */
+            margin-bottom: 16px;
+            min-height: 50px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            text-align: left;
+            border-left: 3px solid;
+            padding-left: 10px;
+            background: rgba(255,255,255,0.5);
+        }
+
+        /* Estilos para marcado */
+        .dialog-text strong { font-weight: bold; }
+        .dialog-text em { font-style: italic; opacity: 0.7; } /* susurro */
+
+        /* ── Animaciones de texto basadas en Animista ── */
+        .dialog-text.shake-horizontal {
+            animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite;
+        }
+        @keyframes shake-horizontal {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+            20%, 40%, 60%, 80% { transform: translateX(3px); }
+        }
+
+        .dialog-text.bounce-top {
+            animation: bounce-top 0.9s both infinite;
+        }
+        @keyframes bounce-top {
+            0% { transform: translateY(-8px); animation-timing-function: ease-in; opacity: 1; }
+            24% { opacity: 1; }
+            40% { transform: translateY(-6px); animation-timing-function: ease-in; }
+            65% { transform: translateY(-4px); animation-timing-function: ease-in; }
+            82% { transform: translateY(-2px); animation-timing-function: ease-in; }
+            93% { transform: translateY(-1px); animation-timing-function: ease-in; }
+            25%, 55%, 75%, 87% { transform: translateY(0); animation-timing-function: ease-out; }
+            100% { transform: translateY(0); animation-timing-function: ease-out; opacity: 1; }
+        }
+
+        .dialog-text.color-cycle {
+            animation: color-cycle 2s linear infinite;
+        }
+        @keyframes color-cycle {
+            0% { color: #ff0000; }
+            25% { color: #00ff00; }
+            50% { color: #0000ff; }
+            75% { color: #ff00ff; }
+            100% { color: #ff0000; }
+        }
+
+        .dialog-text.blink-2 {
+            animation: blink-2 0.9s both infinite;
+        }
+        @keyframes blink-2 {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0.2; }
+        }
+
+        .dialog-text.wave {
+            animation: wave 1.5s ease-in-out infinite;
+        }
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            25% { transform: translateY(-5px); }
+            75% { transform: translateY(5px); }
+        }
+
+        .dialog-text.glow {
+            animation: glow 1.5s ease-in-out infinite;
+        }
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 5px currentColor; }
+            50% { text-shadow: 0 0 20px currentColor, 0 0 30px currentColor; }
+        }
+
+        .dialog-box .dialog-ok {
+            background: #5a3e2a;
+            border: 3px outset #8b6946;
+            color: #ffefcf;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.4rem;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+        .dialog-box .dialog-ok:hover { background: #7a5a3a; border: 3px inset #5a3e2a; }
+
         @media (max-width: 520px) {
             .cork-zone { padding: 18px 12px 24px; }
             .cork-note { display: none; }
             .access-card { max-width: 100%; }
             .dest-options { flex-direction: column; }
+            .dialog-box { padding: 15px; }
         }
     </style>
 </head>
@@ -460,6 +609,18 @@
     </div>
 </div>
 
+<!-- MODAL DE DIÁLOGO -->
+<div id="dialogModal" class="dialog-modal">
+    <div class="dialog-box" id="dialogBox">
+        <button class="close-btn" onclick="closeDialog()">&times;</button>
+        <div class="dialog-image" id="dialogImageWrap">
+            <img id="dialogImage" src="" alt="Personaje">
+        </div>
+        <div class="dialog-text" id="dialogText"></div>
+        <button class="dialog-ok" onclick="closeDialog()">ACEPTAR</button>
+    </div>
+</div>
+
 <script>
     // ── CREDENCIALES MIRI ──
     const EXPECTED_NAME_HEX = "6d697269206164616d73";
@@ -471,6 +632,7 @@
     const SESSION_KEY = 'alphaAgency_session';
 
     let agents = [];
+    let jokeData = []; // Almacenará los diálogos de joke.json
 
     // Agente autenticado pendiente de elegir destino
     let pendingAgent = null;
@@ -562,6 +724,20 @@
                 placeholder.style.display = 'none';
             }
         }
+
+        // Comprobar si hay un diálogo para este agente en joke.json
+        const jokeEntry = jokeData.find(j => j.nombre.toLowerCase() === normalized);
+        if (jokeEntry) {
+            // Mostrar modal y borrar el campo de nombre
+            showDialogModal(jokeEntry);
+            document.getElementById('inputNombre').value = '';
+            // Limpiar la vista previa
+            nameDisplay.textContent   = '— SIN AUTENTICAR —';
+            statusDisplay.textContent = 'Introduce tus credenciales';
+            photo.style.display       = 'none';
+            placeholder.style.display = '';
+            placeholder.innerHTML     = '🔒';
+        }
     }
 
     // ── CARGAR ROOSTER ──
@@ -577,6 +753,119 @@
         }
     }
 
+    // ── CARGAR JOKE.JSON ──
+    async function loadJokeData() {
+        try {
+            const response = await fetch('joke.json');
+            if (!response.ok) throw new Error('Sin joke.json');
+            const data = await response.json();
+            // Esperamos que joke.json tenga una propiedad "dialogos" o similar.
+            jokeData = data.dialogos || data.agentes || [];
+            jokeData = jokeData.filter(entry => entry.nombre);
+        } catch (err) {
+            console.warn('⚠️ No se pudo cargar joke.json.', err);
+            jokeData = [];
+        }
+    }
+
+    // ── MODAL DE DIÁLOGO ──
+    function showDialogModal(entry) {
+        const modal = document.getElementById('dialogModal');
+        const box = document.getElementById('dialogBox');
+        const img = document.getElementById('dialogImage');
+        const textDiv = document.getElementById('dialogText');
+
+        // Color: si no tiene, usamos negro para el texto (por defecto ya es negro)
+        // pero el borde usa un color por defecto si no se especifica
+        const color = entry.color || '#b87c4a';
+        box.style.borderColor = color;
+        box.style.boxShadow = `8px 8px 0px ${color}`;
+        textDiv.style.borderLeftColor = color;
+
+        // Imagen: si joke.json tiene imagen, la usamos; si no, intentamos obtener del rooster
+        let imageSrc = entry.imagen || entry.foto || '';
+        if (!imageSrc) {
+            const agent = agents.find(a => a.nombre.toLowerCase() === entry.nombre.toLowerCase());
+            if (agent) imageSrc = agent.foto || '';
+        }
+        if (imageSrc) {
+            img.src = imageSrc;
+            img.style.display = 'block';
+        } else {
+            img.style.display = 'none';
+        }
+
+        // Diálogo: parsear marcado (negrita y susurro)
+        const dialogoRaw = entry.dialogo || '...';
+        // Convertir **negrita** y *susurro* a HTML
+        const dialogoHTML = dialogoRaw
+            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+        textDiv.textContent = ''; // Limpiar
+        // Limpiar clases de efectos previas
+        textDiv.className = 'dialog-text';
+
+        modal.classList.add('visible');
+
+        // Efecto máquina de escribir: escribir el texto plano y al final aplicar el HTML
+        const plainText = dialogoRaw.replace(/\*\*/g, '').replace(/\*/g, ''); // Quitar marcadores para escritura
+        let index = 0;
+        const interval = setInterval(() => {
+            if (index < plainText.length) {
+                textDiv.textContent += plainText.charAt(index);
+                index++;
+            } else {
+                clearInterval(interval);
+                // Al terminar, aplicar el HTML con formato
+                textDiv.innerHTML = dialogoHTML;
+                // Aplicar efectos de animación (clases CSS)
+                applyEffects(textDiv, entry.efecto);
+            }
+        }, 30);
+    }
+
+    function applyEffects(element, efecto) {
+        if (!efecto) return;
+        const efectos = Array.isArray(efecto) ? efecto : [efecto];
+
+        efectos.forEach(ef => {
+            let className = '';
+            switch(ef) {
+                case 'temblar':
+                    className = 'shake-horizontal';
+                    break;
+                case 'rebotar':
+                    className = 'bounce-top';
+                    break;
+                case 'colorCiclo':
+                    className = 'color-cycle';
+                    break;
+                case 'parpadeo':
+                    className = 'blink-2';
+                    break;
+                case 'onda':
+                    className = 'wave';
+                    break;
+                case 'brillo':
+                    className = 'glow';
+                    break;
+                default:
+                    console.warn(`Efecto desconocido: ${ef}`);
+            }
+            if (className) {
+                element.classList.add(className);
+            }
+        });
+    }
+
+    function closeDialog() {
+        document.getElementById('dialogModal').classList.remove('visible');
+        const textDiv = document.getElementById('dialogText');
+        textDiv.textContent = '';
+        textDiv.className = 'dialog-text'; // Limpia las clases de efectos
+    }
+
     // ── LOGIN ──
     function doLogin() {
         const nombreRaw  = document.getElementById('inputNombre').value.trim();
@@ -588,14 +877,12 @@
         const normalizedName = nombreRaw.toLowerCase();
         const normalizedPass = passwordRaw.toLowerCase();
 
-        // ── PRIORIDAD ABSOLUTA: Miri → siempre blog.html ──
         if (normalizedName === SECRET_NAME.toLowerCase() &&
             normalizedPass === SECRET_PASS.toLowerCase()) {
             grantAccess(SECRET_NAME, null, MIRI_DEST);
             return;
         }
 
-        // ── Agentes del rooster ──
         const agent = agents.find(a =>
             a.nombre.toLowerCase()   === normalizedName &&
             a.password.toLowerCase() === normalizedPass
@@ -603,13 +890,9 @@
 
         if (agent) {
             const dest = getRoosterDest();
-            // ✅ MODIFICACIÓN: Si el destino es blog.html, lo ignoramos para agentes normales
             if (dest && dest !== 'blog.html') {
-                // Tiene destino válido (archivado o misiones): entrar directo
                 grantAccess(agent.nombre, agent.foto || null, dest);
             } else {
-                // Sin destino válido, o el destino es blog.html (no permitido para no-Miri):
-                // mostrar selector
                 pendingAgent = agent;
                 clearMsg();
                 showDestSelector();
@@ -617,21 +900,18 @@
             return;
         }
 
-        // ── Credenciales incorrectas ──
         hideDestSelector();
         pendingAgent = null;
         document.getElementById('inputPassword').value = '';
         showMsg('❌ Credenciales incorrectas. Acceso denegado.', 'error');
     }
 
-    // Llamado al pulsar uno de los botones de destino
     function chooseDestAndGrant(dest) {
         if (!pendingAgent) return;
         sessionStorage.setItem('alphaAgency_dest', dest);
         grantAccess(pendingAgent.nombre, pendingAgent.foto || null, dest);
     }
 
-    // ── CONCEDER ACCESO ──
     function grantAccess(userName, userPhoto, destination) {
         const sessionData = {
             nombre: userName,
@@ -651,7 +931,6 @@
         setTimeout(() => { window.location.href = destination; }, 1600);
     }
 
-    // ── REDIRIGIR SI YA HAY SESIÓN ──
     function redirectIfAlreadyLogged() {
         try {
             const stored = localStorage.getItem(SESSION_KEY);
@@ -663,18 +942,15 @@
                 return;
             }
 
-            // Miri: siempre blog.html
             if (session.nombre.toLowerCase() === SECRET_NAME.toLowerCase()) {
                 window.location.replace(MIRI_DEST);
                 return;
             }
 
-            // ✅ MODIFICACIÓN: Si un agente normal tiene blog.html como destino, limpiar sesión
             const target = session.dest;
             if (target && /^[a-zA-Z0-9_\-]+\.html$/.test(target) && target !== 'blog.html') {
                 window.location.replace(target);
             } else {
-                // Sesión inválida o destino blog.html no permitido para no-Miri
                 localStorage.removeItem(SESSION_KEY);
             }
         } catch(e) {
@@ -682,9 +958,9 @@
         }
     }
 
-    // ── INICIALIZACIÓN ──
     document.addEventListener('DOMContentLoaded', async () => {
         await loadRooster();
+        await loadJokeData();
         redirectIfAlreadyLogged();
 
         document.getElementById('agentNameDisplay').textContent   = '— SIN AUTENTICAR —';
