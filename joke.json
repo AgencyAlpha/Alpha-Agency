@@ -1,0 +1,51 @@
+{
+  "dialogos": [
+    {
+      "nombre": "Noah Voltaire",
+      "dialogo": "**¡Hey!** Tu no debes entrar con mi cuenta...Igual no sabrias la contraseña ñeh ñeh",
+      "color": "",
+      "imagen": "imagenes_personajes/Noah.jpg",
+      "efecto": [ "brillo"]
+    },
+      {
+      "nombre": "Rachel West",
+      "dialogo": "Yo no fui aceptada, tonto",
+      "color": "#fae102",
+      "imagen": "jokes/Rachel.png",
+      "efecto": ["onda"]
+
+    },
+         {
+      "nombre": "Sensui",
+      "dialogo": "Buen intento. Pero no estoy interesado en esta compañia.",
+      "color": "#0000000",
+      "imagen": "jokes/Sensui.png",
+      "efecto": ["brillo"]
+
+    },
+         {
+      "nombre": "Dexia Mathers",
+      "dialogo": "Bleh.",
+      "color": "#0000000",
+      "imagen": "jokes/Dexia.png",
+      "efecto": ["brillo"]
+
+    },
+         {
+      "nombre": "Ruby",
+      "dialogo": "Sooooooy solamente una camarera.",
+      "color": "#e80532",
+      "imagen": "jokes/Ruby.jpg",
+      "efecto": ["brillo"]
+
+    },
+         {
+      "nombre": "Bazett",
+      "dialogo": "...",
+      "color": "#24181b",
+      "imagen": "jokes/Bazett.jpg",
+      "efecto": ["parpadeo"]
+
+    }
+  ]
+}
