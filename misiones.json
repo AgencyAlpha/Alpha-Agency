@@ -18,13 +18,13 @@
             "name": "Ay que yuyu...",
             "imageFile": "Ay.png",
             "description": "— Un grupo de jóvenes ocultistas vino hablándome de que necesitan apoyo con extraños eventos sucediendo a mitad de una calle donde a veces hacían rituales...Que grima.",
-            "participants": 0,
+            "participants": 4,
             "maxParticipants": 4,
             "difficulty": 4,
             "reward": 1100,
             "stamp": "Waaah, que miedo",
-            "completed": false,
-            "completedBy": ["Agente Phantom", "Agente Nox"]
+            "completed": true,
+            "completedBy": ["Nathan Pouls", "Moxy","Ronin","Iris Thompson"]
         },
         {
             "id": 3,
