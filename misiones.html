@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>📁 ALPHA AGENCY · Expedientes de misiones</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Georgia&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <style>
@@ -51,12 +51,7 @@
             color: #6b2e00;
             text-shadow: 3px 3px 0px #e7c8a3;
         }
-        .header-actions {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+        .header-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
         .back-link, .session-btn {
             background: #e7d8bf;
             padding: 8px 15px;
@@ -74,15 +69,8 @@
             display: inline-flex;
             align-items: center;
         }
-        .session-btn {
-            background: #5a3e2a;
-            color: #ffefcf;
-            border-color: #8b6946;
-        }
-        .back-link:hover, .session-btn:hover {
-            border-style: inset;
-            background: #cfb68e;
-        }
+        .session-btn { background: #5a3e2a; color: #ffefcf; border-color: #8b6946; }
+        .back-link:hover, .session-btn:hover { border-style: inset; background: #cfb68e; }
         .session-btn:hover { background: #7a5a3a; }
 
         /* CONTROLES DE BÚSQUEDA Y ORDEN */
@@ -104,20 +92,11 @@
             background: #fffff0;
             border: 2px inset #b5976e;
             font-family: 'Courier New', monospace;
-            font-size: 16px; /* evita zoom en iOS */
+            font-size: 16px;
             outline: none;
         }
-        .order-box {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .order-box label {
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
+        .order-box { display: flex; align-items: center; gap: 10px; }
+        .order-box label { font-family: 'Courier New', monospace; font-size: 0.9rem; font-weight: bold; flex-shrink: 0; }
         .order-box select {
             background: #fffff0;
             border: 2px inset #b5976e;
@@ -127,11 +106,7 @@
             cursor: pointer;
             min-height: 44px;
         }
-        .results-count {
-            font-family: 'Courier New', monospace;
-            font-size: 0.8rem;
-            color: #8b6946;
-        }
+        .results-count { font-family: 'Courier New', monospace; font-size: 0.8rem; color: #8b6946; }
 
         .missions-section {
             background: #fff9e8;
@@ -148,6 +123,7 @@
             padding: 8px 15px;
             margin-bottom: 20px;
         }
+        .loading-message { font-family: 'Courier New', monospace; color: #8b6946; padding: 20px; }
 
         .folders-grid {
             display: grid;
@@ -157,26 +133,10 @@
         }
 
         /* CARPETA */
-        .folder-card {
-            text-align: center;
-            transition: transform 0.2s ease;
-            position: relative;
-        }
+        .folder-card { text-align: center; transition: transform 0.2s ease; position: relative; }
         .folder-card:hover { transform: translateY(-3px); }
-        .folder-wrapper {
-            position: relative;
-            width: 200px;
-            height: 170px;
-            margin: 0 auto 10px;
-        }
-        .folder-back {
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 100%; height: 100%;
-            background: #c9a87c;
-            border-radius: 6px;
-            z-index: 1;
-        }
+        .folder-wrapper { position: relative; width: 200px; height: 170px; margin: 0 auto 10px; }
+        .folder-back { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; background: #c9a87c; border-radius: 6px; z-index: 1; }
         .sticking-paper {
             position: absolute;
             top: -12px; left: 12px;
@@ -261,11 +221,7 @@
             position: absolute;
             top: 20%; left: -10%;
             width: 120%; height: 18px;
-            background: repeating-linear-gradient(45deg,
-                rgba(255,200,0,0.7),
-                rgba(255,200,0,0.7) 20px,
-                rgba(0,0,0,0.7) 20px,
-                rgba(0,0,0,0.7) 40px);
+            background: repeating-linear-gradient(45deg, rgba(255,200,0,0.7), rgba(255,200,0,0.7) 20px, rgba(0,0,0,0.7) 20px, rgba(0,0,0,0.7) 40px);
             transform: rotate(-8deg);
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
@@ -273,11 +229,7 @@
             position: absolute;
             top: -10%; left: 30%;
             width: 18px; height: 120%;
-            background: repeating-linear-gradient(135deg,
-                rgba(255,200,0,0.7),
-                rgba(255,200,0,0.7) 20px,
-                rgba(0,0,0,0.7) 20px,
-                rgba(0,0,0,0.7) 40px);
+            background: repeating-linear-gradient(135deg, rgba(255,200,0,0.7), rgba(255,200,0,0.7) 20px, rgba(0,0,0,0.7) 20px, rgba(0,0,0,0.7) 40px);
             transform: rotate(5deg);
             box-shadow: 2px 0 5px rgba(0,0,0,0.2);
         }
@@ -297,13 +249,7 @@
             padding: 2px 6px;
             border-radius: 3px;
         }
-        .hanging-polaroid {
-            position: absolute;
-            top: 12px; left: 12px;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-            z-index: 15;
-        }
+        .hanging-polaroid { position: absolute; top: 12px; left: 12px; cursor: pointer; transition: transform 0.2s ease; z-index: 15; }
         .hanging-polaroid:hover { transform: rotate(3deg); }
         .polaroid-clip {
             width: 16px; height: 20px;
@@ -329,11 +275,7 @@
             display: inline-block;
             width: 65px; height: 65px;
         }
-        .polaroid-frame img {
-            width: 57px; height: 57px;
-            object-fit: cover;
-            display: block;
-        }
+        .polaroid-frame img { width: 57px; height: 57px; object-fit: cover; display: block; }
         .folder-stamp {
             position: absolute;
             bottom: 6px; right: 6px;
@@ -370,22 +312,8 @@
             font-weight: bold;
             backdrop-filter: blur(2px);
         }
-        .completion-stamp::before {
-            content: "★";
-            position: absolute;
-            top: -12px; left: -12px;
-            font-size: 1rem;
-            color: #ffdd88;
-            text-shadow: 1px 1px 0 #1a4f1a;
-        }
-        .completion-stamp::after {
-            content: "★";
-            position: absolute;
-            bottom: -12px; right: -12px;
-            font-size: 1rem;
-            color: #ffdd88;
-            text-shadow: 1px 1px 0 #1a4f1a;
-        }
+        .completion-stamp::before { content: "★"; position: absolute; top: -12px; left: -12px; font-size: 1rem; color: #ffdd88; text-shadow: 1px 1px 0 #1a4f1a; }
+        .completion-stamp::after { content: "★"; position: absolute; bottom: -12px; right: -12px; font-size: 1rem; color: #ffdd88; text-shadow: 1px 1px 0 #1a4f1a; }
         .stamp-wave {
             position: absolute;
             top: 50%; left: 50%;
@@ -404,9 +332,7 @@
         }
         .folder-card:hover .folder-body { background: #f0d89e; box-shadow: 0 0 10px rgba(255,200,0,0.4); }
         .folder-card:hover .sticking-paper { transform: translateY(-8px); box-shadow: 0 6px 10px rgba(0,0,0,0.15); }
-        .folder-card.click-animation .sticking-paper {
-            animation: paperFlyUp 0.45s cubic-bezier(0.4,0,0.2,1) forwards;
-        }
+        .folder-card.click-animation .sticking-paper { animation: paperFlyUp 0.45s cubic-bezier(0.4,0,0.2,1) forwards; }
         @keyframes paperFlyUp {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
             40% { transform: translateY(-50px) rotate(8deg); opacity: 0.9; }
@@ -424,9 +350,11 @@
             margin-top: 8px;
         }
         .folder-reward { font-size: 0.65rem; color: #2a6b2a; margin-top: 3px; }
+        .folder-spots { font-size: 0.65rem; color: #8b6946; margin-top: 3px; }
+        .folder-spots.full { color: #a02020; font-weight: bold; }
         .completed-badge { font-size: 0.6rem; color: #2a6b2a; margin-top: 3px; font-weight: bold; }
 
-        /* MODAL MEJORADO */
+        /* MODAL */
         .mission-modal {
             display: none;
             position: fixed;
@@ -434,14 +362,11 @@
             left: 0; top: 0;
             width: 100%; height: 100%;
             background-color: rgba(0,0,0,0.85);
-            /* Flex para centrar el modal */
             align-items: center;
             justify-content: center;
             padding: 20px;
         }
-        .mission-modal.show {
-            display: flex; /* se activa desde JS, pero lo dejamos como clase extra */
-        }
+        .mission-modal.show { display: flex; }
         .paper-modal {
             background: #fffef5;
             width: auto;
@@ -456,10 +381,7 @@
             overflow-y: auto;
             margin: 0 auto;
         }
-        .paper-modal.show {
-            opacity: 1;
-            transform: scale(1);
-        }
+        .paper-modal.show { opacity: 1; transform: scale(1); }
         .paper-content {
             padding: 25px;
             display: flex;
@@ -485,16 +407,10 @@
             width: 100%;
             aspect-ratio: 1 / 1;
         }
-        .modal-polaroid-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        .modal-polaroid-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .image-stamp {
             position: absolute;
-            bottom: 8px;
-            right: 8px;
+            bottom: 8px; right: 8px;
             background: #ff4444;
             color: white;
             font-family: 'Press Start 2P', monospace;
@@ -507,24 +423,9 @@
             z-index: 5;
         }
         .image-stamp.completed { background: #2a6b2a; }
-        .paper-info {
-            flex: 1;
-            min-width: 220px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            justify-content: center;
-        }
-        .paper-header {
-            text-align: center;
-            border-bottom: 2px dashed #d8bc8c;
-            padding-bottom: 10px;
-        }
-        .paper-header h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.2rem;
-            color: #4a2e18;
-        }
+        .paper-info { flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 12px; justify-content: center; }
+        .paper-header { text-align: center; border-bottom: 2px dashed #d8bc8c; padding-bottom: 10px; }
+        .paper-header h3 { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; color: #4a2e18; }
         .paper-description {
             font-size: 0.85rem;
             line-height: 1.5;
@@ -534,43 +435,35 @@
             padding: 12px;
             border-radius: 6px;
         }
-        .paper-details {
-            background: #f9f0e0;
-            padding: 12px;
-            border-radius: 6px;
-        }
-        .paper-reward {
-            background: #2a6b2a;
-            color: white;
-            padding: 8px;
+        .paper-details { background: #f9f0e0; padding: 12px; border-radius: 6px; }
+        .paper-reward { background: #2a6b2a; color: white; padding: 8px; text-align: center; border-radius: 5px; font-weight: bold; font-size: 0.85rem; }
+        .paper-spots { text-align: center; margin-top: 8px; font-size: 0.75rem; color: #8b6946; }
+        .paper-difficulty { text-align: center; margin-top: 8px; font-size: 0.75rem; }
+        .completed-by { text-align: center; margin-top: 8px; font-size: 0.7rem; color: #2a6b2a; font-style: italic; }
+
+        /* INSCRITOS (NUEVO) */
+        .signed-up {
             text-align: center;
+            margin-top: 8px;
+            font-size: 0.75rem;
+            color: #4a2e18;
+            font-family: 'Courier New', monospace;
+            background: #fff3e0;
+            border: 1px dashed #d8bc8c;
+            padding: 6px 8px;
             border-radius: 5px;
+            line-height: 1.6;
+        }
+        .signed-up .agent-tag {
+            display: inline-block;
+            background: #eedcb0;
+            border-radius: 10px;
+            padding: 1px 8px;
+            margin: 2px;
             font-weight: bold;
-            font-size: 0.85rem;
         }
-        .paper-spots {
-            text-align: center;
-            margin-top: 8px;
-            font-size: 0.75rem;
-            color: #8b6946;
-        }
-        .paper-difficulty {
-            text-align: center;
-            margin-top: 8px;
-            font-size: 0.75rem;
-        }
-        .completed-by {
-            text-align: center;
-            margin-top: 8px;
-            font-size: 0.7rem;
-            color: #2a6b2a;
-            font-style: italic;
-        }
-        .stars-small {
-            display: inline-flex;
-            gap: 3px;
-            margin-left: 8px;
-        }
+
+        .stars-small { display: inline-flex; gap: 3px; margin-left: 8px; }
         .star-small { color: #ccc; font-size: 0.9rem; }
         .star-small.active { color: #ffcc00; }
         .star-small.animate { animation: starPop 0.3s ease-out; }
@@ -615,11 +508,7 @@
             border: 1px solid #e0cfb0;
             text-align: center;
         }
-        .image-modal-content img {
-            max-width: 100%;
-            max-height: 70vh;
-            object-fit: contain;
-        }
+        .image-modal-content img { max-width: 100%; max-height: 70vh; object-fit: contain; }
         .close-image-modal {
             position: absolute;
             top: -12px; right: -12px;
@@ -650,89 +539,33 @@
         @media (max-width: 700px) {
             body { padding: 8px 4px; }
             .old-container { padding: 10px 8px 18px; }
-            .retro-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            .header-actions {
-                width: 100%;
-                flex-direction: column;
-                align-items: stretch;
-                gap: 8px;
-            }
+            .retro-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .header-actions { width: 100%; flex-direction: column; align-items: stretch; gap: 8px; }
             .site-title { font-size: clamp(1rem, 6vw, 1.6rem); }
-            .back-link, .session-btn {
-                font-size: 1rem;
-                padding: 10px 15px;
-                text-align: center;
-                justify-content: center;
-                width: 100%;
-            }
-
+            .back-link, .session-btn { font-size: 1rem; padding: 10px 15px; text-align: center; justify-content: center; width: 100%; }
             .missions-section { padding: 12px 10px; }
             .missions-section h2 { font-size: 0.7rem; padding: 6px 10px; }
-
-            .folders-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 20px;
-            }
+            .folders-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
             .folder-wrapper { width: 150px; height: 130px; }
             .folder-body { height: 108px; }
             .folder-name { font-size: 0.65rem; }
-            .folder-reward { font-size: 0.55rem; }
+            .folder-reward, .folder-spots { font-size: 0.55rem; }
             .hanging-polaroid { top: 8px; left: 8px; }
             .polaroid-frame { width: 50px; height: 50px; }
             .polaroid-frame img { width: 42px; height: 42px; }
-
-            /* Controles de búsqueda y orden */
-            .controls-bar {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-                padding: 12px;
-            }
+            .controls-bar { flex-direction: column; align-items: stretch; gap: 12px; padding: 12px; }
             .search-box { width: 100%; }
-            .search-box input {
-                width: 100%;
-                max-width: 100%;
-                font-size: 16px;
-                padding: 10px;
-            }
-            .order-box {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                flex-wrap: nowrap;
-                width: 100%;
-            }
+            .search-box input { width: 100%; max-width: 100%; font-size: 16px; padding: 10px; }
+            .order-box { display: flex; align-items: center; gap: 10px; flex-wrap: nowrap; width: 100%; }
             .order-box label { flex-shrink: 0; font-size: 0.85rem; }
-            .order-box select {
-                flex: 1;
-                min-width: 0;
-                font-size: 0.85rem;
-                padding: 8px;
-                min-height: 44px;
-            }
+            .order-box select { flex: 1; min-width: 0; font-size: 0.85rem; padding: 8px; min-height: 44px; }
             .results-count { text-align: center; width: 100%; }
-
-            /* Modal de expediente */
-            .paper-modal {
-                min-width: unset;
-                width: 95vw;
-                max-height: 85vh;
-            }
-            .paper-content {
-                flex-direction: column;
-                padding: 14px;
-                gap: 14px;
-                align-items: center;
-            }
+            .paper-modal { min-width: unset; width: 95vw; max-height: 85vh; }
+            .paper-content { flex-direction: column; padding: 14px; gap: 14px; align-items: center; }
             .paper-image-area { width: 140px; }
             .paper-info { min-width: unset; }
             .image-stamp { font-size: 0.45rem; padding: 3px 6px; bottom: 5px; right: 5px; }
         }
-
         @media (max-width: 400px) {
             .folders-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
             .folder-wrapper { width: 130px; height: 115px; }
@@ -752,7 +585,6 @@
             .paper-header h3 { font-size: 1rem; }
             .paper-description { font-size: 0.75rem; }
         }
-
         @media (max-width: 320px) {
             .folders-grid { grid-template-columns: 1fr; gap: 16px; }
             .folder-wrapper { width: 180px; height: 150px; margin: 0 auto; }
@@ -792,7 +624,7 @@
 
     <div class="missions-section">
         <h2><i class="fas fa-folder"></i> 📁 EXPEDIENTES DE MISIONES</h2>
-        
+
         <div class="controls-bar">
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="🔍 Buscar misión por nombre...">
@@ -836,8 +668,9 @@
                 <div class="paper-details">
                     <div id="modalReward" class="paper-reward">💰 0 EDIS</div>
                     <div id="modalSpots" class="paper-spots">📋 Plazas disponibles: 0</div>
+                    <div id="modalSignedUp" class="signed-up"></div>
                     <div id="modalDifficulty" class="paper-difficulty">
-                        ⭐ Dificultad: 
+                        ⭐ Dificultad:
                         <span class="stars-small" id="modalStars"></span>
                     </div>
                     <div id="modalCompletedBy" class="completed-by"></div>
@@ -857,11 +690,14 @@
 </div>
 
 <script>
+    // Imagen de reemplazo si falta el archivo (global para poder usarla en onerror)
+    window.FALLBACK_IMG = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23e8d5bc"/%3E%3Ctext x="50" y="58" text-anchor="middle" font-size="28"%3E🔍%3C/text%3E%3C/svg%3E';
+
     (function(){
         // ========== SISTEMA DE AUDIO ==========
         let audioCtx = null;
         let isHoverSoundPlaying = false;
-        
+
         function initAudio() {
             if(!audioCtx) {
                 try {
@@ -870,7 +706,7 @@
             }
             if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
         }
-        
+
         function playSound(freq, duration, volume = 0.1, type = 'sine') {
             if(!audioCtx) return;
             try {
@@ -887,38 +723,38 @@
                 oscillator.stop(now + duration);
             } catch(e) {}
         }
-        
+
         function playHoverSound() {
             if(!audioCtx || isHoverSoundPlaying) return;
             isHoverSoundPlaying = true;
             playSound(650, 0.08, 0.08, 'sine');
             setTimeout(() => { isHoverSoundPlaying = false; }, 100);
         }
-        
+
         function playClickSound() { if(audioCtx) playSound(800, 0.12, 0.12, 'sine'); }
-        function playFolderOpenSound() { 
+        function playFolderOpenSound() {
             if(!audioCtx) return;
             playSound(300, 0.2, 0.15, 'sine');
             setTimeout(() => { if(audioCtx) playSound(550, 0.15, 0.1, 'sine'); }, 60);
         }
         function playFolderCloseSound() { if(audioCtx) playSound(400, 0.1, 0.1, 'sine'); }
         function playZoomOpenSound() { if(audioCtx) playSound(600, 0.18, 0.14, 'sine'); }
-        
+
         function playCompletionStampSound() {
             if(!audioCtx) return;
             playSound(350, 0.25, 0.22, 'sine');
             setTimeout(() => { if(audioCtx) playSound(750, 0.2, 0.16, 'sine'); }, 60);
             setTimeout(() => { if(audioCtx) playSound(550, 0.15, 0.12, 'sine'); }, 120);
         }
-        
+
         function playStampSound() {
             if(!audioCtx) return;
             playSound(450, 0.2, 0.18, 'sine');
             setTimeout(() => { if(audioCtx) playSound(850, 0.25, 0.12, 'sine'); }, 70);
         }
-        
+
         function playSparkleSound() { if(audioCtx) playSound(1400, 0.25, 0.12, 'sine'); }
-        
+
         const paperSound = new Audio('audios/papel.mp3');
         function playPaperCrumpleSound() {
             if(paperSound) {
@@ -926,14 +762,24 @@
                 paperSound.play().catch(e => console.log("Error con audio"));
             }
         }
-        
+
         document.body.addEventListener('click', initAudio, { once: false });
-        
+
         // ========== VARIABLES ==========
         let allMissions = [];
         let currentSearchTerm = '';
         let currentOrder = 'default';
-        
+
+        // ========== UTILIDADES NUEVAS ==========
+        // Plazas ocupadas: usa signedUp si existe, si no el campo participants
+        function getCount(m) {
+            return Array.isArray(m.signedUp) ? m.signedUp.length : (m.participants || 0);
+        }
+        // Evita que un nombre con HTML se ejecute en la página
+        function escapeHTML(s) {
+            return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        }
+
         // ========== ORDENAR MISIONES ==========
         function sortMissions(missions, order) {
             const sorted = [...missions];
@@ -949,36 +795,38 @@
             }
             return sorted;
         }
-        
+
         function filterMissions(missions, searchTerm) {
             if (!searchTerm) return missions;
             const term = searchTerm.toLowerCase().trim();
             return missions.filter(m => m.name.toLowerCase().includes(term));
         }
-        
+
         function renderMissions() {
             const grid = document.getElementById('missionsGrid');
             if(!grid) return;
-            
+
             let filtered = filterMissions(allMissions, currentSearchTerm);
             const sorted = sortMissions(filtered, currentOrder);
-            
+
             const resultsCount = document.getElementById('resultsCount');
             if (resultsCount) {
                 resultsCount.innerHTML = `📊 ${sorted.length} misión${sorted.length !== 1 ? 'es' : ''} encontrada${sorted.length !== 1 ? 's' : ''}`;
             }
-            
+
             grid.innerHTML = '';
             if (sorted.length === 0) {
                 grid.innerHTML = '<div class="loading-message">🔍 No se encontraron misiones</div>';
                 return;
             }
-            
+
             sorted.forEach(mission => {
-                const availableSpots = mission.maxParticipants - mission.participants;
+                const count = getCount(mission);
+                const availableSpots = mission.maxParticipants - count;
                 const imagePath = `imagenes_misiones/${mission.imageFile}`;
                 const isCompleted = mission.completed === true;
-                
+                const isFull = !isCompleted && availableSpots <= 0;
+
                 const folder = document.createElement('div');
                 folder.className = 'folder-card';
                 folder.setAttribute('data-id', mission.id);
@@ -1000,21 +848,21 @@
                             <div class="hanging-polaroid">
                                 <div class="polaroid-clip"></div>
                                 <div class="polaroid-frame">
-                                    <img src="${imagePath}" alt="${mission.name}" class="polaroid-img" data-src="${imagePath}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'57\' height=\'57\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23e8d5bc\'/%3E%3Ctext x=\'50\' y=\'55\' text-anchor=\'middle\' fill=\'%238b6946\' font-size=\'12\' font-family=\'monospace\'%3E🔍%3C/text%3E%3C/svg%3E'">
+                                    <img src="${imagePath}" alt="${escapeHTML(mission.name)}" class="polaroid-img" data-src="${imagePath}" onerror="this.onerror=null;this.src=window.FALLBACK_IMG">
                                 </div>
                             </div>
                         </div>
                         <div class="folder-tab"></div>
-                        ${!isCompleted ? `<div class="folder-stamp" data-stamp="${mission.stamp}">${mission.stamp}</div>` : ''}
+                        ${!isCompleted ? `<div class="folder-stamp" data-stamp="${escapeHTML(mission.stamp)}">${escapeHTML(mission.stamp)}</div>` : ''}
                         <div class="completion-stamp" style="display: ${isCompleted ? 'flex' : 'none'};"></div>
                         <div class="stamp-wave"></div>
                     </div>
-                    <div class="folder-name">📁 ${mission.name}</div>
+                    <div class="folder-name">📁 ${escapeHTML(mission.name)}</div>
                     <div class="folder-reward">💰 ${mission.reward} EDIS</div>
-<div class="folder-reward" style="color:#8b6946;">📋 ${mission.participants}/${mission.maxParticipants} plazas</div>
-${isCompleted ? '<div class="completed-badge">✅ MISIÓN COMPLETADA</div>' : ''}
+                    <div class="folder-spots${isFull ? ' full' : ''}">📋 ${count}/${mission.maxParticipants} plazas${isFull ? ' · 🔒 LLENA' : ''}</div>
+                    ${isCompleted ? '<div class="completed-badge">✅ MISIÓN COMPLETADA</div>' : ''}
                 `;
-                
+
                 folder.addEventListener('mouseenter', () => { playHoverSound(); });
                 folder.addEventListener('click', (e) => {
                     if(e.target.classList && e.target.classList.contains('polaroid-img')) return;
@@ -1023,7 +871,7 @@ ${isCompleted ? '<div class="completed-badge">✅ MISIÓN COMPLETADA</div>' : ''
                     animateFolderAndOpen(mission.id, folder);
                 });
                 grid.appendChild(folder);
-                
+
                 if(isCompleted) {
                     const stampElement = folder.querySelector('.completion-stamp');
                     const waveElement = folder.querySelector('.stamp-wave');
@@ -1037,12 +885,12 @@ ${isCompleted ? '<div class="completed-badge">✅ MISIÓN COMPLETADA</div>' : ''
                     }
                 }
             });
-            
+
             document.querySelectorAll('.folder-stamp').forEach(stamp => {
                 stamp.classList.add('show');
                 if(!stampSoundPlayed) { playStampSound(); stampSoundPlayed = true; }
             });
-            
+
             document.querySelectorAll('.polaroid-img').forEach(img => {
                 img.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -1051,11 +899,11 @@ ${isCompleted ? '<div class="completed-badge">✅ MISIÓN COMPLETADA</div>' : ''
                 });
             });
         }
-        
+
         let stampSoundPlayed = false;
-        
+
         function animateCompletionStamp(stampElement, waveElement, policeTapeElement) {
-            gsap.fromTo(stampElement, 
+            gsap.fromTo(stampElement,
                 { scale: 0, rotation: 15, opacity: 0, y: -50 },
                 { scale: 1, rotation: 8, opacity: 1, y: 0, duration: 0.55, ease: "elastic.out(1, 0.5)",
                   onStart: () => { playCompletionStampSound(); playPaperCrumpleSound(); }
@@ -1067,7 +915,7 @@ ${isCompleted ? '<div class="completed-badge">✅ MISIÓN COMPLETADA</div>' : ''
             }
             gsap.to(stampElement, { scale: 1.03, duration: 0.08, delay: 0.5, yoyo: true, repeat: 2, ease: "power1.inOut" });
         }
-        
+
         function animateFolderAndOpen(missionId, folderElement) {
             playFolderOpenSound();
             playPaperCrumpleSound();
@@ -1085,7 +933,7 @@ ${isCompleted ? '<div class="completed-badge">✅ MISIÓN COMPLETADA</div>' : ''
                 });
             } else { openMissionModal(missionId); }
         }
-        
+
         function animateStars(difficulty) {
             const stars = document.querySelectorAll('#modalStars .star-small');
             for(let i = 0; i < difficulty && i < stars.length; i++) {
@@ -1097,30 +945,44 @@ ${isCompleted ? '<div class="completed-badge">✅ MISIÓN COMPLETADA</div>' : ''
             }
             for(let i = difficulty; i < stars.length; i++) stars[i].classList.remove('active');
         }
-        
+
         function openMissionModal(missionId) {
             const mission = allMissions.find(m => m.id === missionId);
             if(!mission) return;
-            const availableSpots = mission.maxParticipants - mission.participants;
+            const count = getCount(mission);
+            const availableSpots = mission.maxParticipants - count;
             const imagePath = `imagenes_misiones/${mission.imageFile}`;
             const isCompleted = mission.completed === true;
-            
-            document.getElementById('modalTitle').innerHTML = mission.name;
+
+            document.getElementById('modalTitle').innerHTML = escapeHTML(mission.name);
             document.getElementById('modalDesc').innerHTML = mission.description;
             document.getElementById('modalReward').innerHTML = `💰 ${mission.reward} EDIS`;
-document.getElementById('modalSpots').innerHTML = `📋 Plazas ocupadas: ${mission.participants}/${mission.maxParticipants} · Disponibles: ${availableSpots} ${availableSpots === 0 ? '🔒 (Completa)' : '✅ ¡Únete!'}`;            
+            document.getElementById('modalSpots').innerHTML = `📋 Plazas ocupadas: ${count}/${mission.maxParticipants} · Disponibles: ${Math.max(availableSpots, 0)} ${availableSpots <= 0 ? '🔒 (Llena)' : '✅ ¡Únete!'}`;
+
+            // Agentes inscritos (solo misiones activas)
+            const signedDiv = document.getElementById('modalSignedUp');
+            const names = Array.isArray(mission.signedUp) ? mission.signedUp : [];
+            if(isCompleted) {
+                signedDiv.style.display = 'none';
+            } else {
+                signedDiv.style.display = 'block';
+                signedDiv.innerHTML = names.length
+                    ? '📝 Agentes inscritos:<br>' + names.map(n => `<span class="agent-tag">${escapeHTML(n)}</span>`).join('')
+                    : '📝 Aún no hay agentes inscritos';
+            }
+
             const modalStamp = document.getElementById('modalImageStamp');
             if(isCompleted) {
                 modalStamp.innerHTML = '✅ COMPLETADA';
                 modalStamp.classList.add('completed');
             } else {
-                modalStamp.innerHTML = mission.stamp;
+                modalStamp.innerHTML = escapeHTML(mission.stamp);
                 modalStamp.classList.remove('completed');
             }
-            
+
             const completedByDiv = document.getElementById('modalCompletedBy');
             if(isCompleted && mission.completedBy && mission.completedBy.length > 0) {
-                completedByDiv.innerHTML = `🏆 Completada por: ${mission.completedBy.join(', ')}`;
+                completedByDiv.innerHTML = `🏆 Completada por: ${mission.completedBy.map(escapeHTML).join(', ')}`;
                 completedByDiv.style.display = 'block';
             } else if(isCompleted) {
                 completedByDiv.innerHTML = `🏆 Completada por agentes anónimos`;
@@ -1129,25 +991,24 @@ document.getElementById('modalSpots').innerHTML = `📋 Plazas ocupadas: ${missi
                 completedByDiv.innerHTML = '';
                 completedByDiv.style.display = 'none';
             }
-            
+
             const modalImage = document.getElementById('modalDetailImage');
+            modalImage.onerror = () => { modalImage.onerror = null; modalImage.src = window.FALLBACK_IMG; };
             modalImage.src = imagePath;
-            modalImage.onerror = () => { modalImage.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23e8d5bc"/%3E%3Ctext x="50" y="55" text-anchor="middle" fill="%238b6946" font-size="10" font-family="monospace"%3E🔍%3C/text%3E%3C/svg%3E'; };
-            
+
             const starsContainer = document.getElementById('modalStars');
             starsContainer.innerHTML = '';
             for(let i = 1; i <= 5; i++) { const star = document.createElement('span'); star.className = 'star-small'; star.innerHTML = '★'; starsContainer.appendChild(star); }
-            
+
             const modal = document.getElementById('missionModal');
             const paperModal = document.getElementById('paperModal');
-            modal.style.display = 'flex'; // Usamos flex en lugar de block para centrar
+            modal.style.display = 'flex';
             paperModal.classList.remove('show');
-            // Forzamos un reflow para que la transición funcione
-            void paperModal.offsetWidth;
+            void paperModal.offsetWidth; // fuerza reflow para la transición
             paperModal.classList.add('show');
             setTimeout(() => animateStars(mission.difficulty), 200);
         }
-        
+
         function openImageZoom(src) {
             const zoomModal = document.getElementById('imageZoomModal');
             const zoomedImg = document.getElementById('zoomedImage');
@@ -1155,27 +1016,28 @@ document.getElementById('modalSpots').innerHTML = `📋 Plazas ocupadas: ${missi
             zoomModal.style.display = 'block';
             playZoomOpenSound();
         }
-        
+
         async function loadMissions() {
             try {
-                const response = await fetch('misiones.json');
+                // Parámetro de tiempo + no-store: evita ver datos viejos por la caché
+                const response = await fetch('misiones.json?t=' + Date.now(), { cache: 'no-store' });
                 if(!response.ok) throw new Error('No se pudo cargar el archivo JSON');
                 const data = await response.json();
                 allMissions = data.missions;
-                
+
                 const searchInput = document.getElementById('searchInput');
                 const orderSelect = document.getElementById('orderSelect');
-                
+
                 searchInput.addEventListener('input', (e) => {
                     currentSearchTerm = e.target.value;
                     renderMissions();
                 });
-                
+
                 orderSelect.addEventListener('change', (e) => {
                     currentOrder = e.target.value;
                     renderMissions();
                 });
-                
+
                 renderMissions();
             } catch(error) {
                 console.error('Error cargando misiones:', error);
@@ -1183,7 +1045,7 @@ document.getElementById('modalSpots').innerHTML = `📋 Plazas ocupadas: ${missi
                 if(grid) grid.innerHTML = '<div class="loading-message">❌ Error al cargar las misiones<br>Asegúrate de que el archivo misiones.json existe</div>';
             }
         }
-        
+
         const modal = document.getElementById('missionModal');
         const closeBtn = document.getElementById('closeModalBtn');
         if(closeBtn) {
@@ -1191,7 +1053,7 @@ document.getElementById('modalSpots').innerHTML = `📋 Plazas ocupadas: ${missi
             closeBtn.onclick = () => { playFolderCloseSound(); modal.style.display = 'none'; };
         }
         window.onclick = (e) => { if(e.target === modal) { playFolderCloseSound(); modal.style.display = 'none'; } };
-        
+
         const imageZoomModal = document.getElementById('imageZoomModal');
         const closeImageBtn = document.getElementById('closeImageModalBtn');
         if(closeImageBtn) {
@@ -1199,9 +1061,8 @@ document.getElementById('modalSpots').innerHTML = `📋 Plazas ocupadas: ${missi
             closeImageBtn.onclick = () => { imageZoomModal.style.display = 'none'; };
         }
         imageZoomModal.onclick = (e) => { if(e.target === imageZoomModal) imageZoomModal.style.display = 'none'; };
-        
+
         loadMissions();
-        console.log("✨ Misiones: buscador, orden por dificultad y por defecto (no completadas primero) ✨");
     })();
 </script>
 </body>
