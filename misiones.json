@@ -62,9 +62,10 @@
             "name": "QUE LLUEVEN PIEZAS",
             "imageFile": "que.jpg",
             "description": "— En el sector de obreros han habido conflictos...Con vehículos de construcción, de manera extraña han formado grupos para pelear entre si y tratar de quitarle los trabajos unos a otros.",
-            "participants": 1,
+            "participants": 2,
             "signedUp": [
-                "Static"
+                "Static",
+                "Noah Voltaire"
             ],
             "maxParticipants": 4,
             "difficulty": 3,
