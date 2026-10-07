@@ -47,8 +47,10 @@
             "name": "Escoltando a una princesa",
             "imageFile": "Escolta.png",
             "description": "Un magnate necesita apoyo, su hija va a salir por primera vez a una fiesta y se siente bastante preocupado por ella...Aaah, el cariño familiar ^^",
-            "participants": 0,
-            "signedUp": [],
+            "participants": 1,
+            "signedUp": [
+                "May Jellyfish"
+            ],
             "maxParticipants": 2,
             "difficulty": 2,
             "reward": 1300,
