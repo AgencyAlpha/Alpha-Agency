@@ -5,8 +5,10 @@
             "name": "POR FAVOR, NECESITO GANARLE",
             "imageFile": "Necesito.png",
             "description": "Eso me grito el dueño de un casino, al parecer tiene un juego muy importante contra un hombre que lleva ganando en las apuestas mas grandes, el dueño PIDE que venga UNA persona de pulso normal de manera obligatoria para esta misión.",
-            "participants": 0,
-            "signedUp": [],
+            "participants": 1,
+            "signedUp": [
+                "Nathan Pouls"
+            ],
             "maxParticipants": 2,
             "difficulty": 3,
             "reward": 1000,
