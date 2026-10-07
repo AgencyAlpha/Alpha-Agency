@@ -12,7 +12,9 @@
             "reward": 1000,
             "stamp": "🔍 Ayuda",
             "completed": false,
-            "completedBy": ["Prueba"]
+            "completedBy": [
+                "Prueba"
+            ]
         },
         {
             "id": 2,
@@ -20,13 +22,23 @@
             "imageFile": "Ay.png",
             "description": "— Un grupo de jóvenes ocultistas vino hablándome de que necesitan apoyo con extraños eventos sucediendo a mitad de una calle donde a veces hacían rituales...Que grima.",
             "participants": 4,
-            "signedUp": ["Nathan Pouls", "Moxy", "Ronin", "Iris Thompson"],
+            "signedUp": [
+                "Nathan Pouls",
+                "Moxy",
+                "Ronin",
+                "Iris Thompson"
+            ],
             "maxParticipants": 4,
             "difficulty": 4,
             "reward": 1100,
             "stamp": "Waaah, que miedo",
             "completed": true,
-            "completedBy": ["Nathan Pouls", "Moxy", "Ronin", "Iris Thompson"]
+            "completedBy": [
+                "Nathan Pouls",
+                "Moxy",
+                "Ronin",
+                "Iris Thompson"
+            ]
         },
         {
             "id": 3,
@@ -47,14 +59,20 @@
             "name": "QUE LLUEVEN PIEZAS",
             "imageFile": "que.jpg",
             "description": "— En el sector de obreros han habido conflictos...Con vehículos de construcción, de manera extraña han formado grupos para pelear entre si y tratar de quitarle los trabajos unos a otros.",
-            "participants": 0,
-            "signedUp": [],
+            "participants": 1,
+            "signedUp": [
+                "Static"
+            ],
             "maxParticipants": 4,
             "difficulty": 3,
             "reward": 800,
             "stamp": "Cuidado con la cabeza",
             "completed": false,
-            "completedBy": ["Agente Luna", "Agente Cósmica", "Agente Eclipse"]
+            "completedBy": [
+                "Agente Luna",
+                "Agente Cósmica",
+                "Agente Eclipse"
+            ]
         },
         {
             "id": 5,
