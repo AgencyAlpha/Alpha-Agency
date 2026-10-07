@@ -6,6 +6,7 @@
             "imageFile": "Necesito.png",
             "description": "Eso me grito el dueño de un casino, al parecer tiene un juego muy importante contra un hombre que lleva ganando en las apuestas mas grandes, el dueño PIDE que venga UNA persona de pulso normal de manera obligatoria para esta misión.",
             "participants": 0,
+            "signedUp": [],
             "maxParticipants": 2,
             "difficulty": 3,
             "reward": 1000,
@@ -19,12 +20,13 @@
             "imageFile": "Ay.png",
             "description": "— Un grupo de jóvenes ocultistas vino hablándome de que necesitan apoyo con extraños eventos sucediendo a mitad de una calle donde a veces hacían rituales...Que grima.",
             "participants": 4,
+            "signedUp": ["Nathan Pouls", "Moxy", "Ronin", "Iris Thompson"],
             "maxParticipants": 4,
             "difficulty": 4,
             "reward": 1100,
             "stamp": "Waaah, que miedo",
             "completed": true,
-            "completedBy": ["Nathan Pouls", "Moxy","Ronin","Iris Thompson"]
+            "completedBy": ["Nathan Pouls", "Moxy", "Ronin", "Iris Thompson"]
         },
         {
             "id": 3,
@@ -32,6 +34,7 @@
             "imageFile": "Escolta.png",
             "description": "Un magnate necesita apoyo, su hija va a salir por primera vez a una fiesta y se siente bastante preocupado por ella...Aaah, el cariño familiar ^^",
             "participants": 0,
+            "signedUp": [],
             "maxParticipants": 2,
             "difficulty": 2,
             "reward": 1300,
@@ -45,6 +48,7 @@
             "imageFile": "que.jpg",
             "description": "— En el sector de obreros han habido conflictos...Con vehículos de construcción, de manera extraña han formado grupos para pelear entre si y tratar de quitarle los trabajos unos a otros.",
             "participants": 0,
+            "signedUp": [],
             "maxParticipants": 4,
             "difficulty": 3,
             "reward": 800,
@@ -58,6 +62,7 @@
             "imageFile": "poeta.png",
             "description": "Hay alguien que con sus numeros logra hacer lo impensable, milagros en vida, como un profeta mismo que los siguientes dias logra demostrar sus hechos al mundo. ¡Como un mago! hay uno que una vez me robo el reloj...Pero en fin, hay una persona que esta escéptica y paga para que alguien lo investigue",
             "participants": 0,
+            "signedUp": [],
             "maxParticipants": 1,
             "difficulty": 2,
             "reward": 700,
@@ -65,6 +70,5 @@
             "completed": false,
             "completedBy": []
         }
-       
     ]
 }
