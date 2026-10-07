@@ -599,14 +599,15 @@
 <script>
     (function(){
         const STORAGE_KEY = 'alphaAgency_session';
+        const DEST = 'login.html?dest=' + encodeURIComponent('misiones.html' + window.location.search);
         try {
             const raw = localStorage.getItem(STORAGE_KEY);
-            if (!raw) { window.location.replace('login.html?dest=misiones.html'); }
+            if (!raw) { window.location.replace(DEST); }
             else {
                 const s = JSON.parse(raw);
-                if (!s || !s.nombre) window.location.replace('login.html?dest=misiones.html');
+                if (!s || !s.nombre) window.location.replace(DEST);
             }
-        } catch(e) { window.location.replace('login.html?dest=misiones.html'); }
+        } catch(e) { window.location.replace(DEST); }
     })();
 </script>
 
@@ -825,7 +826,8 @@
                 const availableSpots = mission.maxParticipants - count;
                 const imagePath = `imagenes_misiones/${mission.imageFile}`;
                 const isCompleted = mission.completed === true;
-                const isFull = !isCompleted && availableSpots <= 0;
+                const isClosed = !isCompleted && mission.closed === true;
+                const isFull = !isCompleted && (availableSpots <= 0 || isClosed);
 
                 const folder = document.createElement('div');
                 folder.className = 'folder-card';
@@ -859,7 +861,7 @@
                     </div>
                     <div class="folder-name">📁 ${escapeHTML(mission.name)}</div>
                     <div class="folder-reward">💰 ${mission.reward} EDIS</div>
-                    <div class="folder-spots${isFull ? ' full' : ''}">📋 ${count}/${mission.maxParticipants} plazas${isFull ? ' · 🔒 LLENA' : ''}</div>
+                    <div class="folder-spots${isFull ? ' full' : ''}">📋 ${count}/${mission.maxParticipants} plazas${isClosed ? ' · 🔒 CERRADA' : (isFull ? ' · 🔒 LLENA' : '')}</div>
                     ${isCompleted ? '<div class="completed-badge">✅ MISIÓN COMPLETADA</div>' : ''}
                 `;
 
@@ -957,7 +959,8 @@
             document.getElementById('modalTitle').innerHTML = escapeHTML(mission.name);
             document.getElementById('modalDesc').innerHTML = mission.description;
             document.getElementById('modalReward').innerHTML = `💰 ${mission.reward} EDIS`;
-            document.getElementById('modalSpots').innerHTML = `📋 Plazas ocupadas: ${count}/${mission.maxParticipants} · Disponibles: ${Math.max(availableSpots, 0)} ${availableSpots <= 0 ? '🔒 (Llena)' : '✅ ¡Únete!'}`;
+            const cerrada = !isCompleted && mission.closed === true;
+            document.getElementById('modalSpots').innerHTML = `📋 Plazas ocupadas: ${count}/${mission.maxParticipants} · Disponibles: ${cerrada ? 0 : Math.max(availableSpots, 0)} ${cerrada ? '🔒 (Cupos cerrados)' : (availableSpots <= 0 ? '🔒 (Llena)' : '✅ ¡Únete!')}`;
 
             // Agentes inscritos (solo misiones activas)
             const signedDiv = document.getElementById('modalSignedUp');
@@ -1039,6 +1042,12 @@
                 });
 
                 renderMissions();
+
+                // Enlace directo desde Discord: misiones.html?mision=ID
+                const idDirecto = parseInt(new URLSearchParams(window.location.search).get('mision'), 10);
+                if (!isNaN(idDirecto) && allMissions.some(m => m.id === idDirecto)) {
+                    setTimeout(() => openMissionModal(idDirecto), 400);
+                }
             } catch(error) {
                 console.error('Error cargando misiones:', error);
                 const grid = document.getElementById('missionsGrid');
