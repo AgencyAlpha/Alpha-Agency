@@ -12,6 +12,7 @@
             "reward": 1000,
             "stamp": "🔍 Ayuda",
             "completed": false,
+            "closed": false,
             "completedBy": [
                 "Prueba"
             ]
@@ -33,6 +34,7 @@
             "reward": 1100,
             "stamp": "Waaah, que miedo",
             "completed": true,
+            "closed": false,
             "completedBy": [
                 "Nathan Pouls",
                 "Moxy",
@@ -52,6 +54,7 @@
             "reward": 1300,
             "stamp": "Ayuda!",
             "completed": false,
+            "closed": false,
             "completedBy": []
         },
         {
@@ -68,6 +71,7 @@
             "reward": 800,
             "stamp": "Cuidado con la cabeza",
             "completed": false,
+            "closed": false,
             "completedBy": [
                 "Agente Luna",
                 "Agente Cósmica",
@@ -86,6 +90,7 @@
             "reward": 700,
             "stamp": "Investiga!",
             "completed": false,
+            "closed": false,
             "completedBy": []
         }
     ]
