@@ -472,6 +472,25 @@
             50% { transform: scale(1.3) rotate(10deg); opacity: 1; }
             100% { transform: scale(1) rotate(0deg); opacity: 1; }
         }
+        .paper-request {
+            display: none;
+            box-sizing: border-box;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 10px;
+            background: #7ccf7c;
+            color: #1d3a1d;
+            border: 2px outset #b6f0b6;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.6rem;
+            width: 100%;
+            min-height: 44px;
+            line-height: 1.4;
+        }
+        .paper-request:hover { background: #66bb66; transform: scale(0.98); }
+        .request-hint { display: none; text-align: center; margin-top: 6px; font-size: 0.7rem; color: #5a3e2a; font-style: italic; }
         .paper-close {
             display: block;
             margin-top: 10px;
@@ -676,6 +695,8 @@
                     </div>
                     <div id="modalCompletedBy" class="completed-by"></div>
                 </div>
+                <a class="paper-request" id="requestBtn" href="#" target="_blank" rel="noopener">📨 SOLICITAR MISIÓN</a>
+                <div class="request-hint" id="requestHint"></div>
                 <button class="paper-close" id="closeModalBtn">CERRAR EXPEDIENTE</button>
             </div>
         </div>
@@ -693,6 +714,10 @@
 <script>
     // Imagen de reemplazo si falta el archivo (global para poder usarla en onerror)
     window.FALLBACK_IMG = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23e8d5bc"/%3E%3Ctext x="50" y="58" text-anchor="middle" font-size="28"%3E🔍%3C/text%3E%3C/svg%3E';
+
+    // Enlace al canal del panel de misiones en Discord:
+    // https://discord.com/channels/ID_DEL_SERVIDOR/1557270190910345286
+    window.DISCORD_PANEL_URL = 'https://discord.com/channels/ID_DEL_SERVIDOR/1557270190910345286';
 
     (function(){
         // ========== SISTEMA DE AUDIO ==========
@@ -993,6 +1018,23 @@
             } else {
                 completedByDiv.innerHTML = '';
                 completedByDiv.style.display = 'none';
+            }
+
+            // Botón de solicitar: solo en misiones abiertas y con plazas
+            const reqBtn = document.getElementById('requestBtn');
+            const reqHint = document.getElementById('requestHint');
+            const puedeSolicitar = !isCompleted && !cerrada && availableSpots > 0;
+            reqBtn.style.display = puedeSolicitar ? 'block' : 'none';
+            reqHint.style.display = puedeSolicitar ? 'block' : 'none';
+            if (puedeSolicitar) {
+                reqHint.textContent = `Pulsa «Inscribirme» en el panel y elige el ID ${mission.id}`;
+                if (window.DISCORD_PANEL_URL) {
+                    reqBtn.href = window.DISCORD_PANEL_URL;
+                    reqBtn.onclick = null;
+                } else {
+                    reqBtn.href = '#';
+                    reqBtn.onclick = (e) => { e.preventDefault(); alert('Falta configurar DISCORD_PANEL_URL en misiones.html'); };
+                }
             }
 
             const modalImage = document.getElementById('modalDetailImage');
