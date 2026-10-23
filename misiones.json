@@ -56,9 +56,10 @@
             "difficulty": 2,
             "reward": 1300,
             "stamp": "Ayuda!",
-            "completed": false,
+            "completed": true,
             "closed": false,
-            "completedBy": []
+            "completedBy": ["May Jellyfish",
+                "Eva Benedetti"]
         },
         {
             "id": 4,
@@ -73,12 +74,13 @@
             "difficulty": 3,
             "reward": 800,
             "stamp": "Cuidado con la cabeza",
-            "completed": false,
+            "completed": true,
             "closed": false,
             "completedBy": [
-                "Agente Luna",
-                "Agente Cósmica",
-                "Agente Eclipse"
+                "Static",
+                "Yakui",
+                "Mindy",
+                "Judai"
             ]
         },
         {
@@ -95,6 +97,80 @@
             "completed": false,
             "closed": false,
             "completedBy": []
-        }
+        },     {
+            "id": 6,
+            "name": "No pueden llamarse muertos...",
+            "imageFile": "cementerio.png",
+            "description": "Un hombre solitario yace sin felicidad sobre tumbas, eso conto la chica de ''Ay que yuyu'', dice que es una persona con conductas demasiado extrañas pero a mi no me parece rara la gente que va a visitar a un familiar o algo, no? no???????",
+            "participants": 0,
+            "signedUp": [],
+            "maxParticipants": 4,
+            "difficulty": 4,
+            "reward": 1500,
+            "stamp": "VERDAD?!",
+            "completed": false,
+            "closed": false,
+            "completedBy": []
+        }, {
+            "id": 7,
+            "name": "EL FORMATO FISICO ESTA MURIENDO",
+            "imageFile": "formato.png",
+            "description": "La chica de una tienda de música esta cansada de múltiples revendores y gente que roba, destruye y vandaliza lo poco que queda de la musica de años pasados",
+            "participants": 0,
+            "signedUp": [],
+            "maxParticipants": 2,
+            "difficulty": 2,
+            "reward": 900,
+            "stamp": ":c",
+            "completed": false,
+            "closed": false,
+            "completedBy": []
+        },
+         {
+            "id": 8,
+            "name": "Todos merecen ayuda",
+            "imageFile": "hospital.png",
+            "description": "El hospital central está falto de personal, hubo un brote extraño en distintos pacientes por un altercado que sucedió hace unos dias , una explosión de gas y algunos tienen un telefono pegado al cuerpo",
+            "participants": 0,
+            "signedUp": [],
+            "maxParticipants": 3,
+            "difficulty": 1,
+            "reward": 1700,
+            "stamp": "Horrible",
+            "completed": false,
+            "closed": false,
+            "completedBy": []
+        },
+            {
+            "id": 9,
+            "name": "Somos la nueva televisión",
+            "imageFile": "tv.png",
+            "description": "Hay un streamer que lleva teniendo muchos problemas actualmente, supuestamente rumores falsos y polemicas con otros streamers hicieron que ahora no pueda ni salir de su casa, necesita unos escoltas para poder pasar un dia normal",
+            "participants": 0,
+            "signedUp": [],
+            "maxParticipants": 2,
+            "difficulty": 1,
+            "reward": 1700,
+            "stamp": "No quiero ser Actor",
+            "completed": false,
+            "closed": false,
+            "completedBy": []
+        },
+        {
+            "id": 10,
+            "name": "El rey de los gases",
+            "imageFile": "gases.png",
+            "description": "— Jaja, gases...Si no era tan gracioso. Hubieron reportes de bombas lacrimógenas en distintas zonas, 3 en total, estos patrones se han ido repitiendo, investigar las 3 zonas, se dice que fue similar a un atentado que sucedió hace varios años en medio de una pelea de pandillas ",
+            "participants": 0,
+            "signedUp": [],
+            "maxParticipants": 3,
+            "difficulty": 1,
+            "reward": 1700,
+            "stamp": "iuh",
+            "completed": false,
+            "closed": false,
+            "completedBy": []
+        },
+        
     ]
 }
