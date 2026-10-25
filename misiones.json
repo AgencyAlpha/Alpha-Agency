@@ -12,7 +12,7 @@
             "reward": 1000,
             "stamp": "🔍 Ayuda",
             "completed": false,
-            "closed": false,
+            "closed": true,
             "completedBy": [
                 "Prueba"
             ]
@@ -58,8 +58,10 @@
             "stamp": "Ayuda!",
             "completed": true,
             "closed": false,
-            "completedBy": ["May Jellyfish",
-                "Eva Benedetti"]
+            "completedBy": [
+                "May Jellyfish",
+                "Eva Benedetti"
+            ]
         },
         {
             "id": 4,
@@ -97,7 +99,8 @@
             "completed": false,
             "closed": false,
             "completedBy": []
-        },     {
+        },
+        {
             "id": 6,
             "name": "No pueden llamarse muertos...",
             "imageFile": "cementerio.png",
@@ -111,7 +114,8 @@
             "completed": false,
             "closed": false,
             "completedBy": []
-        }, {
+        },
+        {
             "id": 7,
             "name": "EL FORMATO FISICO ESTA MURIENDO",
             "imageFile": "formato.png",
@@ -126,7 +130,7 @@
             "closed": false,
             "completedBy": []
         },
-         {
+        {
             "id": 8,
             "name": "Todos merecen ayuda",
             "imageFile": "hospital.png",
@@ -141,7 +145,7 @@
             "closed": false,
             "completedBy": []
         },
-            {
+        {
             "id": 9,
             "name": "Somos la nueva televisión",
             "imageFile": "tv.png",
@@ -170,6 +174,6 @@
             "completed": false,
             "closed": false,
             "completedBy": []
-        }  
+        }
     ]
 }
