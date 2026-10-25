@@ -140,9 +140,10 @@
             "name": "Todos merecen ayuda",
             "imageFile": "hospital.png",
             "description": "El hospital central está falto de personal, hubo un brote extraño en distintos pacientes por un altercado que sucedió hace unos dias , una explosión de gas y algunos tienen un telefono pegado al cuerpo",
-            "participants": 1,
+            "participants": 2,
             "signedUp": [
-                "YAKUI FUTABA"
+                "YAKUI FUTABA",
+                "Mindy Atherson"
             ],
             "maxParticipants": 3,
             "difficulty": 1,
