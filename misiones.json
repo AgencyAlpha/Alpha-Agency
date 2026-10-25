@@ -105,9 +105,10 @@
             "name": "No pueden llamarse muertos...",
             "imageFile": "cementerio.png",
             "description": "Un hombre solitario yace sin felicidad sobre tumbas, eso conto la chica de ''Ay que yuyu'', dice que es una persona con conductas demasiado extrañas pero a mi no me parece rara la gente que va a visitar a un familiar o algo, no? no???????",
-            "participants": 1,
+            "participants": 2,
             "signedUp": [
-                "Nathan Pouls"
+                "Nathan Pouls",
+                "Moxy"
             ],
             "maxParticipants": 4,
             "difficulty": 4,
