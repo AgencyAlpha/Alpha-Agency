@@ -135,8 +135,10 @@
             "name": "Todos merecen ayuda",
             "imageFile": "hospital.png",
             "description": "El hospital central está falto de personal, hubo un brote extraño en distintos pacientes por un altercado que sucedió hace unos dias , una explosión de gas y algunos tienen un telefono pegado al cuerpo",
-            "participants": 0,
-            "signedUp": [],
+            "participants": 1,
+            "signedUp": [
+                "YAKUI FUTABA"
+            ],
             "maxParticipants": 3,
             "difficulty": 1,
             "reward": 1700,
