@@ -123,8 +123,10 @@
             "name": "EL FORMATO FISICO ESTA MURIENDO",
             "imageFile": "formato.png",
             "description": "La chica de una tienda de música esta cansada de múltiples revendores y gente que roba, destruye y vandaliza lo poco que queda de la musica de años pasados",
-            "participants": 0,
-            "signedUp": [],
+            "participants": 1,
+            "signedUp": [
+                "May Jellyfish"
+            ],
             "maxParticipants": 2,
             "difficulty": 2,
             "reward": 900,
