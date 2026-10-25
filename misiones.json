@@ -170,8 +170,10 @@
             "name": "El rey de los gases",
             "imageFile": "gases.png",
             "description": "Jaja, gases...Si no era tan gracioso. Hubieron reportes de bombas lacrimógenas en distintas zonas, 3 en total, estos patrones se han ido repitiendo, investigar las 3 zonas, se dice que fue similar a un atentado que sucedió hace varios años en medio de una pelea de pandillas ",
-            "participants": 0,
-            "signedUp": [],
+            "participants": 1,
+            "signedUp": [
+                "Static Shock"
+            ],
             "maxParticipants": 3,
             "difficulty": 3,
             "reward": 1700,
