@@ -97,7 +97,7 @@
             "reward": 700,
             "stamp": "Investiga!",
             "completed": false,
-            "closed": false,
+            "closed": true,
             "completedBy": []
         },
         {
