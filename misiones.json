@@ -133,7 +133,7 @@
             "reward": 900,
             "stamp": ":c",
             "completed": false,
-            "closed": false,
+            "closed": true,
             "completedBy": []
         },
         {
