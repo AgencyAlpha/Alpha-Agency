@@ -188,6 +188,21 @@
             "completed": false,
             "closed": false,
             "completedBy": []
+        },
+        {
+            "id": 11,
+            "name": "El COCINERO que lo PERDIÓ TODO",
+            "imageFile": "mcdonalds.jpg",
+            "description": "Hay muchos reportes de un bajon de calidad repentino en las hamburguesas del unico local que queda deMcDonalds en Rauch, hay un fondo común de varias personas que no quieren que desaparezca y se lo darán a las personas que ayuden",
+            "participants": 0,
+            "signedUp": [],
+            "maxParticipants": 2,
+            "difficulty": 2,
+            "reward": 2300,
+            "stamp": "Que hambre...",
+            "completed": false,
+            "closed": false,
+            "completedBy": []
         }
     ]
 }
